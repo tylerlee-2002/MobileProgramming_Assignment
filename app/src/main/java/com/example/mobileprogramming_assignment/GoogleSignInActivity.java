@@ -77,8 +77,9 @@ public class GoogleSignInActivity extends MainActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             progressDialog.dismiss();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            Intent intent = new Intent(GoogleSignInActivity.this,HomeActivity.class);
+                            intent.setFlags((Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+                            startActivity(intent);
                         } else{
                             progressDialog.dismiss();
                             Toast.makeText(GoogleSignInActivity.this, ""+task.getException(),Toast.LENGTH_SHORT).show();
@@ -86,11 +87,5 @@ public class GoogleSignInActivity extends MainActivity {
                         }
                     }
                 });
-    }
-
-    private void updateUI(FirebaseUser user){
-        Intent intent = new Intent(GoogleSignInActivity.this,HomeActivity.class);
-        intent.setFlags((Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
-        startActivity(intent);
     }
 }

@@ -33,12 +33,10 @@ public class RegisterActivity extends AppCompatActivity {
     TextView alreadyHaveAccount;
     EditText inputName, inputPhoneNumber, inputEmail, inputPassword, inputConfirmPassword;
     Button btnRegister;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    String emailPattern = "[a-zA-Z\\d._-]+@[a-z]+\\.+[a-z]+";
     ProgressDialog progressDialog;
-
     FirebaseAuth mAuth;
     FirebaseUser mUser;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,13 +44,12 @@ public class RegisterActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         alreadyHaveAccount = findViewById(R.id.alreadyHaveAccount);
-
+        btnRegister = findViewById(R.id.btnRegister);
         inputName=findViewById(R.id.inputName);
         inputPhoneNumber=findViewById(R.id.inputPhoneNumber);
         inputEmail=findViewById(R.id.inputEmail);
         inputPassword=findViewById(R.id.inputPassword);
         inputConfirmPassword=findViewById(R.id.inputConfirmPassword);
-        btnRegister = findViewById(R.id.btnRegister);
         progressDialog = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
@@ -96,25 +93,22 @@ public class RegisterActivity extends AppCompatActivity {
             progressDialog.show();
 
             mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful())
                     {
                         progressDialog.dismiss();
-                        sendUserToNextActivity();
+                        Intent intent= new Intent(RegisterActivity.this,MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                         Toast.makeText(RegisterActivity.this,"Registration Successful", Toast.LENGTH_SHORT).show();
                     }else{
                         progressDialog.dismiss();
-                        Toast.makeText(RegisterActivity.this,""+task.getException(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this,"Fail to register! Error code "+task.getException(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
-    }
-
-    private void sendUserToNextActivity(){
-        Intent intent= new Intent(RegisterActivity.this,MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
     }
 }

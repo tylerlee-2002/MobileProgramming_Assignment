@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -22,6 +23,8 @@ import com.example.mobileprogramming_assignment.databinding.ActivityMainBinding;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser mUser;
     ImageView btnGoogle;
+
+    UserInfo user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +105,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
+                            String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
                             progressDialog.dismiss();
-                            sendUserToNextActivity();
+                            Intent intent= new Intent(MainActivity.this,HomeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("userID", userID);
+                            startActivity(intent);
+
                             Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                         }else{
                             progressDialog.dismiss();
@@ -112,9 +123,4 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-    private void sendUserToNextActivity(){
-        Intent intent= new Intent(MainActivity.this,HomeActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
 }
