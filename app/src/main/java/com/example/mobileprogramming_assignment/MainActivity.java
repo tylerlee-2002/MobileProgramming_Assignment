@@ -65,62 +65,44 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
-        createNewAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
-            }
-        });
+        createNewAccount.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, RegisterActivity.class)));
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                performLogin();
-            }
-        });
+        btnLogin.setOnClickListener(v -> performLogin());
 
-        btnGoogle.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent intent = new Intent(MainActivity.this,GoogleSignInActivity.class);
-                startActivity(intent);
-            }
+        btnGoogle.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, GoogleSignInActivity.class);
+            startActivity(intent);
         });
     }
-        private void performLogin () {
-            String email = inputEmail.getText().toString();
-            String password = inputPassword.getText().toString();
 
-            if (!email.matches(emailPattern)) {
-                inputEmail.setError("Enter Correct Email");
-            } else if (password.isEmpty() || password.length() < 6) {
-                inputPassword.setError("Enter Correct Password");
-            } else {
-                progressDialog.setMessage("Please Wait while Login...");
-                progressDialog.setTitle("Login");
-                progressDialog.setCanceledOnTouchOutside(false);
-                progressDialog.show();
+    private void performLogin() {
+        String email = inputEmail.getText().toString();
+        String password = inputPassword.getText().toString();
 
-                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
+        if (!email.matches(emailPattern)) {
+            inputEmail.setError("Enter Correct Email");
+        } else if (password.isEmpty() || password.length() < 6) {
+            inputPassword.setError("Enter Correct Password");
+        } else {
+            progressDialog.setMessage("Please Wait while Login...");
+            progressDialog.setTitle("Login");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
 
-                            String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                            progressDialog.dismiss();
-                            Intent intent= new Intent(MainActivity.this,HomeActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.putExtra("userID", userID);
-                            startActivity(intent);
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    progressDialog.dismiss();
+                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
 
-                            Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                        }else{
-                            progressDialog.dismiss();
-                            Toast.makeText(MainActivity.this,""+task.getException(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                    Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                } else {
+                    progressDialog.dismiss();
+                    Toast.makeText(MainActivity.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
-            }
         }
+    }
 }
