@@ -52,21 +52,21 @@ public class HomeActivity extends AppCompatActivity {
         userID = mUser.getUid();
 
         db = FirebaseFirestore.getInstance();
-        db.collection("user")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Log.d(TAG, document.getId() + " => " + document.getData());
-                        }
-                    } else {
-                        Log.w(TAG, "Error getting documents.", task.getException());
+        db.collection("user").whereEqualTo("uid", userID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+
+                if (task.getResult().isEmpty()){
+                    Log.d("Works?", "yes");
+                } else {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Log.d("userId", userID);
+                        Log.d(TAG, document.getId() + " => " + document.getData());
                     }
-                });
-
-
-//        Log.d("userID:",userID);
-//        Log.d("email:",email);
+                }
+            } else {
+                Log.d(TAG, "Error getting documents: ", task.getException());
+            }
+        });
 
         final TextView helloTextView = findViewById(R.id.txtWelcome);
         helloTextView.setText(String.format("Welcome %s!", email));
