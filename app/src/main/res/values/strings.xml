@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MobileProgramming_Assignment</string>
+    <string name="app_name">Dementia</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -14,6 +14,7 @@
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
+    <string name="logout">Logout</string>
     <!--    <string name="default_web_client_id" translatable="false"></strin>-->
 </resources>
 
