@@ -29,6 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
+                android:fontFamily="@font/amaranth"
                 android:text="Register"
                 android:textColor="@color/white"
                 android:textSize="44sp"
