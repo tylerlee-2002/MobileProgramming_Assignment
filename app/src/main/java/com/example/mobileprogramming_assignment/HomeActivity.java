@@ -30,12 +30,16 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.util.Objects;
+
 public class HomeActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseUser mUser;
     Button btnLogout;
-    String email, userID;
+    String email, userID, name;
+
+    int progress;
 
     FirebaseFirestore db;
 
@@ -46,21 +50,25 @@ public class HomeActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
-
         assert mUser != null;
-        email = mUser.getEmail();
-        userID = mUser.getUid();
 
         db = FirebaseFirestore.getInstance();
-        db.collection("user").whereEqualTo("uid", userID).get().addOnCompleteListener(task -> {
+        db.collection("user").whereEqualTo("uid", mUser.getUid()).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
 
                 if (task.getResult().isEmpty()){
-                    Log.d("Works?", "yes");
+                    userID = mUser.getUid();
+                    name = mUser.getPhoneNumber();
+                    progress = 0;
+                    Log.d("Data", "userID: " + userID + "name: " + name + "progress: " + progress);
+
                 } else {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.d("userId", userID);
-                        Log.d(TAG, document.getId() + " => " + document.getData());
+                        userID = Objects.requireNonNull(document.getData().get("uid")).toString();
+                        name = Objects.requireNonNull(document.getData().get("name")).toString();
+                        progress = Integer.parseInt(Objects.requireNonNull(document.getData().get("progress")).toString());
+
+                        Log.d("Data", "userID: " + userID + "name: " + name + "progress: " + progress);
                     }
                 }
             } else {
@@ -69,7 +77,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         final TextView helloTextView = findViewById(R.id.txtWelcome);
-        helloTextView.setText(String.format("Welcome %s!", email));
+        helloTextView.setText(String.format("Welcome %s!", name));
 
         // Function for logout button
         btnLogout = findViewById(R.id.btnLogout);

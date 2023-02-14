@@ -15,6 +15,6 @@
     <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="logout">Logout</string>
-    <!--    <string name="default_web_client_id" translatable="false"></strin>-->
+<!--    <string name="default_web_client_id" translatable="false"></string>-->
 </resources>
 
