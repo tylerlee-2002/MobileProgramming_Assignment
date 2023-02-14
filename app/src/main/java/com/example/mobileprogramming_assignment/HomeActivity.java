@@ -37,10 +37,8 @@ public class HomeActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser mUser;
     Button btnLogout;
-    String email, userID, name;
-
+    String userID, name, email;
     int progress;
-
     FirebaseFirestore db;
 
     @Override
@@ -55,29 +53,26 @@ public class HomeActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         db.collection("user").whereEqualTo("uid", mUser.getUid()).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-
                 if (task.getResult().isEmpty()){
-                    userID = mUser.getUid();
-                    name = mUser.getPhoneNumber();
-                    progress = 0;
-                    Log.d("Data", "userID: " + userID + "name: " + name + "progress: " + progress);
-
+                    Intent intent = new Intent(HomeActivity.this, VerifyActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 } else {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         userID = Objects.requireNonNull(document.getData().get("uid")).toString();
                         name = Objects.requireNonNull(document.getData().get("name")).toString();
                         progress = Integer.parseInt(Objects.requireNonNull(document.getData().get("progress")).toString());
-
-                        Log.d("Data", "userID: " + userID + "name: " + name + "progress: " + progress);
+                        Log.d("Data", "userID: " + userID + " name: " + name + " progress: " + progress);
                     }
+
+                    final TextView helloTextView = findViewById(R.id.txtWelcome);
+                    helloTextView.setText(String.format("Welcome %s!", name));
+
                 }
             } else {
                 Log.d(TAG, "Error getting documents: ", task.getException());
             }
         });
-
-        final TextView helloTextView = findViewById(R.id.txtWelcome);
-        helloTextView.setText(String.format("Welcome %s!", name));
 
         // Function for logout button
         btnLogout = findViewById(R.id.btnLogout);

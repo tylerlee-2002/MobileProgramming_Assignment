@@ -15,6 +15,11 @@
     <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="logout">Logout</string>
-<!--    <string name="default_web_client_id" translatable="false"></string>-->
+    <string name="title_activity_verify">VerifyActivity</string>
+    <string name="name">Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="confirm">confirm</string>
+    <string name="first_time_login_profile_update">First Time Login (Profile Update)</string>
+    <!--    <string name="default_web_client_id" translatable="false"></string>-->
 </resources>
 

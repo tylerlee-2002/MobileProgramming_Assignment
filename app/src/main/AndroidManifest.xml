@@ -33,10 +33,14 @@
             android:theme="@style/Theme.MobileProgramming_Assignment.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".VerifyActivity"
+            android:exported="false"
+            android:label="@string/title_activity_verify"
+            android:theme="@style/Theme.MobileProgramming_Assignment.NoActionBar" />
 
         <meta-data
             android:name="preloaded_fonts"
