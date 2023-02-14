@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     TextView createNewAccount;
     EditText inputEmail, inputPassword;
     Button btnLogin;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    String emailPattern = "[a-zA-Z\\d._-]+@[a-z]+\\.+[a-z]+";
     ProgressDialog progressDialog;
 
     FirebaseAuth mAuth;

@@ -60,6 +60,10 @@ public class HomeActivity extends AppCompatActivity {
             if (task.isSuccessful()) {
 
                 if (task.getResult().isEmpty()){
+
+                    Intent intent = new Intent(HomeActivity.this, VerifyActivity.class);
+                    startActivity(intent);
+
                     userID = mUser.getUid();
                     name = mUser.getPhoneNumber();
                     progress = 0;
