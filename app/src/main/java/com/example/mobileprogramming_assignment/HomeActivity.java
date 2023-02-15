@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseUser mUser;
-    Button btnLogout;
+    Button btnLogout, btnContinue;
     String userID, name, email;
     int progress;
     FirebaseFirestore db;
@@ -74,11 +74,19 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        btnContinue = findViewById(R.id.btnContinue);
+        btnContinue.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, ReadingCornerActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
+
         // Function for logout button
         btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> {
             mAuth.signOut();
             Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
     }

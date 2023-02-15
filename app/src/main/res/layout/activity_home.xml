@@ -21,40 +21,46 @@
 
         <TextView
             android:id="@+id/txtWelcome"
-            android:layout_width="307dp"
-            android:layout_height="258dp"
+            android:layout_width="305dp"
+            android:layout_height="379dp"
+            android:layout_marginTop="128dp"
             android:gravity="center"
-            tools:layout_editor_absoluteX="52dp"
-            tools:layout_editor_absoluteY="180dp"
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.76"
             tools:text="@tools:sample/lorem/random" />
 
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="284dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="276dp"
             android:text="@string/logout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btnLogout2"
+            android:id="@+id/btnShare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="36dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="56dp"
             android:text="share"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnContinue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="108dp"
             android:text="Get Started / Continue on Progress"
-            tools:layout_editor_absoluteX="60dp"
-            tools:layout_editor_absoluteY="489dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
