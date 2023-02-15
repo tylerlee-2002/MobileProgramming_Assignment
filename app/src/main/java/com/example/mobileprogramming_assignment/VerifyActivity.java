@@ -13,16 +13,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class VerifyActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser mUser;
     String userID, name, phoneNumber, email;
+
+
     int progress;
     Button btnConfirm;
     ProgressDialog progressDialog;
     EditText inputName, inputPhoneNumber;
+
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -36,6 +40,7 @@ public class VerifyActivity extends AppCompatActivity {
         assert mUser != null;
 
         userID = mUser.getUid();
+
         email = mUser.getEmail();
 
         inputName = findViewById(R.id.inputName);
@@ -58,7 +63,7 @@ public class VerifyActivity extends AppCompatActivity {
             progressDialog.setTitle("User Personal Info");
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
-//
+
             UserInfo newUser = new UserInfo(userID, name, phoneNumber, email, 0);
             db.collection("user").document(userID).set(newUser).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {

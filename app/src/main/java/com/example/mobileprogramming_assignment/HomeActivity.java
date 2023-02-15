@@ -24,6 +24,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.mobileprogramming_assignment.databinding.ActivityHomeBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -36,10 +37,14 @@ public class HomeActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseUser mUser;
+
     Button btnLogout, btnContinue;
     String userID, name, email;
     int progress;
+
     FirebaseFirestore db;
+
+    FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,7 @@ public class HomeActivity extends AppCompatActivity {
         db.collection("user").whereEqualTo("uid", mUser.getUid()).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 if (task.getResult().isEmpty()){
+
                     Intent intent = new Intent(HomeActivity.this, VerifyActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
@@ -89,5 +95,26 @@ public class HomeActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: ");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: ");
     }
 }
