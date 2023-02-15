@@ -38,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser mUser;
 
-    Button btnLogout, btnContinue;
+    Button btnLogout, btnContinue, btnShare;
     String userID, name, email;
     int progress;
 
@@ -86,6 +86,8 @@ public class HomeActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
+
+        btnShare = findViewById(R.id.btnShare);
 
         // Function for logout button
         btnLogout = findViewById(R.id.btnLogout);

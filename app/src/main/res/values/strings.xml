@@ -20,6 +20,9 @@
     <string name="phone_number">Phone Number</string>
     <string name="confirm">confirm</string>
     <string name="first_time_login_profile_update">First Time Login (Profile Update)</string>
+    <string name="share">share</string>
+    <string name="get_started_continue_on_progress">Get Started / Continue on Progress</string>
+    <string name="back_to_home">Back to Home</string>
     <!--    <string name="default_web_client_id" translatable="false"></string>-->
 </resources>
 
