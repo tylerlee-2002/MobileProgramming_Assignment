@@ -36,7 +36,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
     TextView createNewAccount;
     EditText inputEmail, inputPassword;
     Button btnLogin;

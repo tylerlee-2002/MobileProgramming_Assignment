@@ -2,12 +2,27 @@ package com.example.mobileprogramming_assignment;
 
 public class UserInfo {
 
-    private String iD;
+    public UserInfo(String uid, String name, String phoneNumber, String email, int progress) {
+        this.uid = uid;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.progress = progress;
+    }
+
+    private String uid;
     private String name;
     private String phoneNumber;
     private String email;
-    private String password;
     private int progress;
+
+    public String getuid() {
+        return uid;
+    }
+
+    public void setuid(String uid) {
+        this.uid = uid;
+    }
 
     public String getName() {
         return name;
@@ -33,14 +48,6 @@ public class UserInfo {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public int getProgress() {
         return progress;
     }
@@ -49,11 +56,4 @@ public class UserInfo {
         this.progress = progress;
     }
 
-    public String getiD() {
-        return iD;
-    }
-
-    public void setiD(String iD) {
-        this.iD = iD;
-    }
 }

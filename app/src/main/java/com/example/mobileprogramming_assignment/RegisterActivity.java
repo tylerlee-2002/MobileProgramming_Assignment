@@ -30,7 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
     TextView alreadyHaveAccount;
-    EditText inputName, inputPhoneNumber, inputEmail, inputPassword, inputConfirmPassword;
+    EditText inputEmail, inputPassword, inputConfirmPassword;
     Button btnRegister;
     String emailPattern = "[a-zA-Z\\d._-]+@[a-z]+\\.+[a-z]+";
     ProgressDialog progressDialog;
@@ -45,32 +45,25 @@ public class RegisterActivity extends AppCompatActivity {
 
         alreadyHaveAccount = findViewById(R.id.alreadyHaveAccount);
         btnRegister = findViewById(R.id.btnRegister);
-        inputName = findViewById(R.id.inputName);
-        inputPhoneNumber = findViewById(R.id.inputPhoneNumber);
+
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPassword);
         inputConfirmPassword = findViewById(R.id.inputConfirmPassword);
+
         progressDialog = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
         alreadyHaveAccount.setOnClickListener(v -> startActivity(new Intent(RegisterActivity.this, MainActivity.class)));
-
         btnRegister.setOnClickListener(v -> PerformAuth());
     }
 
     private void PerformAuth() {
-        String name = inputName.getText().toString();
-        String phoneNumber = inputPhoneNumber.getText().toString();
         String email = inputEmail.getText().toString();
         String password = inputPassword.getText().toString();
         String confirmPassword = inputConfirmPassword.getText().toString();
 
-        if (name.isEmpty()) {
-            inputName.setError("Please insert correct Name");
-        } else if (phoneNumber.isEmpty() || phoneNumber.length() < 10) {
-            inputPhoneNumber.setError("Please insert correct Phone Number");
-        } else if (!email.matches(emailPattern)) {
+        if (!email.matches(emailPattern)) {
             inputEmail.setError("Enter Correct Email");
         } else if (password.isEmpty() || password.length() < 6) {
             inputPassword.setError("Enter Correct Password");

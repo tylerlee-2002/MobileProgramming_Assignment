@@ -14,35 +14,45 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class VerifyActivity extends AppCompatActivity {
+import com.google.firebase.firestore.FirebaseFirestore;
 
+public class VerifyActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser mUser;
-    String userID;
+    String userID, name, phoneNumber, email;
+
+
     int progress;
     Button btnConfirm;
     ProgressDialog progressDialog;
     EditText inputName, inputPhoneNumber;
 
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_verify);
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         assert mUser != null;
 
         userID = mUser.getUid();
+
+        email = mUser.getEmail();
+
         inputName = findViewById(R.id.inputName);
         inputPhoneNumber = findViewById(R.id.inputPhoneNumber);
-
-        Log.d("Data", "userID: " + userID + "name: " + inputName + "progress: " + progress);
-        btnConfirm.setOnClickListener(v -> PerformAuth());
+        btnConfirm = findViewById(R.id.btnConfirm);
+        progressDialog = new ProgressDialog(this);
+        btnConfirm.setOnClickListener(v -> AddUserData());
     }
 
-    private void PerformAuth() {
-        String name = inputName.getText().toString();
-        String phoneNumber = inputPhoneNumber.getText().toString();
+    private void AddUserData() {
+        name = inputName.getText().toString();
+        phoneNumber = inputPhoneNumber.getText().toString();
 
         if (name.isEmpty()) {
             inputName.setError("Please insert correct Name");
@@ -53,9 +63,23 @@ public class VerifyActivity extends AppCompatActivity {
             progressDialog.setTitle("User Personal Info");
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
-            progressDialog.dismiss();
 
+            UserInfo newUser = new UserInfo(userID, name, phoneNumber, email, 0);
+            db.collection("user").document(userID).set(newUser).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    progressDialog.dismiss();
 
+                    Intent intent = new Intent(VerifyActivity.this, HomeActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+
+                    Toast.makeText(VerifyActivity.this, "Profile Update Successful", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    progressDialog.dismiss();
+                    Toast.makeText(VerifyActivity.this, "Invalid Name or Phone Number", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }
