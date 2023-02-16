@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -44,7 +45,7 @@
             android:label="@string/title_activity_verify"
             android:theme="@style/Theme.MobileProgramming_Assignment.NoActionBar" />
         <receiver
-            android:name=".MemoBroadcast"
+            android:name=".NotificationBroadcast"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
