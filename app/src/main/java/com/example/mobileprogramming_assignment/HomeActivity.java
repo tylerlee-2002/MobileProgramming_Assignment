@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -24,6 +26,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.mobileprogramming_assignment.databinding.ActivityHomeBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -31,6 +35,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
@@ -42,9 +48,10 @@ public class HomeActivity extends AppCompatActivity {
     String userID, name, email;
     int progress;
 
-    FirebaseFirestore db;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     FirebaseAuth.AuthStateListener mAuthStateListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +62,9 @@ public class HomeActivity extends AppCompatActivity {
         mUser = mAuth.getCurrentUser();
         assert mUser != null;
 
-        db = FirebaseFirestore.getInstance();
         db.collection("user").whereEqualTo("uid", mUser.getUid()).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                if (task.getResult().isEmpty()){
-
+                if (task.getResult().isEmpty()) {
                     Intent intent = new Intent(HomeActivity.this, VerifyActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
@@ -68,32 +73,54 @@ public class HomeActivity extends AppCompatActivity {
                         userID = Objects.requireNonNull(document.getData().get("uid")).toString();
                         name = Objects.requireNonNull(document.getData().get("name")).toString();
                         progress = Integer.parseInt(Objects.requireNonNull(document.getData().get("progress")).toString());
-                        Log.d("Data", "userID: " + userID + " name: " + name + " progress: " + progress);
                     }
 
                     final TextView helloTextView = findViewById(R.id.txtWelcome);
                     helloTextView.setText(String.format("Welcome %s!", name));
 
+                    btnContinue = findViewById(R.id.btnContinue);
+                    if (progress == 0) {
+                        btnContinue.setText(R.string.GetStarted);
+                        progress = 0;
+                    } else {
+                        btnContinue.setText(R.string.continueOnProgress);
+                    }
+                    btnContinue.setOnClickListener(v -> {
+                        Map<String, Object> updates = new HashMap<>();
+                        updates.put("progress", progress);
+                        db.collection("user").document(userID).update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "Progress started!");
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.e(TAG, "Error updating user data", e);
+                            }
+                        });
+
+                        Intent intent = new Intent(HomeActivity.this, ReadingCornerActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("userID", userID);
+                        intent.putExtra("progress", progress);
+                        startActivity(intent);
+                    });
                 }
             } else {
                 Log.d(TAG, "Error getting documents: ", task.getException());
             }
         });
 
-        btnContinue = findViewById(R.id.btnContinue);
-        btnContinue.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, ReadingCornerActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        });
 
+        // Function for share application
         btnShare = findViewById(R.id.btnShare);
         btnShare.setOnClickListener(v -> {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-            String shareMessage= "\nLet me recommend you this application\n\n";
-            shareMessage = shareMessage + "https://drive.google.com/file/d/1piTV4yOZ1YUgw_FfBc7vcePqAS7k5gHe/view?usp=share_link" + BuildConfig.APPLICATION_ID +"\n\n";
+            String shareMessage = "\nLet me recommend you this application\n\n";
+            shareMessage = shareMessage + "https://drive.google.com/file/d/1piTV4yOZ1YUgw_FfBc7vcePqAS7k5gHe/view?usp=share_link" + BuildConfig.APPLICATION_ID + "\n\n";
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
             startActivity(Intent.createChooser(shareIntent, "choose one"));
         });
@@ -107,6 +134,7 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
+
     @Override
     protected void onStart() {
         super.onStart();
