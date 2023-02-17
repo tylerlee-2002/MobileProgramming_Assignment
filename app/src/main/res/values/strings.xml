@@ -23,6 +23,8 @@
     <string name="share">share</string>
     <string name="get_started_continue_on_progress">Get Started / Continue on Progress</string>
     <string name="back_to_home">Back to Home</string>
+    <string name="GetStarted">Get Started</string>
+    <string name="continueOnProgress">Continue on Progress</string>
     <!--    <string name="default_web_client_id" translatable="false"></string>-->
 </resources>
 
