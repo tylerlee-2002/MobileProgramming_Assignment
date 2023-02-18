@@ -37,14 +37,14 @@
         android:gravity="center"
         android:text="@string/first_time_login_profile_update"
         android:textColor="@color/white"
-        android:textSize="44sp"
+        android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnConfirm"
-        android:layout_width="295dp"
+        android:layout_width="363dp"
         android:layout_height="49dp"
         android:layout_marginTop="44dp"
         android:background="@drawable/input_bg"
@@ -60,7 +60,7 @@
         android:id="@+id/inputPhoneNumber"
         android:layout_width="363dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="20dp"
         android:autofillHints=""
         android:background="@drawable/input_bg"
         android:drawableStart="@drawable/baseline_phone_24"
