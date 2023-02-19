@@ -41,69 +41,55 @@ import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
 
-    FirebaseAuth mAuth;
     FirebaseUser mUser;
-
     Button btnLogout, btnContinue, btnShare;
-    String userID, name, email;
-    int progress;
+    String userID, name, email, phoneNumber;
+    int progress, completeUntil;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    FirebaseAuth.AuthStateListener mAuthStateListener;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mAuth = FirebaseAuth.getInstance();
-        mUser = mAuth.getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
         assert mUser != null;
 
         db.collection("user").whereEqualTo("uid", mUser.getUid()).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                if (task.getResult().isEmpty()) {
-                    Intent intent = new Intent(HomeActivity.this, VerifyActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    userID = Objects.requireNonNull(document.getData().get("uid")).toString();
+                    name = Objects.requireNonNull(document.getData().get("name")).toString();
+                    phoneNumber = Objects.requireNonNull(document.getData().get("phoneNumber")).toString();
+                    email = Objects.requireNonNull(document.getData().get("email")).toString();
+                    completeUntil = Integer.parseInt(Objects.requireNonNull(document.getData().get("completeUntil")).toString());
+                }
+
+                UserInfo user = new UserInfo(userID, name, phoneNumber, email, completeUntil);
+
+                final TextView helloTextView = findViewById(R.id.txtWelcome);
+                helloTextView.setText(String.format("Welcome %s!", user.getName()));
+
+                btnContinue = findViewById(R.id.btnContinue);
+                if (completeUntil == 5) {
+                    btnContinue.setText(R.string.checkOnCert);
+                    Log.d("Last:", "Cert page");
                 } else {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        userID = Objects.requireNonNull(document.getData().get("uid")).toString();
-                        name = Objects.requireNonNull(document.getData().get("name")).toString();
-                        progress = Integer.parseInt(Objects.requireNonNull(document.getData().get("progress")).toString());
-                    }
-
-                    final TextView helloTextView = findViewById(R.id.txtWelcome);
-                    helloTextView.setText(String.format("Welcome %s!", name));
-
-                    btnContinue = findViewById(R.id.btnContinue);
-                    if (progress == 0) {
+                    if (completeUntil == 0) {
                         btnContinue.setText(R.string.GetStarted);
-                        progress = 0;
                     } else {
                         btnContinue.setText(R.string.continueOnProgress);
                     }
-                    btnContinue.setOnClickListener(v -> {
-                        Map<String, Object> updates = new HashMap<>();
-                        updates.put("progress", progress);
-                        db.collection("user").document(userID).update(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "Progress started!");
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.e(TAG, "Error updating user data", e);
-                            }
-                        });
 
+                    btnContinue.setOnClickListener(v -> {
                         Intent intent = new Intent(HomeActivity.this, ReadingCornerActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("userID", userID);
-                        intent.putExtra("progress", progress);
+                        intent.putExtra("userID", user.getuid());
+                        intent.putExtra("name", user.getName());
+                        intent.putExtra("phoneNumber", user.getPhoneNumber());
+                        intent.putExtra("email", user.getEmail());
+                        intent.putExtra("completeUntil", user.getCompleteUntil());
                         startActivity(intent);
                     });
                 }
@@ -111,7 +97,6 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d(TAG, "Error getting documents: ", task.getException());
             }
         });
-
 
         // Function for share application
         btnShare = findViewById(R.id.btnShare);
@@ -128,7 +113,7 @@ public class HomeActivity extends AppCompatActivity {
         // Function for logout button
         btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> {
-            mAuth.signOut();
+            FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(HomeActivity.this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
@@ -138,7 +123,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart: ");
     }
 
     @Override
@@ -154,6 +138,5 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop: ");
     }
 }

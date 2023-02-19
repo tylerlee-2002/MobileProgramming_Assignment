@@ -1,5 +1,7 @@
 package com.example.mobileprogramming_assignment;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +23,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
@@ -71,10 +74,23 @@ public class GoogleSignInActivity extends MainActivity {
         mAuth.signInWithCredential(credential).addOnCompleteListener(this, task -> {
             if (task.isSuccessful()) {
                 progressDialog.dismiss();
-                Intent intent = new Intent(GoogleSignInActivity.this, HomeActivity.class);
-                intent.setFlags((Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-                startActivity(intent);
-                Toast.makeText(GoogleSignInActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                FirebaseFirestore.getInstance().collection("user").whereEqualTo("uid", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).get().addOnCompleteListener(task2 -> {
+                    if (task2.isSuccessful()) {
+                        if (task2.getResult().isEmpty()) {
+                            Intent intent = new Intent(GoogleSignInActivity.this, VerifyActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            Toast.makeText(GoogleSignInActivity.this, "First Time Login!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Intent intent = new Intent(GoogleSignInActivity.this, HomeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            Toast.makeText(GoogleSignInActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.getException());
+                    }
+                });
             } else {
                 progressDialog.dismiss();
                 Toast.makeText(GoogleSignInActivity.this, "Error" + task.getException(), Toast.LENGTH_SHORT).show();

@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity"
-    android:background="@drawable/bg">
-
+    android:background="@drawable/bg"
+    tools:context=".HomeActivity">
 
     <View
         android:id="@+id/view5"
@@ -20,21 +19,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
         <TextView
             android:id="@+id/txtWelcome"
             android:layout_width="305dp"
-            android:layout_height="400dp"
-            android:layout_marginTop="150dp"
+            android:layout_height="379dp"
+            android:layout_marginTop="128dp"
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.76"
-            tools:text="@tools:sample/lorem/random"
-            android:background="#373737"
-            android:textColor="@color/white" />
+            android:background="@android:color/holo_blue_light"
+            tools:text="@tools:sample/lorem/random" />
 
         <Button
             android:id="@+id/btnLogout"
@@ -42,8 +38,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
             android:layout_marginEnd="276dp"
-            android:background="@drawable/input_bg"
-            android:textColor="@color/white"
             android:text="@string/logout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -56,22 +50,16 @@
             android:layout_marginEnd="60dp"
             android:text="@string/share"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/input_bg"
-            android:textColor="@color/white"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btnContinue"
-            android:layout_width="305dp"
-            android:layout_height="52dp"
-            android:layout_marginBottom="75dp"
-            android:background="@drawable/input_bg"
-            android:paddingRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="108dp"
             android:text="@string/get_started_continue_on_progress"
-            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

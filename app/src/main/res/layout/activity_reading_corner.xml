@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReadingCornerActivity"
-    android:background="@drawable/bg">
+    tools:context=".ReadingCornerActivity">
+<!--    android:background="@drawable/bg">-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
-
         android:layout_height="match_parent">
 
         <TextView
@@ -22,49 +21,40 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnBackHome"
-            tools:text="@tools:sample/lorem/random"
-            android:background="#373737"
-            android:textColor="@color/white"/>
+            tools:text="@tools:sample/lorem/random" />
 
         <Button
             android:id="@+id/btnBackHome"
-            android:layout_width="305dp"
-            android:layout_height="52dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="52dp"
-            android:background="@drawable/input_bg"
             android:text="@string/back_to_home"
-            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btnPrevious"
-            android:layout_width="125dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:background="@drawable/input_bg"
+            android:layout_marginTop="26dp"
+            android:layout_marginBottom="40dp"
             android:text="@string/previous"
-            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnNext"
-            app:layout_constraintHorizontal_bias="0.426"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtPage1"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/txtPage1" />
 
         <Button
             android:id="@+id/btnNext"
-            android:layout_width="123dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="48dp"
-            android:background="@drawable/input_bg"
+            android:layout_marginEnd="84dp"
             android:text="@string/next"
-            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtPage1"
-            app:layout_constraintVertical_bias="0.352" />
+            app:layout_constraintVertical_bias="0.433" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

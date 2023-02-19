@@ -25,6 +25,11 @@
     <string name="back_to_home">Back to Home</string>
     <string name="GetStarted">Get Started</string>
     <string name="continueOnProgress">Continue on Progress</string>
+    <string name="displayanswer">DisplayAnswer</string>
+    <string name="correctAnswer">Correct Answer</string>
+    <string name="wrongAnswer">Wrong Answer!</string>
+    <string name="tryAgain">Please try Again!</string>
+    <string name="checkOnCert">Check on Certificate!</string>
     <!--    <string name="default_web_client_id" translatable="false"></string>-->
 </resources>
 

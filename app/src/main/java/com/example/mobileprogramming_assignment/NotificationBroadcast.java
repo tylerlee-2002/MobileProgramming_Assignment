@@ -21,8 +21,8 @@ public class NotificationBroadcast extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, repeating_Intent, PendingIntent.FLAG_MUTABLE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "Notification")
                 .setContentIntent(pendingIntent)
-                .setContentTitle("PASTICCINO")
-                .setContentText("This is a daily notification")
+                .setContentTitle("Dementia")
+                .setContentText("Hello, pls login! Daily notification!")
                 .setSmallIcon(R.drawable.app_logo)
                 .setPriority(Notification.PRIORITY_DEFAULT)
                 .setAutoCancel(true);
