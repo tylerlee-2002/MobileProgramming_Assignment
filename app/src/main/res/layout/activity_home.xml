@@ -17,46 +17,66 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar"
+        app:layout_constraintTop_toTopOf="@+id/progressBar">
 
         <TextView
             android:id="@+id/txtWelcome"
-            android:layout_width="305dp"
-            android:layout_height="379dp"
-            android:layout_marginTop="128dp"
+            android:layout_width="0dp"
+            android:layout_height="97dp"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="55dp"
+            android:background="@android:color/holo_blue_light"
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.76"
-            android:background="@android:color/holo_blue_light"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogout"
             tools:text="@tools:sample/lorem/random" />
+
+
+        <TextView
+            android:id="@+id/txtCurrentProgress"
+            android:layout_width="133dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="281dp"
+            android:layout_marginEnd="43dp"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:text="@string/CurrentProgress"
+            app:layout_constraintBottom_toTopOf="@+id/progressBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.545"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="276dp"
+            android:layout_marginStart="47dp"
+            android:layout_marginTop="66dp"
             android:text="@string/logout"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btnShare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="60dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="20dp"
             android:text="@string/share"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toTopOf="@+id/txtWelcome"
+            app:layout_constraintEnd_toEndOf="@+id/txtWelcome" />
 
         <Button
             android:id="@+id/btnContinue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="140dp"
+            android:layout_marginBottom="144dp"
             android:text="@string/get_started_continue_on_progress"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -66,12 +86,27 @@
             android:id="@+id/btnCert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="68dp"
+            android:layout_marginTop="28dp"
             android:text="@string/checkOnCert"
             android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnContinue" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="344dp"
+            android:max="5"
+            android:padding="10dp"
+            android:progress="5"
+            android:progressDrawable="@drawable/custom_progress_bar_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtCurrentProgress" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

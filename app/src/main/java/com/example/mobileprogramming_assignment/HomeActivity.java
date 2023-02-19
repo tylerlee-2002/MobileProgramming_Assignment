@@ -3,6 +3,7 @@ package com.example.mobileprogramming_assignment;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +26,8 @@ public class HomeActivity extends AppCompatActivity {
     Button btnLogout, btnContinue, btnShare, btnCheckCert;
     String userID, name, email, phoneNumber;
     int progress, completeUntil;
+
+    ProgressBar progressBar;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -48,7 +52,13 @@ public class HomeActivity extends AppCompatActivity {
                 UserInfo user = new UserInfo(userID, name, phoneNumber, email, completeUntil);
 
                 final TextView helloTextView = findViewById(R.id.txtWelcome);
-                helloTextView.setText(String.format("Welcome %s!", user.getName()));
+                helloTextView.setText(String.format("Welcome %s to the DEMENTIA App!", user.getName()));
+
+                TextView textViewCurrentProgress = findViewById(R.id.txtCurrentProgress);
+                textViewCurrentProgress.setText(String.format("Current Progress %s / 5!", user.getCompleteUntil()));
+
+                progressBar = findViewById(R.id.progressBar);
+                progressBar.setProgress(user.getCompleteUntil());
 
                 btnContinue = findViewById(R.id.btnContinue);
                 btnCheckCert = findViewById(R.id.btnCert);
