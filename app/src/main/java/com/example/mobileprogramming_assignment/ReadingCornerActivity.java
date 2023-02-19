@@ -49,7 +49,11 @@ public class ReadingCornerActivity extends AppCompatActivity {
         email = getIntent().getStringExtra("email");
         completeUntil = getIntent().getIntExtra("completeUntil", completeUntil);
 
-        progress = completeUntil;
+        if (completeUntil == 5) {
+            progress = 4;
+        } else {
+            progress = completeUntil;
+        }
 
         txtPage1 = findViewById(R.id.txtPage1);
         txtPage1.setText(topic[progress]);
@@ -181,7 +185,9 @@ public class ReadingCornerActivity extends AppCompatActivity {
                 }
 
                 if (completeUntil >= 5) {
-                    Log.d("New Page", "New Page");
+                    Intent intent = new Intent(ReadingCornerActivity.this, CertActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 } else {
                     txtPage1.setText(topic[progress]);
                 }

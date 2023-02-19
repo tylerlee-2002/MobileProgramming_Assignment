@@ -44,6 +44,11 @@
             android:exported="false"
             android:label="@string/title_activity_verify"
             android:theme="@style/Theme.MobileProgramming_Assignment.NoActionBar" />
+        <activity
+            android:name=".CertActivity"
+            android:exported="false"
+            android:label="@string/title_activity_cert"
+            android:theme="@style/Theme.MobileProgramming_Assignment.NoActionBar" />
         <receiver
             android:name=".NotificationBroadcast"
             android:enabled="true"
@@ -52,5 +57,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
     </application>
 </manifest>

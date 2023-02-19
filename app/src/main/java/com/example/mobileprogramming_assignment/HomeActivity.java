@@ -5,12 +5,6 @@ import static android.content.ContentValues.TAG;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
@@ -18,31 +12,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.mobileprogramming_assignment.databinding.ActivityHomeBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import org.checkerframework.checker.nullness.qual.NonNull;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
 
     FirebaseUser mUser;
-    Button btnLogout, btnContinue, btnShare;
+    Button btnLogout, btnContinue, btnShare, btnCheckCert;
     String userID, name, email, phoneNumber;
     int progress, completeUntil;
 
@@ -72,9 +51,27 @@ public class HomeActivity extends AppCompatActivity {
                 helloTextView.setText(String.format("Welcome %s!", user.getName()));
 
                 btnContinue = findViewById(R.id.btnContinue);
+                btnCheckCert = findViewById(R.id.btnCert);
+
                 if (completeUntil == 5) {
-                    btnContinue.setText(R.string.checkOnCert);
-                    Log.d("Last:", "Cert page");
+                    btnContinue.setText(R.string.continueOnProgress);
+
+                    btnCheckCert.setVisibility(View.VISIBLE);
+                    btnCheckCert.setOnClickListener(v -> {
+                        Intent intent = new Intent(HomeActivity.this, CertActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    });
+                    btnContinue.setOnClickListener(v -> {
+                        Intent intent = new Intent(HomeActivity.this, ReadingCornerActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("userID", user.getuid());
+                        intent.putExtra("name", user.getName());
+                        intent.putExtra("phoneNumber", user.getPhoneNumber());
+                        intent.putExtra("email", user.getEmail());
+                        intent.putExtra("completeUntil", user.getCompleteUntil());
+                        startActivity(intent);
+                    });
                 } else {
                     if (completeUntil == 0) {
                         btnContinue.setText(R.string.GetStarted);
@@ -97,6 +94,7 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d(TAG, "Error getting documents: ", task.getException());
             }
         });
+
 
         // Function for share application
         btnShare = findViewById(R.id.btnShare);
