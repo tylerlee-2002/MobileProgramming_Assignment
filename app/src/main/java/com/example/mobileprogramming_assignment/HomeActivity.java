@@ -55,21 +55,10 @@ public class HomeActivity extends AppCompatActivity {
 
                 if (completeUntil == 5) {
                     btnContinue.setText(R.string.continueOnProgress);
-
                     btnCheckCert.setVisibility(View.VISIBLE);
                     btnCheckCert.setOnClickListener(v -> {
                         Intent intent = new Intent(HomeActivity.this, CertActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    });
-                    btnContinue.setOnClickListener(v -> {
-                        Intent intent = new Intent(HomeActivity.this, ReadingCornerActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("userID", user.getuid());
-                        intent.putExtra("name", user.getName());
-                        intent.putExtra("phoneNumber", user.getPhoneNumber());
-                        intent.putExtra("email", user.getEmail());
-                        intent.putExtra("completeUntil", user.getCompleteUntil());
                         startActivity(intent);
                     });
                 } else {
@@ -78,18 +67,18 @@ public class HomeActivity extends AppCompatActivity {
                     } else {
                         btnContinue.setText(R.string.continueOnProgress);
                     }
-
-                    btnContinue.setOnClickListener(v -> {
-                        Intent intent = new Intent(HomeActivity.this, ReadingCornerActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("userID", user.getuid());
-                        intent.putExtra("name", user.getName());
-                        intent.putExtra("phoneNumber", user.getPhoneNumber());
-                        intent.putExtra("email", user.getEmail());
-                        intent.putExtra("completeUntil", user.getCompleteUntil());
-                        startActivity(intent);
-                    });
                 }
+
+                btnContinue.setOnClickListener(v -> {
+                    Intent intent = new Intent(HomeActivity.this, ReadingCornerActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("userID", user.getuid());
+                    intent.putExtra("name", user.getName());
+                    intent.putExtra("phoneNumber", user.getPhoneNumber());
+                    intent.putExtra("email", user.getEmail());
+                    intent.putExtra("completeUntil", user.getCompleteUntil());
+                    startActivity(intent);
+                });
             } else {
                 Log.d(TAG, "Error getting documents: ", task.getException());
             }
