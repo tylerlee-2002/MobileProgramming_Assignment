@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+<!--<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >-->
 
-    <item>
+<!--    <item>-->
+<!--        <shape>-->
+<!--            <gradient-->
+<!--                android:endColor="#ff5"-->
+<!--                android:startColor="#1f1"-->
+<!--                android:useLevel="true" />-->
+
+<!--        </shape>-->
+<!--    </item>-->
+
+
+<!--</layer-list>-->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:id="@android:id/background">
+    <shape>
+        <corners android:radius="5dp" />
+        <solid android:color="#CCCCCC" />
+    </shape>
+</item>
+<item android:id="@android:id/progress">
+    <clip>
         <shape>
-            <gradient
-                android:endColor="#ff5"
-                android:startColor="#1f1"
-                android:type="linear"
-                android:useLevel="true" />
-
+            <corners android:radius="5dp" />
+            <solid android:color="#FF0000" />
         </shape>
-    </item>
-
-
+    </clip>
+</item>
 </layer-list>
