@@ -21,20 +21,21 @@
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
         app:layout_constraintTop_toTopOf="@+id/progressBar">
 
+
         <TextView
             android:id="@+id/txtWelcome"
             android:layout_width="0dp"
             android:layout_height="97dp"
             android:layout_marginStart="55dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="48dp"
             android:layout_marginEnd="55dp"
             android:background="@android:color/holo_blue_light"
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnLogout"
             tools:text="@tools:sample/lorem/random" />
-
 
         <TextView
             android:id="@+id/txtCurrentProgress"
@@ -43,9 +44,10 @@
             android:layout_marginStart="43dp"
             android:layout_marginTop="281dp"
             android:layout_marginEnd="43dp"
-            android:background="@android:color/white"
             android:gravity="center"
+            android:background="@drawable/input_bg"
             android:text="@string/CurrentProgress"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/progressBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.545"
@@ -56,9 +58,11 @@
             android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="47dp"
-            android:layout_marginTop="66dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/input_bg"
             android:text="@string/logout"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,29 +71,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="48dp"
+            android:background="@drawable/input_bg"
             android:text="@string/share"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/txtWelcome"
             app:layout_constraintEnd_toEndOf="@+id/txtWelcome" />
 
         <Button
             android:id="@+id/btnContinue"
-            android:layout_width="wrap_content"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="144dp"
+            android:background="@drawable/input_bg"
             android:text="@string/get_started_continue_on_progress"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/btnCert"
-            android:layout_width="wrap_content"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/input_bg"
             android:text="@string/checkOnCert"
-            android:visibility="invisible"
+            android:textColor="@color/white"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnContinue" />
 
