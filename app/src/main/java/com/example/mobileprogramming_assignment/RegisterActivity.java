@@ -84,7 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                 } else {
                     progressDialog.dismiss();
-                    Toast.makeText(RegisterActivity.this, "Fail to register! Error code " + task.getException(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "User already registered!", Toast.LENGTH_SHORT).show();
                 }
             });
         }
