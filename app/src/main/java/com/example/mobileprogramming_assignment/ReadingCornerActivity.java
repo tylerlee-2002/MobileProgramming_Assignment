@@ -38,7 +38,7 @@ public class ReadingCornerActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String[] topic = {"1", "2", "3", "4", "5"};
 
-    int[] topics = {R.drawable.topic_1, R.drawable.topic_2};
+    int[] topics = {R.drawable.topic_1, R.drawable.topic_2, R.drawable.topic_3, R.drawable.topic_4, R.drawable.topic_5};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -74,6 +74,7 @@
             android:layout_marginBottom="48dp"
             android:background="@drawable/input_bg"
             android:text="@string/share"
+            android:drawableLeft="@drawable/baseline_share_24"
             android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/txtWelcome"
             app:layout_constraintEnd_toEndOf="@+id/txtWelcome" />
