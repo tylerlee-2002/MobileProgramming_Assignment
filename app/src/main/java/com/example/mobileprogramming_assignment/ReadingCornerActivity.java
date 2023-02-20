@@ -2,7 +2,6 @@ package com.example.mobileprogramming_assignment;
 
 import static android.content.ContentValues.TAG;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,18 +9,16 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -33,10 +30,15 @@ public class ReadingCornerActivity extends AppCompatActivity {
 
     Button btnNext, btnPrevious, btnBackHome;
     TextView txtPage1;
+
+    ImageView imageView1;
+
     int progress, completeUntil;
     String userID, name, phoneNumber, email;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String[] topic = {"1", "2", "3", "4", "5"};
+
+    int[] topics = {R.drawable.topic, R.drawable.app_logo};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +57,10 @@ public class ReadingCornerActivity extends AppCompatActivity {
             progress = completeUntil;
         }
 
-        txtPage1 = findViewById(R.id.txtPage1);
-        txtPage1.setText(topic[progress]);
+//        txtPage1 = findViewById(R.id.txtPage1);
+//        txtPage1.setText(topic[progress]);
+        imageView1 = findViewById(R.id.imageView);
+        imageView1.setImageResource(topics[progress]);
 
         btnNext = findViewById(R.id.btnNext);
         btnNext.setOnClickListener(v -> {
@@ -67,7 +71,8 @@ public class ReadingCornerActivity extends AppCompatActivity {
         btnPrevious.setOnClickListener(v -> {
             if (progress > 0) {
                 progress = progress - 1;
-                txtPage1.setText(topic[progress]);
+//                txtPage1.setText(topic[progress]);
+                imageView1.setImageResource(topics[progress]);
 
                 if (progress == 0) {
                     btnPrevious.setText(R.string.back_to_home);
@@ -189,7 +194,8 @@ public class ReadingCornerActivity extends AppCompatActivity {
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else {
-                    txtPage1.setText(topic[progress]);
+//                    txtPage1.setText(topic[progress]);
+                    imageView1.setImageResource(topics[progress]);
                 }
 
                 popupWindow.dismiss();
