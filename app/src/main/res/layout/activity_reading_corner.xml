@@ -74,7 +74,7 @@
         android:layout_width="313dp"
         android:layout_height="433dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/topic_2"
+        android:src="@drawable/topic_1"
         app:layout_anchor="@+id/constraintLayout2"
         app:layout_anchorGravity="center" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
