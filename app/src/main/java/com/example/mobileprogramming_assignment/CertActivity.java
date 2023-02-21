@@ -1,39 +1,41 @@
 package com.example.mobileprogramming_assignment;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-
-import java.util.Objects;
-
 public class CertActivity extends AppCompatActivity {
 
-    FirebaseUser mUser;
-    Button btnBack, btnDownload;
-    String userID, name, email, phoneNumber;
-    int progress, completeUntil;
-
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    Button btnBackHome, btnDownload;
+    TextView txtUsername;
+    String userID, name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cert);
 
+        userID = getIntent().getStringExtra("userID");
+        name = getIntent().getStringExtra("name");
 
+        btnBackHome = findViewById(R.id.btnBackHome);
+        btnBackHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CertActivity.this, HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
 
+        txtUsername = findViewById(R.id.txtUsername);
+        txtUsername.setText(name);
 
+        btnDownload = findViewById(R.id.btnDownload);
     }
 }

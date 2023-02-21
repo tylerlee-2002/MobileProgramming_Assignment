@@ -74,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
         NotificationChannel();
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 00);
-        calendar.set(Calendar.MINUTE, 22);
-        calendar.set(Calendar.SECOND, 05);
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        calendar.set(Calendar.MINUTE, 01);
+        calendar.set(Calendar.SECOND, 10);
 
         if (Calendar.getInstance().after(calendar)) {
             calendar.add(Calendar.DAY_OF_MONTH, 1);

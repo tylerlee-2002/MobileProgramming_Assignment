@@ -49,14 +49,14 @@
             android:textSize="17dp"
             android:text="Option 3" />
 
-        <TextView
-            android:id="@+id/display_answer"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:gravity="center"
-            android:text="@string/displayanswer" />
+<!--        <TextView-->
+<!--            android:id="@+id/display_answer"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="20dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="@string/displayanswer" />-->
 
     </RadioGroup>
 

@@ -29,14 +29,12 @@ import java.util.Map;
 public class ReadingCornerActivity extends AppCompatActivity {
 
     Button btnNext, btnPrevious, btnBackHome;
-    TextView txtPage1;
 
     ImageView imageView1;
 
     int progress, completeUntil;
     String userID, name, phoneNumber, email;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    String[] topic = {"1", "2", "3", "4", "5"};
 
     int[] topics = {R.drawable.topic_1, R.drawable.topic_2, R.drawable.topic_3, R.drawable.topic_4, R.drawable.topic_5};
 
@@ -57,8 +55,6 @@ public class ReadingCornerActivity extends AppCompatActivity {
             progress = completeUntil;
         }
 
-//        txtPage1 = findViewById(R.id.txtPage1);
-//        txtPage1.setText(topic[progress]);
         imageView1 = findViewById(R.id.imageView);
         imageView1.setImageResource(topics[progress]);
 
@@ -71,9 +67,7 @@ public class ReadingCornerActivity extends AppCompatActivity {
         btnPrevious.setOnClickListener(v -> {
             if (progress > 0) {
                 progress = progress - 1;
-//                txtPage1.setText(topic[progress]);
                 imageView1.setImageResource(topics[progress]);
-
                 if (progress == 0) {
                     btnPrevious.setText(R.string.back_to_home);
                 } else {
@@ -110,8 +104,6 @@ public class ReadingCornerActivity extends AppCompatActivity {
         TextView myTextView = popupView.findViewById(R.id.textView);
         myTextView.setText(String.format("Quiz %d", progress + 1));
 
-        TextView txt_display_answer = popupView.findViewById(R.id.display_answer);
-
         RadioGroup radioGroup = popupView.findViewById(R.id.radio_group);
 
         Button closeButton = popupView.findViewById(R.id.closeButton);
@@ -121,13 +113,16 @@ public class ReadingCornerActivity extends AppCompatActivity {
                 switch (checkedId) {
                     case R.id.radio_button1:
                         if (progress == 0 || progress == 2 || progress == 3) {
-                            txt_display_answer.setText(R.string.correctAnswer);
+                            closeButton.setText(R.string.correctAnswer);
+                            closeButton.setTextColor(getApplication().getResources().getColor(R.color.teal_200));
                             closeButton.setEnabled(true);
                         } else if (progress == 1) {
-                            txt_display_answer.setText(R.string.wrongAnswer);
-                            closeButton.setEnabled(false);
+                            closeButton.setText(R.string.wrongAnswer);
+                            closeButton.setTextColor(0xeb3434);
+                            closeButton.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
                         } else if (progress == 4) {
-                            txt_display_answer.setText(R.string.tryAgain);
+                            closeButton.setText(R.string.tryAgain);
+                            closeButton.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
                             closeButton.setEnabled(false);
                         }
                         break;
@@ -135,25 +130,31 @@ public class ReadingCornerActivity extends AppCompatActivity {
 //                        progress = 1
                         // Code to handle option 2 selection
                         if (progress == 0 || progress == 2 || progress == 3) {
-                            txt_display_answer.setText(R.string.tryAgain);
+                            closeButton.setText(R.string.tryAgain);
+                            closeButton.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
                             closeButton.setEnabled(false);
                         } else if (progress == 1) {
-                            txt_display_answer.setText(R.string.correctAnswer);
+                            closeButton.setText(R.string.correctAnswer);
+                            closeButton.setTextColor(getApplication().getResources().getColor(R.color.teal_200));
                             closeButton.setEnabled(true);
                         } else if (progress == 4) {
-                            txt_display_answer.setText(R.string.wrongAnswer);
+                            closeButton.setText(R.string.wrongAnswer);
+                            closeButton.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
                             closeButton.setEnabled(false);
                         }
                         break;
                     case R.id.radio_button3:
                         if (progress == 0 || progress == 2 || progress == 3) {
-                            txt_display_answer.setText(R.string.wrongAnswer);
+                            closeButton.setText(R.string.wrongAnswer);
+                            closeButton.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
                             closeButton.setEnabled(false);
                         } else if (progress == 1) {
-                            txt_display_answer.setText(R.string.tryAgain);
+                            closeButton.setText(R.string.tryAgain);
+                            closeButton.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
                             closeButton.setEnabled(false);
                         } else if (progress == 4) {
-                            txt_display_answer.setText(R.string.correctAnswer);
+                            closeButton.setText(R.string.correctAnswer);
+                            closeButton.setTextColor(getApplication().getResources().getColor(R.color.teal_200));
                             closeButton.setEnabled(true);
                         }
                         break;
@@ -189,12 +190,19 @@ public class ReadingCornerActivity extends AppCompatActivity {
                     });
                 }
 
+                if (progress == 0) {
+                    btnPrevious.setText(R.string.back_to_home);
+                } else {
+                    btnPrevious.setText(R.string.previous);
+                }
+
                 if (completeUntil >= 5) {
                     Intent intent = new Intent(ReadingCornerActivity.this, CertActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("userID", userID);
+                    intent.putExtra("name", name);
                     startActivity(intent);
                 } else {
-//                    txtPage1.setText(topic[progress]);
                     imageView1.setImageResource(topics[progress]);
                 }
 

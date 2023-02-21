@@ -23,9 +23,9 @@ import java.util.Objects;
 public class HomeActivity extends AppCompatActivity {
 
     FirebaseUser mUser;
-    Button btnLogout, btnContinue, btnShare, btnCheckCert;
+    Button btnLogout, btnContinue, btnShare, btnCert;
     String userID, name, email, phoneNumber;
-    int progress, completeUntil;
+    int completeUntil;
 
     ProgressBar progressBar;
 
@@ -61,16 +61,19 @@ public class HomeActivity extends AppCompatActivity {
                 progressBar.setProgress(user.getCompleteUntil());
 
                 btnContinue = findViewById(R.id.btnContinue);
-                btnCheckCert = findViewById(R.id.btnCert);
+                btnCert = findViewById(R.id.btnCert);
 
                 if (completeUntil == 5) {
                     btnContinue.setText(R.string.continueOnProgress);
-                    btnCheckCert.setVisibility(View.VISIBLE);
-                    btnCheckCert.setOnClickListener(v -> {
+                    btnCert.setVisibility(View.VISIBLE);
+                    btnCert.setOnClickListener(v -> {
                         Intent intent = new Intent(HomeActivity.this, CertActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("userID", user.getuid());
+                        intent.putExtra("name", user.getName());
                         startActivity(intent);
                     });
+
                 } else {
                     if (completeUntil == 0) {
                         btnContinue.setText(R.string.GetStarted);
@@ -89,11 +92,11 @@ public class HomeActivity extends AppCompatActivity {
                     intent.putExtra("completeUntil", user.getCompleteUntil());
                     startActivity(intent);
                 });
+
             } else {
                 Log.d(TAG, "Error getting documents: ", task.getException());
             }
         });
-
 
         // Function for share application
         btnShare = findViewById(R.id.btnShare);
@@ -115,25 +118,5 @@ public class HomeActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
     }
 }
