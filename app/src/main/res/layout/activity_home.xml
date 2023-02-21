@@ -21,7 +21,6 @@
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
         app:layout_constraintTop_toTopOf="@+id/progressBar">
 
-
         <TextView
             android:id="@+id/txtWelcome"
             android:layout_width="350dp"
@@ -32,7 +31,7 @@
             android:background="@drawable/input_bg"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="15dp"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +64,7 @@
             android:layout_marginStart="28dp"
             android:layout_marginTop="80dp"
             android:background="@drawable/input_bg"
-            android:drawableLeft="@drawable/baseline_logout_24"
+            android:drawableStart="@drawable/baseline_logout_24"
             android:text="@string/logout"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +77,7 @@
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="36dp"
             android:background="@drawable/input_bg"
-            android:drawableLeft="@drawable/baseline_share_24"
+            android:drawableStart="@drawable/baseline_share_24"
             android:text="@string/share"
             android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/txtWelcome"
@@ -127,7 +126,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtCurrentProgress" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
