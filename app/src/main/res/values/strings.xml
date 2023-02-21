@@ -32,7 +32,7 @@
     <string name="checkOnCert">Check on Certificate!</string>
     <string name="title_activity_cert">title_activity_cert</string>
     <string name="CurrentProgress">CurrentProgress</string>
-    <string name="download" />
+    <string name="download"> Download</string>
     <!--    <string name="default_web_client_id" translatable="false"></string>-->
 </resources>
 
