@@ -1,5 +1,11 @@
 package com.example.mobileprogramming_assignment;
 
+import static android.Manifest.permission.ACCESS_NOTIFICATION_POLICY;
+import static android.Manifest.permission.POST_NOTIFICATIONS;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.SCHEDULE_EXACT_ALARM;
+import static android.Manifest.permission.USE_FULL_SCREEN_INTENT;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.content.ContentValues.TAG;
 
 import android.app.AlarmManager;
@@ -8,6 +14,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +25,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,16 +49,29 @@ public class MainActivity extends AppCompatActivity {
     EditText inputEmail, inputPassword;
     Button btnLogin;
     String emailPattern = "[a-zA-Z\\d._-]+@[a-z]+\\.+[a-z]+";
+
     ProgressDialog progressDialog;
 
     FirebaseAuth mAuth;
     FirebaseUser mUser;
     ImageView btnGoogle;
 
+    private static final int PERMISSION_REQUEST_CODE = 200;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Checking user permissions.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (checkPermission()) {
+                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+            } else {
+                requestPermission();
+            }
+        }
+
         createNewAccount = findViewById(R.id.createNewAccount);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -75,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 12);
-        calendar.set(Calendar.MINUTE, 01);
+        calendar.set(Calendar.MINUTE, 1);
         calendar.set(Calendar.SECOND, 10);
 
         if (Calendar.getInstance().after(calendar)) {
@@ -87,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         }
     }
@@ -146,5 +169,21 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.S)
+    private boolean checkPermission() {
+        // checking of permissions.
+        int permission1 = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
+        int permission2 = ContextCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE);
+        int permission3 = ContextCompat.checkSelfPermission(getApplicationContext(), USE_FULL_SCREEN_INTENT);
+        int permission4 = ContextCompat.checkSelfPermission(getApplicationContext(), SCHEDULE_EXACT_ALARM);
+        return permission1 == PackageManager.PERMISSION_GRANTED && permission2 == PackageManager.PERMISSION_GRANTED && permission3 == PackageManager.PERMISSION_GRANTED && permission4 == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.S)
+    private void requestPermission() {
+        // requesting permissions if not provided.
+        ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, USE_FULL_SCREEN_INTENT, SCHEDULE_EXACT_ALARM}, PERMISSION_REQUEST_CODE);
     }
 }
