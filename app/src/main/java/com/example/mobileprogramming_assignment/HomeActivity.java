@@ -132,8 +132,8 @@ public class HomeActivity extends AppCompatActivity {
         btnShare.setOnClickListener(v -> {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-            String shareMessage = "\nLet me recommend you this application\n\n";
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Learn about Dementia!");
+            String shareMessage = "\nShare Dementia App with your family & friends! \nClick Link below to download\n\n";
             shareMessage = shareMessage + "https://drive.google.com/file/d/1piTV4yOZ1YUgw_FfBc7vcePqAS7k5gHe/view?usp=share_link" + BuildConfig.APPLICATION_ID + "\n\n";
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
             startActivity(Intent.createChooser(shareIntent, "choose one"));
