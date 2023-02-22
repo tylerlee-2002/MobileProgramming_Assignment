@@ -52,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
                 UserInfo user = new UserInfo(userID, name, phoneNumber, email, completeUntil);
 
                 final TextView helloTextView = findViewById(R.id.txtWelcome);
-                helloTextView.setText(String.format("Welcome %s!", user.getName()));
+                helloTextView.setText(String.format("Welcome %s !", user.getName()));
 
                 textViewCurrentProgress = findViewById(R.id.txtCurrentProgress);
                 textViewCurrentProgress.setText(
@@ -151,40 +151,40 @@ public class HomeActivity extends AppCompatActivity {
 
     private String getTopic1Progress() {
         if (completeUntil > 0){
-            return "Done!";
+            return "Completed!";
         } else {
-            return "Not Yet!";
+            return "Incomplete!";
         }
     }
 
     private String getTopic2Progress() {
         if (completeUntil > 1){
-            return "Done!";
+            return "Completed!";
         } else {
-            return "Not Yet!";
+            return "Incomplete!";
         }
     }
 
     private String getTopic3Progress() {
         if (completeUntil > 2){
-            return "Done!";
+            return "Completed!";
         } else {
-            return "Not Yet!";
+            return "Incomplete!";
         }
     }
     private String getTopic4Progress() {
         if (completeUntil > 3){
-            return "Done!";
+            return "Completed!";
         } else {
-            return "Not Yet!";
+            return "Incomplete!";
         }
     }
 
     private String getTopic5Progress() {
         if (completeUntil > 4){
-            return "Done!";
+            return "Completed!";
         } else {
-            return "Not Yet!";
+            return "Incomplete!";
         }
     }
 }
