@@ -25,10 +25,10 @@ public class HomeActivity extends AppCompatActivity {
     Button btnLogout, btnContinue, btnShare, btnCert;
     String userID, name, email, phoneNumber;
     int completeUntil;
-
     ProgressBar progressBar;
-
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    TextView textViewCurrentProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +51,18 @@ public class HomeActivity extends AppCompatActivity {
                 UserInfo user = new UserInfo(userID, name, phoneNumber, email, completeUntil);
 
                 final TextView helloTextView = findViewById(R.id.txtWelcome);
-                helloTextView.setText(String.format("Welcome %s to the DEMENTIA App!", user.getName()));
+                helloTextView.setText(String.format("Welcome %s!", user.getName()));
 
-                TextView textViewCurrentProgress = findViewById(R.id.txtCurrentProgress);
-                textViewCurrentProgress.setText(String.format("Current Progress %s / 5!", user.getCompleteUntil()));
+                textViewCurrentProgress = findViewById(R.id.txtCurrentProgress);
+                textViewCurrentProgress.setText(
+                        String.format(
+                                "Progress: %s / 5" +
+                                        "\n Topic 1 : %s" +
+                                        "\n Topic 2 : %s" +
+                                        "\n Topic 3 : %s" +
+                                        "\n Topic 4 : %s" +
+                                        "\n Topic 5 : %s", user.getCompleteUntil(), getTopic1Progress(), getTopic2Progress(), getTopic3Progress(), getTopic4Progress(), getTopic5Progress()));
+
 
                 progressBar = findViewById(R.id.progressBar);
                 progressBar.setProgress(user.getCompleteUntil());
@@ -63,7 +71,15 @@ public class HomeActivity extends AppCompatActivity {
                 btnCert = findViewById(R.id.btnCert);
 
                 if (completeUntil == 5) {
-                    textViewCurrentProgress.setText(String.format("All Topics Completed! (%s / 5!)", user.getCompleteUntil()));
+                    textViewCurrentProgress.setText(
+                            String.format(
+                                    "All Topics Completed!" +
+                                    "\n Topic 1 : %s" +
+                                    "\n Topic 2 : %s" +
+                                    "\n Topic 3 : %s" +
+                                    "\n Topic 4 : %s" +
+                                    "\n Topic 5 : %s", getTopic1Progress(), getTopic2Progress(), getTopic3Progress(), getTopic4Progress(), getTopic5Progress()));
+
                     btnContinue.setText(R.string.backToRevision);
                     btnCert.setVisibility(View.VISIBLE);
                     btnCert.setOnClickListener(v -> {
@@ -118,5 +134,44 @@ public class HomeActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
+    }
+
+    private String getTopic1Progress() {
+        if (completeUntil > 0){
+            return "Done!";
+        } else {
+            return "Not Yet!";
+        }
+    }
+
+    private String getTopic2Progress() {
+        if (completeUntil > 1){
+            return "Done!";
+        } else {
+            return "Not Yet!";
+        }
+    }
+
+    private String getTopic3Progress() {
+        if (completeUntil > 2){
+            return "Done!";
+        } else {
+            return "Not Yet!";
+        }
+    }
+    private String getTopic4Progress() {
+        if (completeUntil > 3){
+            return "Done!";
+        } else {
+            return "Not Yet!";
+        }
+    }
+
+    private String getTopic5Progress() {
+        if (completeUntil > 4){
+            return "Done!";
+        } else {
+            return "Not Yet!";
+        }
     }
 }
