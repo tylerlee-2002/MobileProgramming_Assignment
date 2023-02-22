@@ -3,21 +3,20 @@ package com.example.mobileprogramming_assignment;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
@@ -64,7 +63,8 @@ public class HomeActivity extends AppCompatActivity {
                 btnCert = findViewById(R.id.btnCert);
 
                 if (completeUntil == 5) {
-                    btnContinue.setText(R.string.continueOnProgress);
+                    textViewCurrentProgress.setText(String.format("All Topics Completed! (%s / 5!)", user.getCompleteUntil()));
+                    btnContinue.setText(R.string.backToRevision);
                     btnCert.setVisibility(View.VISIBLE);
                     btnCert.setOnClickListener(v -> {
                         Intent intent = new Intent(HomeActivity.this, CertActivity.class);

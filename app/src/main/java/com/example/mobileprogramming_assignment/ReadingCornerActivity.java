@@ -2,6 +2,7 @@ package com.example.mobileprogramming_assignment;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,11 +18,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,18 +49,19 @@ public class ReadingCornerActivity extends AppCompatActivity {
         completeUntil = getIntent().getIntExtra("completeUntil", completeUntil);
 
         if (completeUntil == 5) {
-            progress = 4;
+            progress = 0;
         } else {
             progress = completeUntil;
         }
+
+        textViewCurrentProgress = findViewById(R.id.txtCurrentProgress);
+        textViewCurrentProgress.setText(String.format("Topic %s/5", progress + 1));
 
         imageView1 = findViewById(R.id.imageView);
         imageView1.setImageResource(topics[progress]);
 
         btnNext = findViewById(R.id.btnNext);
-        btnNext.setOnClickListener(v -> {
-            showPopupWindow();
-        });
+        btnNext.setOnClickListener(v -> showPopupWindow());
 
         btnPrevious = findViewById(R.id.btnPrevious);
         btnPrevious.setOnClickListener(v -> {
@@ -75,7 +73,7 @@ public class ReadingCornerActivity extends AppCompatActivity {
                 } else {
                     btnPrevious.setText(R.string.previous);
                 }
-                textViewCurrentProgress.setText(String.format("Topic %s/5!", progress));
+                textViewCurrentProgress.setText(String.format("Topic %s/5!", progress + 1));
             } else {
                 Intent intent = new Intent(ReadingCornerActivity.this, HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -89,16 +87,14 @@ public class ReadingCornerActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
-
-        textViewCurrentProgress = findViewById(R.id.txtCurrentProgress);
-        textViewCurrentProgress.setText(String.format("Topic %s/5!", progress + 1));
     }
 
+    @SuppressLint({"DefaultLocale", "NonConstantResourceId"})
     private void showPopupWindow() {
 
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.popup_window, null);
+        @SuppressLint("InflateParams") View popupView = inflater.inflate(R.layout.popup_window, null);
 
         // create the popup window
         int width = LinearLayout.LayoutParams.MATCH_PARENT;
@@ -112,110 +108,91 @@ public class ReadingCornerActivity extends AppCompatActivity {
         RadioGroup radioGroup = popupView.findViewById(R.id.radio_group);
 
         Button closeButton = popupView.findViewById(R.id.closeButton);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.radio_button1:
-                        if (progress == 0 || progress == 2 || progress == 3) {
-                            closeButton.setText(R.string.correctAnswer);
-                            closeButton.setTextColor(getApplication().getResources().getColor(R.color.teal_200));
-                            closeButton.setEnabled(true);
-                        } else if (progress == 1) {
-                            closeButton.setText(R.string.wrongAnswer);
-                            closeButton.setTextColor(0xeb3434);
-                            closeButton.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
-                        } else if (progress == 4) {
-                            closeButton.setText(R.string.tryAgain);
-                            closeButton.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
-                            closeButton.setEnabled(false);
-                        }
-                        break;
-                    case R.id.radio_button2:
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.radio_button1:
+                    if (progress == 0 || progress == 2 || progress == 3) {
+                        closeButton.setText(R.string.correctAnswer);
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.teal_200));
+                        closeButton.setEnabled(true);
+                    } else if (progress == 1) {
+                        closeButton.setText(R.string.wrongAnswer);
+                        closeButton.setTextColor(0xeb3434);
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
+                    } else if (progress == 4) {
+                        closeButton.setText(R.string.tryAgain);
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
+                        closeButton.setEnabled(false);
+                    }
+                    break;
+                case R.id.radio_button2:
 //                        progress = 1
-                        // Code to handle option 2 selection
-                        if (progress == 0 || progress == 2 || progress == 3) {
-                            closeButton.setText(R.string.tryAgain);
-                            closeButton.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
-                            closeButton.setEnabled(false);
-                        } else if (progress == 1) {
-                            closeButton.setText(R.string.correctAnswer);
-                            closeButton.setTextColor(getApplication().getResources().getColor(R.color.teal_200));
-                            closeButton.setEnabled(true);
-                        } else if (progress == 4) {
-                            closeButton.setText(R.string.wrongAnswer);
-                            closeButton.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
-                            closeButton.setEnabled(false);
-                        }
-                        break;
-                    case R.id.radio_button3:
-                        if (progress == 0 || progress == 2 || progress == 3) {
-                            closeButton.setText(R.string.wrongAnswer);
-                            closeButton.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
-                            closeButton.setEnabled(false);
-                        } else if (progress == 1) {
-                            closeButton.setText(R.string.tryAgain);
-                            closeButton.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
-                            closeButton.setEnabled(false);
-                        } else if (progress == 4) {
-                            closeButton.setText(R.string.correctAnswer);
-                            closeButton.setTextColor(getApplication().getResources().getColor(R.color.teal_200));
-                            closeButton.setEnabled(true);
-                        }
-                        break;
-                }
+                    // Code to handle option 2 selection
+                    if (progress == 0 || progress == 2 || progress == 3) {
+                        closeButton.setText(R.string.tryAgain);
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
+                        closeButton.setEnabled(false);
+                    } else if (progress == 1) {
+                        closeButton.setText(R.string.correctAnswer);
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.teal_200));
+                        closeButton.setEnabled(true);
+                    } else if (progress == 4) {
+                        closeButton.setText(R.string.wrongAnswer);
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
+                        closeButton.setEnabled(false);
+                    }
+                    break;
+                case R.id.radio_button3:
+                    if (progress == 0 || progress == 2 || progress == 3) {
+                        closeButton.setText(R.string.wrongAnswer);
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
+                        closeButton.setEnabled(false);
+                    } else if (progress == 1) {
+                        closeButton.setText(R.string.tryAgain);
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.colorAccent));
+                        closeButton.setEnabled(false);
+                    } else if (progress == 4) {
+                        closeButton.setText(R.string.correctAnswer);
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.teal_200));
+                        closeButton.setEnabled(true);
+                    }
+                    break;
             }
-
         });
 
         // show the popup window
         popupWindow.showAtLocation(getWindow().getDecorView(), Gravity.CENTER, 0, 0);
 
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Only update if user first time passed the quiz.
+        closeButton.setOnClickListener(v -> {
+            // Only update if user first time passed the quiz.
+            progress = progress + 1;
 
-                progress = progress + 1;
-
-                if (completeUntil < progress){
-                    completeUntil = progress;
-                    Map<String, Object> updates2 = new HashMap<>();
-                    updates2.put("completeUntil", completeUntil);
-                    db.collection("user").document(userID).update(updates2).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d(TAG, "Topic Completed!");
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.e(TAG, "Error updating user data", e);
-                        }
-                    });
-                }
-
-                if (progress == 0) {
-                    btnPrevious.setText(R.string.back_to_home);
-                } else {
-                    btnPrevious.setText(R.string.previous);
-                }
-
-                textViewCurrentProgress.setText(String.format("Topic %s/5!", progress));
-
-                if (completeUntil >= 5) {
-                    Intent intent = new Intent(ReadingCornerActivity.this, CertActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("userID", userID);
-                    intent.putExtra("name", name);
-                    startActivity(intent);
-                } else {
-                    imageView1.setImageResource(topics[progress]);
-                }
-
-
-                popupWindow.dismiss();
+            if (completeUntil < progress){
+                completeUntil = progress;
+                Map<String, Object> updates2 = new HashMap<>();
+                updates2.put("completeUntil", completeUntil);
+                db.collection("user").document(userID).update(updates2).addOnSuccessListener(aVoid -> Log.d(TAG, "Topic Completed!")).addOnFailureListener(e -> Log.e(TAG, "Error updating user data", e));
             }
+
+            if (progress == 0) {
+                btnPrevious.setText(R.string.back_to_home);
+            } else {
+                btnPrevious.setText(R.string.previous);
+            }
+
+            if (progress == 5 && completeUntil == 5) {
+                textViewCurrentProgress.setText(String.format("Topic %s/5!", progress));
+                Intent intent = new Intent(ReadingCornerActivity.this, CertActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("userID", userID);
+                intent.putExtra("name", name);
+                startActivity(intent);
+            } else {
+                textViewCurrentProgress.setText(String.format("Topic %s/5!", progress + 1));
+                imageView1.setImageResource(topics[progress]);
+            }
+
+            popupWindow.dismiss();
         });
     }
 }

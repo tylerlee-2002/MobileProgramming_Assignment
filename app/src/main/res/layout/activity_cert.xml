@@ -49,6 +49,7 @@
         android:id="@+id/txtUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/alex_brush"
         android:text="Tyler"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"

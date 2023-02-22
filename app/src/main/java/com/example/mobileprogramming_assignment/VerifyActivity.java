@@ -3,31 +3,23 @@ package com.example.mobileprogramming_assignment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class VerifyActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser mUser;
     String userID, name, phoneNumber, email;
-
-
-    int progress;
     Button btnConfirm;
     ProgressDialog progressDialog;
     EditText inputName, inputPhoneNumber;
-
-
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override

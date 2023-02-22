@@ -6,13 +6,16 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 public class NotificationBroadcast extends BroadcastReceiver {
 
-    @SuppressLint("MissingPermission")
+    @RequiresApi(api = Build.VERSION_CODES.S)
+    @SuppressLint({"MissingPermission", "UnsafeProtectedBroadcastReceiver"})
     @Override
     public void onReceive(Context context, Intent intent) {
         Intent repeating_Intent = new Intent(context, MainActivity.class);
@@ -22,7 +25,7 @@ public class NotificationBroadcast extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "Notification")
                 .setContentIntent(pendingIntent)
                 .setContentTitle("Dementia")
-                .setContentText("Hello, pls login! Daily notification!")
+                .setContentText("Hey! Back to study on Dementia!")
                 .setSmallIcon(R.drawable.app_logo)
                 .setPriority(Notification.PRIORITY_DEFAULT)
                 .setAutoCancel(true);

@@ -34,6 +34,7 @@
     <string name="CurrentProgress">CurrentProgress</string>
     <string name="download"> Download</string>
     <string name="already_have_account">Already have an account?</string>
+    <string name="backToRevision">Back to Revision</string>
     <!--    <string name="default_web_client_id" translatable="false"></string>-->
 </resources>
 

@@ -1,33 +1,24 @@
 package com.example.mobileprogramming_assignment;
 
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
-
 import android.os.Environment;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-import java.util.Objects;
 
 public class CertActivity extends AppCompatActivity {
 
@@ -35,15 +26,8 @@ public class CertActivity extends AppCompatActivity {
     TextView txtUsername;
     String userID, name;
 
-    // declaring width and height for our PDF file.
-    int pageHeight = 1120;
-    int pagewidth = 792;
-
     // creating a bitmap variable for storing our images
-    Bitmap bmp, scaledbmp;
-
-    // constant code for runtime permissions
-    private static final int PERMISSION_REQUEST_CODE = 200;
+    Bitmap bmp, scaledBmp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +38,10 @@ public class CertActivity extends AppCompatActivity {
         name = getIntent().getStringExtra("name");
 
         btnBackHome = findViewById(R.id.btnBackHome);
-        btnBackHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CertActivity.this, HomeActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
+        btnBackHome.setOnClickListener(view -> {
+            Intent intent = new Intent(CertActivity.this, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         });
 
         txtUsername = findViewById(R.id.txtUsername);
@@ -68,28 +49,37 @@ public class CertActivity extends AppCompatActivity {
 
         btnDownload = findViewById(R.id.btnDownload);
 
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.bg);
-        scaledbmp = Bitmap.createScaledBitmap(bmp, 140, 140, false);
-
-        btnDownload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // calling method to generate our PDF file.
-                generatePDF();
-            }
+        btnDownload.setOnClickListener(v -> {
+            // calling method to generate our PDF file.
+            generatePDF();
         });
     }
 
     private void generatePDF() {
-        PdfDocument document = new PdfDocument();
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(1120, 792, 1).create();
-        PdfDocument.Page page = document.startPage(pageInfo);
-        Canvas canvas = page.getCanvas();
 
+        int pageHeight = 1120;
+        int pageWidth = 792;
+
+        PdfDocument document = new PdfDocument();
+        Paint paint = new Paint();
         Paint title = new Paint();
 
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.certificate);
+        scaledBmp = Bitmap.createScaledBitmap(bmp, pageWidth, pageHeight, false);
+
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, 1).create();
+        PdfDocument.Page page = document.startPage(pageInfo);
+        Canvas canvas = page.getCanvas();
+        canvas.drawBitmap(scaledBmp, 0, 0, paint);
+
+        // below line is used for setting our text to center of PDF.
+        title.setTypeface(ResourcesCompat.getFont(this, R.font.alex_brush));
+        title.setColor(ContextCompat.getColor(this, R.color.black));
+        title.setTextAlign(Paint.Align.CENTER);
+        title.setTextSize(65);
+
         // Draw content on the canvas using standard Android drawing methods
-        canvas.drawText("Hello, World!", 560, 380, title);
+        canvas.drawText(name, 396, 600, title);
 
         File file = new File(Environment.getExternalStorageDirectory(), "Cert.pdf");
         try {
@@ -101,7 +91,9 @@ public class CertActivity extends AppCompatActivity {
 
             document.finishPage(page);
             document.writeTo(new FileOutputStream(file));
+            Toast.makeText(CertActivity.this, "Certificate generated successfully.", Toast.LENGTH_SHORT).show();
             document.close();
+
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
