@@ -12,24 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/txtPage1"-->
-        <!--            android:layout_width="313dp"-->
-        <!--            android:layout_height="433dp"-->
-        <!--            android:layout_marginTop="44dp"-->
-        <!--            android:background="@drawable/input_bg"-->
-        <!--            android:textColor="@color/white"-->
-        <!--            android:gravity="center"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/btnBackHome"-->
-        <!--            tools:text="@tools:sample/lorem/random" />-->
-
         <Button
             android:id="@+id/btnBackHome"
             android:layout_width="313dp"
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:layout_marginTop="36dp"
             android:background="@drawable/input_bg"
             android:text="@string/back_to_home"
@@ -89,7 +75,8 @@
             app:layout_constraintHorizontal_bias="0.558"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtCurrentProgress"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0"
+            android:contentDescription="@string/topics_content" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

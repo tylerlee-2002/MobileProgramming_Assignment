@@ -69,7 +69,8 @@
             android:text="@string/logout"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry" />
 
         <Button
             android:id="@+id/btnShare"
@@ -83,7 +84,8 @@
             android:text="@string/share"
             android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/txtWelcome"
-            app:layout_constraintEnd_toEndOf="@+id/txtWelcome" />
+            app:layout_constraintEnd_toEndOf="@+id/txtWelcome"
+            tools:ignore="RtlSymmetry" />
 
         <Button
             android:id="@+id/btnContinue"
