@@ -96,6 +96,20 @@
             app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <ImageButton
+            android:id="@+id/btnProfile"
+            android:layout_width="73dp"
+            android:layout_height="48dp"
+            android:background="@drawable/input_bg"
+            app:layout_constraintBottom_toTopOf="@+id/txtWelcome"
+            app:layout_constraintEnd_toStartOf="@+id/btnShare"
+            app:layout_constraintHorizontal_bias="0.407"
+            app:layout_constraintStart_toEndOf="@+id/btnLogout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.571"
+            app:srcCompat="@drawable/baseline_account_circle_24"
+            android:contentDescription="@string/profile" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

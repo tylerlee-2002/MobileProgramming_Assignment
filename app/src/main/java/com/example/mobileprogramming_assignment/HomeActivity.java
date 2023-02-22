@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -23,11 +24,11 @@ public class HomeActivity extends AppCompatActivity {
 
     FirebaseUser mUser;
     Button btnLogout, btnContinue, btnShare, btnCert;
+    ImageButton btnProfile;
     String userID, name, email, phoneNumber;
     int completeUntil;
     ProgressBar progressBar;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
     TextView textViewCurrentProgress;
 
     @Override
@@ -113,6 +114,18 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d(TAG, "Error getting documents: ", task.getException());
             }
         });
+
+        btnProfile = findViewById(R.id.btnProfile);
+        btnProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("userID", userID);
+            intent.putExtra("name", name);
+            intent.putExtra("phoneNumber", phoneNumber);
+            intent.putExtra("email", email);
+            startActivity(intent);
+        });
+        
 
         // Function for share application
         btnShare = findViewById(R.id.btnShare);
