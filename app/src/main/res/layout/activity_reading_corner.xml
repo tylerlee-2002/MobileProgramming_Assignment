@@ -14,67 +14,84 @@
 
 
         <!--        <TextView-->
-<!--            android:id="@+id/txtPage1"-->
-<!--            android:layout_width="313dp"-->
-<!--            android:layout_height="433dp"-->
-<!--            android:layout_marginTop="44dp"-->
-<!--            android:background="@drawable/input_bg"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:gravity="center"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/btnBackHome"-->
-<!--            tools:text="@tools:sample/lorem/random" />-->
+        <!--            android:id="@+id/txtPage1"-->
+        <!--            android:layout_width="313dp"-->
+        <!--            android:layout_height="433dp"-->
+        <!--            android:layout_marginTop="44dp"-->
+        <!--            android:background="@drawable/input_bg"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            android:gravity="center"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/btnBackHome"-->
+        <!--            tools:text="@tools:sample/lorem/random" />-->
 
         <Button
             android:id="@+id/btnBackHome"
             android:layout_width="313dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="36dp"
             android:background="@drawable/input_bg"
             android:text="@string/back_to_home"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btnPrevious"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
-            android:layout_marginBottom="40dp"
-            android:background="@drawable/input_bg"
-            android:text="@string/previous"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnNext"
-            app:layout_constraintHorizontal_bias="0.398"
-            app:layout_constraintVertical_bias="0.431"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/btnNext"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="48dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/input_bg"
             android:text="@string/next"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_bias="0.431" />
+            app:layout_constraintHorizontal_bias="0.558"
+            app:layout_constraintStart_toEndOf="@+id/btnPrevious" />
+
+        <TextView
+            android:id="@+id/txtCurrentProgress"
+            android:layout_width="313dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/input_bg"
+            android:gravity="center"
+            android:text="@string/CurrentProgress"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnBackHome" />
+
+        <Button
+            android:id="@+id/btnPrevious"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/input_bg"
+            android:text="@string/previous"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="300dp"
+            android:layout_height="420dp"
+            android:layout_marginBottom="95dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/topic_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.558"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtCurrentProgress"
+            app:layout_constraintVertical_bias="1.0" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="313dp"
-        android:layout_height="433dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/topic_1"
-        app:layout_anchor="@+id/constraintLayout2"
-        app:layout_anchorGravity="center" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

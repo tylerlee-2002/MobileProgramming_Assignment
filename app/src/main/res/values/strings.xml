@@ -11,8 +11,8 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_home">HomeActivity</string>
-    <string name="register">Register</string>
-    <string name="login">Login</string>
+    <string name="register">REGISTER</string>
+    <string name="login">LOGIN</string>
     <string name="email">Email</string>
     <string name="logout">Logout</string>
     <string name="title_activity_verify">VerifyActivity</string>
@@ -33,6 +33,7 @@
     <string name="title_activity_cert">title_activity_cert</string>
     <string name="CurrentProgress">CurrentProgress</string>
     <string name="download"> Download</string>
+    <string name="already_have_account">Already have an account?</string>
     <!--    <string name="default_web_client_id" translatable="false"></string>-->
 </resources>
 

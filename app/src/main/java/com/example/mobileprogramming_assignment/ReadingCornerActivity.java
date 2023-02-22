@@ -35,6 +35,8 @@ public class ReadingCornerActivity extends AppCompatActivity {
     int progress, completeUntil;
     String userID, name, phoneNumber, email;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    TextView textViewCurrentProgress;
+
 
     int[] topics = {R.drawable.topic_1, R.drawable.topic_2, R.drawable.topic_3, R.drawable.topic_4, R.drawable.topic_5};
 
@@ -73,7 +75,7 @@ public class ReadingCornerActivity extends AppCompatActivity {
                 } else {
                     btnPrevious.setText(R.string.previous);
                 }
-
+                textViewCurrentProgress.setText(String.format("Topic %s/5!", progress));
             } else {
                 Intent intent = new Intent(ReadingCornerActivity.this, HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -87,6 +89,9 @@ public class ReadingCornerActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
+
+        textViewCurrentProgress = findViewById(R.id.txtCurrentProgress);
+        textViewCurrentProgress.setText(String.format("Topic %s/5!", progress + 1));
     }
 
     private void showPopupWindow() {
@@ -196,6 +201,8 @@ public class ReadingCornerActivity extends AppCompatActivity {
                     btnPrevious.setText(R.string.previous);
                 }
 
+                textViewCurrentProgress.setText(String.format("Topic %s/5!", progress));
+
                 if (completeUntil >= 5) {
                     Intent intent = new Intent(ReadingCornerActivity.this, CertActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -205,6 +212,7 @@ public class ReadingCornerActivity extends AppCompatActivity {
                 } else {
                     imageView1.setImageResource(topics[progress]);
                 }
+
 
                 popupWindow.dismiss();
             }
