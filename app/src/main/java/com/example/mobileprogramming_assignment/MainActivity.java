@@ -5,6 +5,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.content.ContentValues.TAG;
 import static android.os.Build.VERSION.SDK_INT;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -18,10 +19,16 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,17 +36,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     TextView createNewAccount;
     EditText inputEmail, inputPassword;
-    Button btnLogin;
+    Button btnLogin, btnForgetPassword;
     String emailPattern = "[a-zA-Z\\d._-]+@[a-z]+\\.+[a-z]+";
     ProgressDialog progressDialog;
     FirebaseAuth mAuth;
@@ -69,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         inputPassword = findViewById(R.id.inputPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnGoogle = findViewById(R.id.btnGoogle);
+        btnForgetPassword = findViewById(R.id.btnForgotPassword);
 
         progressDialog = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
@@ -82,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, GoogleSignInActivity.class);
             startActivity(intent);
         });
+
+        btnForgetPassword.setOnClickListener(v -> resetPassword());
 
 //      Notification Function
         NotificationChannel();
@@ -159,6 +175,46 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @SuppressLint({"DefaultLocale", "NonConstantResourceId"})
+    private void resetPassword() {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        @SuppressLint("InflateParams") View popupView = inflater.inflate(R.layout.popup_reset_password, null);
+
+        // create the popup window
+        int width = LinearLayout.LayoutParams.MATCH_PARENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true;
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        EditText inputEmail = popupView.findViewById(R.id.inputEmail);
+        Button resetButton = popupView.findViewById(R.id.resetButton);
+        ImageButton btnClose = popupView.findViewById(R.id.btnClose);
+
+        popupWindow.showAtLocation(getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+
+        btnClose.setOnClickListener(v -> {
+            popupWindow.dismiss();
+        });
+
+        resetButton.setOnClickListener(v -> {
+            String email = inputEmail.getText().toString();
+
+            if (!email.matches(emailPattern)) {
+                inputEmail.setError("Enter Correct Email");
+            } else {
+                FirebaseAuth.getInstance().sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(this, "Request Sent! Please check email!", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "Email sent.");
+                        popupWindow.dismiss();
+                    } else {
+                        Toast.makeText(this, "Email not registered yet!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     private boolean checkPermission() {

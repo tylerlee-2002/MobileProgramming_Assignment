@@ -94,7 +94,7 @@ public class ReadingCornerActivity extends AppCompatActivity {
 
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        @SuppressLint("InflateParams") View popupView = inflater.inflate(R.layout.popup_window, null);
+        @SuppressLint("InflateParams") View popupView = inflater.inflate(R.layout.popup_quiz_window, null);
 
         // create the popup window
         int width = LinearLayout.LayoutParams.MATCH_PARENT;
