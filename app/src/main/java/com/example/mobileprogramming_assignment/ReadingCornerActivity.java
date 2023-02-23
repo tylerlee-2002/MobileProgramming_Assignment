@@ -73,7 +73,7 @@ public class ReadingCornerActivity extends AppCompatActivity {
                 } else {
                     btnPrevious.setText(R.string.previous);
                 }
-                textViewCurrentProgress.setText(String.format("Topic %s/5!", progress + 1));
+                textViewCurrentProgress.setText(String.format("Topic %s/5", progress + 1));
             } else {
                 Intent intent = new Intent(ReadingCornerActivity.this, HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -181,14 +181,14 @@ public class ReadingCornerActivity extends AppCompatActivity {
             }
 
             if (progress == 5 && completeUntil == 5) {
-                textViewCurrentProgress.setText(String.format("Topic %s/5!", progress));
+                textViewCurrentProgress.setText(String.format("Topic %s/5", progress));
                 Intent intent = new Intent(ReadingCornerActivity.this, CertActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("userID", userID);
                 intent.putExtra("name", name);
                 startActivity(intent);
             } else {
-                textViewCurrentProgress.setText(String.format("Topic %s/5!", progress + 1));
+                textViewCurrentProgress.setText(String.format("Topic %s/5", progress + 1));
                 imageView1.setImageResource(topics[progress]);
             }
 

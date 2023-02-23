@@ -88,7 +88,7 @@ public class GoogleSignInActivity extends MainActivity {
                 });
             } else {
                 progressDialog.dismiss();
-                Toast.makeText(GoogleSignInActivity.this, "Error" + task.getException(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(GoogleSignInActivity.this, "Error: Invalid Gmail!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
