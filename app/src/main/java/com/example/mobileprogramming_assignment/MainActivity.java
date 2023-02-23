@@ -103,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
         NotificationChannel();
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 6);
-        calendar.set(Calendar.MINUTE, 12);
+        calendar.set(Calendar.HOUR_OF_DAY, 22);
+        calendar.set(Calendar.MINUTE, 18);
         calendar.set(Calendar.SECOND, 10);
 
         if (Calendar.getInstance().after(calendar)) {
@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void NotificationChannel() {
-
         if (SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Dementia";
             String description = "Dementia Application!";
