@@ -21,7 +21,7 @@
         android:id="@+id/btnDownload"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/border_button_white"
         android:text="@string/download"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
