@@ -1,6 +1,11 @@
 package com.example.mobileprogramming_assignment;
 
 public class UserInfo {
+    private final String uid;
+    private final String phoneNumber;
+    private final String email;
+    private final int completeUntil;
+    private String name;
     public UserInfo(String uid, String name, String phoneNumber, String email, int completeUntil) {
         this.uid = uid;
         this.name = name;
@@ -8,12 +13,6 @@ public class UserInfo {
         this.email = email;
         this.completeUntil = completeUntil;
     }
-
-    private final String uid;
-    private String name;
-    private final String phoneNumber;
-    private final String email;
-    private final int completeUntil;
 
     public String getuid() {
         return uid;

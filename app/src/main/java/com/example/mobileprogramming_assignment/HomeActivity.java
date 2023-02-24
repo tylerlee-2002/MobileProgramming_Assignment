@@ -75,11 +75,11 @@ public class HomeActivity extends AppCompatActivity {
                     textViewCurrentProgress.setText(
                             String.format(
                                     "All Topics Completed!" +
-                                    "\n Topic 1 : %s" +
-                                    "\n Topic 2 : %s" +
-                                    "\n Topic 3 : %s" +
-                                    "\n Topic 4 : %s" +
-                                    "\n Topic 5 : %s", getTopic1Progress(), getTopic2Progress(), getTopic3Progress(), getTopic4Progress(), getTopic5Progress()));
+                                            "\n Topic 1 : %s" +
+                                            "\n Topic 2 : %s" +
+                                            "\n Topic 3 : %s" +
+                                            "\n Topic 4 : %s" +
+                                            "\n Topic 5 : %s", getTopic1Progress(), getTopic2Progress(), getTopic3Progress(), getTopic4Progress(), getTopic5Progress()));
 
                     btnContinue.setText(R.string.backToRevision);
                     btnCert.setVisibility(View.VISIBLE);
@@ -149,7 +149,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private String getTopic1Progress() {
-        if (completeUntil > 0){
+        if (completeUntil > 0) {
             return "Completed!";
         } else {
             return "Incomplete!";
@@ -157,7 +157,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private String getTopic2Progress() {
-        if (completeUntil > 1){
+        if (completeUntil > 1) {
             return "Completed!";
         } else {
             return "Incomplete!";
@@ -165,14 +165,15 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private String getTopic3Progress() {
-        if (completeUntil > 2){
+        if (completeUntil > 2) {
             return "Completed!";
         } else {
             return "Incomplete!";
         }
     }
+
     private String getTopic4Progress() {
-        if (completeUntil > 3){
+        if (completeUntil > 3) {
             return "Completed!";
         } else {
             return "Incomplete!";
@@ -180,7 +181,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private String getTopic5Progress() {
-        if (completeUntil > 4){
+        if (completeUntil > 4) {
             return "Completed!";
         } else {
             return "Incomplete!";

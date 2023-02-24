@@ -18,7 +18,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 

@@ -36,14 +36,14 @@
         android:layout_width="313dp"
         android:layout_height="450dp"
         android:background="@drawable/certificate"
+        android:contentDescription="@string/cert_content"
         android:scaleType="fitCenter"
         app:layout_anchorGravity="center"
         app:layout_constraintBottom_toTopOf="@+id/btnDownload"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnBackHome"
-        app:layout_constraintVertical_bias="0.571"
-        android:contentDescription="@string/cert_content" />
+        app:layout_constraintVertical_bias="0.571" />
 
     <TextView
         android:id="@+id/txtUsername"

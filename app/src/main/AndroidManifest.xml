@@ -35,7 +35,7 @@
             android:exported="false" />
         <activity
             android:name=".ReadingCornerActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".HomeActivity"
             android:exported="false"
@@ -52,6 +52,7 @@
             android:name=".CertActivity"
             android:exported="false"
             android:label="@string/title_activity_cert" />
+
         <receiver
             android:name=".NotificationBroadcast"
             android:enabled="true"

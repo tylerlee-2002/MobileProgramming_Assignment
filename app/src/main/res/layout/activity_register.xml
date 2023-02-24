@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity"
-    android:background="@drawable/bg">
+    android:background="@drawable/bg"
+    tools:context=".RegisterActivity">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -25,10 +25,10 @@
                 android:layout_height="70dp"
                 android:layout_marginTop="74dp"
                 android:fontFamily="@font/abril_fatface"
+                android:gravity="center"
                 android:text="@string/register"
                 android:textColor="@color/white"
                 android:textSize="45sp"
-                android:gravity="center"
                 app:layout_constraintBottom_toTopOf="@+id/inputEmail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -66,8 +66,8 @@
                 android:layout_marginTop="60dp"
                 android:background="@drawable/border_button_white"
                 android:text="@string/register"
-                app:layout_constraintCircleRadius="2dp"
                 android:textColor="@color/black"
+                app:layout_constraintCircleRadius="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputConfirmPassword" />
