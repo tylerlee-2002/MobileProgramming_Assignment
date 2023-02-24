@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:enabled="false"
-        android:background="@drawable/input_bg"
+        android:background="@drawable/border_white"
         android:text="Continue on Next Topic!"
         android:textColor="@color/white"/>
 
