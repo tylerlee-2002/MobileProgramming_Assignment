@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -35,8 +36,43 @@ public class ReadingCornerActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     TextView textViewCurrentProgress;
 
-
     int[] topics = {R.drawable.topic_1, R.drawable.topic_2, R.drawable.topic_3, R.drawable.topic_4, R.drawable.topic_5};
+
+    String[] quiz =
+            {
+                    "What will become of the cognitive Changes? ",
+                    "What will become the case with psychological changes?",
+                    "Tips for communicating (Encouraging)",
+                    "Tips for communicating (Body Language)",
+                    "How to deal with Troubling behaviour Person"
+            };
+
+    String[] option1 =
+            {
+                    "Confusion and disorientation",
+                    "Appropriate behavior",
+                    "Speak clearly and slowly",
+                    "Don't be too deferential when talking to them",
+                    "Ask a GP for an assessment"
+            };
+
+    String[] option2 =
+            {
+                    "Handle tasks with ease",
+                    "Depression",
+                    "Communicate out of the other person's line of sight",
+                    "Keeping a negative and unfriendly tone",
+                    "Do nothing"
+            };
+
+    String[] option3 =
+            {
+                    "Communicating easily with each other",
+                    "Good Personality",
+                    "Avoid joining others' conversations",
+                    "Be patient and remain calm",
+                    "Just ignored"
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +92,7 @@ public class ReadingCornerActivity extends AppCompatActivity {
         }
 
         textViewCurrentProgress = findViewById(R.id.txtCurrentProgress);
-        textViewCurrentProgress.setText(String.format("Topic %s/5", progress + 1));
+        textViewCurrentProgress.setText(String.format("Dementia Topic %s/5", progress + 1));
 
         imageView1 = findViewById(R.id.imageView);
         imageView1.setImageResource(topics[progress]);
@@ -74,7 +110,7 @@ public class ReadingCornerActivity extends AppCompatActivity {
                 } else {
                     btnPrevious.setText(R.string.previous);
                 }
-                textViewCurrentProgress.setText(String.format("Topic %s/5", progress + 1));
+                textViewCurrentProgress.setText(String.format("Dementia Topic %s/5", progress + 1));
             } else {
                 Intent intent = new Intent(ReadingCornerActivity.this, HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -104,9 +140,16 @@ public class ReadingCornerActivity extends AppCompatActivity {
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
         TextView myTextView = popupView.findViewById(R.id.textView);
-        myTextView.setText(String.format("Quiz %d", progress + 1));
+        myTextView.setText(quiz[progress]);
 
         RadioGroup radioGroup = popupView.findViewById(R.id.radio_group);
+        RadioButton RadioButton1 = popupView.findViewById(R.id.radio_button1);
+        RadioButton RadioButton2 = popupView.findViewById(R.id.radio_button2);
+        RadioButton RadioButton3 = popupView.findViewById(R.id.radio_button3);
+
+        RadioButton1.setText(option1[progress]);
+        RadioButton2.setText(option2[progress]);
+        RadioButton3.setText(option3[progress]);
 
         Button closeButton = popupView.findViewById(R.id.closeButton);
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
@@ -168,7 +211,7 @@ public class ReadingCornerActivity extends AppCompatActivity {
             // Only update if user first time passed the quiz.
             progress = progress + 1;
 
-            if (completeUntil < progress){
+            if (completeUntil < progress) {
                 completeUntil = progress;
                 Map<String, Object> updates2 = new HashMap<>();
                 updates2.put("completeUntil", completeUntil);
@@ -182,14 +225,14 @@ public class ReadingCornerActivity extends AppCompatActivity {
             }
 
             if (progress == 5 && completeUntil == 5) {
-                textViewCurrentProgress.setText(String.format("Topic %s/5", progress));
+                textViewCurrentProgress.setText(String.format("Dementia Topic %s/5", progress));
                 Intent intent = new Intent(ReadingCornerActivity.this, CertActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("userID", userID);
                 intent.putExtra("name", name);
                 startActivity(intent);
             } else {
-                textViewCurrentProgress.setText(String.format("Topic %s/5", progress + 1));
+                textViewCurrentProgress.setText(String.format("Dementia Topic %s/5", progress + 1));
                 imageView1.setImageResource(topics[progress]);
             }
 

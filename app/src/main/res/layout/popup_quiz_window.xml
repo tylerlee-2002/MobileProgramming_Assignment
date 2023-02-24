@@ -48,16 +48,6 @@
             android:textColor="@color/white"
             android:textSize="17dp"
             android:text="Option 3" />
-
-<!--        <TextView-->
-<!--            android:id="@+id/display_answer"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="20dp"-->
-<!--            android:gravity="center"-->
-<!--            android:text="@string/displayanswer" />-->
-
     </RadioGroup>
 
     <Button
@@ -67,7 +57,7 @@
         android:layout_marginTop="10dp"
         android:enabled="false"
         android:background="@drawable/border_white"
-        android:text="Continue on Next Topic!"
+        android:text="@string/choose_answer"
         android:textColor="@color/white"/>
 
 </LinearLayout>

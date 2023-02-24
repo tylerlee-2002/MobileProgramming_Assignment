@@ -125,7 +125,6 @@ public class HomeActivity extends AppCompatActivity {
             intent.putExtra("email", email);
             startActivity(intent);
         });
-        
 
         // Function for share application
         btnShare = findViewById(R.id.btnShare);
@@ -134,7 +133,7 @@ public class HomeActivity extends AppCompatActivity {
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Learn about Dementia!");
             String shareMessage = "\nShare Dementia App with your family & friends! \nClick Link below to download\n\n";
-            shareMessage = shareMessage + "https://drive.google.com/file/d/1piTV4yOZ1YUgw_FfBc7vcePqAS7k5gHe/view?usp=share_link" + BuildConfig.APPLICATION_ID + "\n\n";
+            shareMessage = shareMessage + "https://drive.google.com/file/d/1szAdyMrCKM7haalciPiL0_dayNzypNjW/view?usp=sharing" + BuildConfig.APPLICATION_ID + "\n\n";
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
             startActivity(Intent.createChooser(shareIntent, "choose one"));
         });
