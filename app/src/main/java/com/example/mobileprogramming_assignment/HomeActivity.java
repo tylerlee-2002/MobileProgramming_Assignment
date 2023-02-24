@@ -23,6 +23,7 @@ import java.util.Objects;
 public class HomeActivity extends AppCompatActivity {
 
     FirebaseUser mUser;
+    
     Button btnLogout, btnContinue, btnShare, btnCert;
     ImageButton btnProfile;
     String userID, name, email, phoneNumber;
@@ -146,6 +147,7 @@ public class HomeActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
+
     }
 
     private String getTopic1Progress() {

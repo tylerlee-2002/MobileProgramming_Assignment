@@ -26,6 +26,7 @@ public class GoogleSignInActivity extends MainActivity {
     private static final int RC_SIGN_IN = 101;
     GoogleSignInClient mGoogleSignInClient;
     FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
     FirebaseUser mUser;
     ProgressDialog progressDialog;
 
@@ -45,6 +46,47 @@ public class GoogleSignInActivity extends MainActivity {
 
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+
+        mAuthListener = firebaseAuth -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user != null) {
+                // User is signed in
+                Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+            } else {
+                // User is signed out
+                Log.d(TAG, "onAuthStateChanged:signed_out");
+            }
+        };
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAuth.removeAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mAuth.removeAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAuth.removeAuthStateListener(mAuthListener);
     }
 
     @Override

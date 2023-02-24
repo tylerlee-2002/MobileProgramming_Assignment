@@ -40,6 +40,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     String emailPattern = "[a-zA-Z\\d._-]+@[a-z]+\\.+[a-z]+";
     ProgressDialog progressDialog;
     FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
     FirebaseUser mUser;
     ImageView btnGoogle;
 
@@ -59,18 +62,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Checking user permissions.
-        if (SDK_INT >= Build.VERSION_CODES.R) {
-            if (checkPermission()) {
-                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
-            } else {
-                requestPermission();
-            }
-        }
-
-        createNewAccount = findViewById(R.id.createNewAccount);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        createNewAccount = findViewById(R.id.createNewAccount);
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPassword);
         btnLogin = findViewById(R.id.btnLogin);
@@ -92,9 +86,62 @@ public class MainActivity extends AppCompatActivity {
 
         btnForgetPassword.setOnClickListener(v -> resetPassword());
 
-//      Notification Function
+        mAuthListener = firebaseAuth -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user != null) {
+                // User is signed in
+                Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+            } else {
+                // User is signed out
+                Log.d(TAG, "onAuthStateChanged:signed_out");
+            }
+        };
+
         NotificationChannel();
 
+        DailyNotification();
+
+        // Checking user permissions.
+        if (SDK_INT >= Build.VERSION_CODES.R) {
+            if (checkPermission()) {
+                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+            } else {
+                requestPermission();
+            }
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAuth.removeAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mAuth.removeAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAuth.removeAuthStateListener(mAuthListener);
+    }
+
+    private void DailyNotification(){
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 22);
         calendar.set(Calendar.MINUTE, 18);
