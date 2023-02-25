@@ -6,6 +6,7 @@ public class UserInfo {
     private final String email;
     private final int completeUntil;
     private String name;
+
     public UserInfo(String uid, String name, String phoneNumber, String email, int completeUntil) {
         this.uid = uid;
         this.name = name;

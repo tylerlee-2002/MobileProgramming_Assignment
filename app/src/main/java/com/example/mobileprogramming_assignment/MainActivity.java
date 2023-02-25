@@ -40,8 +40,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -141,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth.removeAuthStateListener(mAuthListener);
     }
 
-    private void DailyNotification(){
+    private void DailyNotification() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 22);
         calendar.set(Calendar.MINUTE, 18);

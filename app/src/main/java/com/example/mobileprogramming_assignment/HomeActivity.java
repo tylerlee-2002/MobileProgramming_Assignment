@@ -23,7 +23,7 @@ import java.util.Objects;
 public class HomeActivity extends AppCompatActivity {
 
     FirebaseUser mUser;
-    
+
     Button btnLogout, btnContinue, btnShare, btnCert;
     ImageButton btnProfile;
     String userID, name, email, phoneNumber;
