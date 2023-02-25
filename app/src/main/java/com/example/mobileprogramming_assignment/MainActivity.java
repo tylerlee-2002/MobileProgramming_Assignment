@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         // Checking user permissions.
         if (SDK_INT >= Build.VERSION_CODES.R) {
             if (checkPermission()) {
-                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+                Log.d("Info", "Permission Granted");
             } else {
                 requestPermission();
             }
