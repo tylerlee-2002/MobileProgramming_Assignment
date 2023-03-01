@@ -1,11 +1,16 @@
 package com.example.mobileprogramming_assignment;
 
+import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.widget.Button;
@@ -13,7 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.core.content.res.ResourcesCompat;
 
 import java.io.File;
@@ -94,9 +102,41 @@ public class CertActivity extends AppCompatActivity {
             Toast.makeText(CertActivity.this, "Certificate generated successfully.", Toast.LENGTH_SHORT).show();
             document.close();
 
-        } catch (IOException e) {
+            sendNotification();
+        }
+        catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
+
+    @SuppressLint("MissingPermission")
+    private void sendNotification() {
+
+        NotificationChannel channel;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            channel = new NotificationChannel("Cert_generated", "Certificate", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("Cert generated successfully!");
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+//
+//        File file = new File(getFilesDir(),"Cert.pdf");
+//        Uri uri = FileProvider.getUriForFile(getApplicationContext(), getPackageName()+".provider", file);
+//
+//        Intent intent = new Intent(Intent.ACTION_VIEW);
+//        intent.setDataAndType(uri, "application/pdf");
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "Cert_generated")
+                .setSmallIcon(R.drawable.app_logo)
+                .setContentTitle("Certificate download completed!")
+                .setContentText("Saved at Files -> external storage -> Cert.pdf!")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+//                .setContentIntent(pendingIntent);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(0, builder.build());
     }
 }
