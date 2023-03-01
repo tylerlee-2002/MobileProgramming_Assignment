@@ -15,7 +15,8 @@ Name: App
 Module: MobileProgramming_Assignment.app.main
 
 4. Database (Firebase)
-Firebase File: 0133750 email
+Firebase Login: 0133750 email
+For development: Pls sign certificate in Gradle -> insert SHA1 to Firebase
 
 Where to find the file:
 1. Backend  File (app -> java -> com.example.mobileprogramming_assignment -> Class Files)
