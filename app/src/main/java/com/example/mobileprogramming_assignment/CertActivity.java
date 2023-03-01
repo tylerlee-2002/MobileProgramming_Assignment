@@ -13,6 +13,7 @@ import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -89,7 +90,7 @@ public class CertActivity extends AppCompatActivity {
         // Draw content on the canvas using standard Android drawing methods
         canvas.drawText(name, 396, 600, title);
 
-        File file = new File(Environment.getExternalStorageDirectory(), "Cert.pdf");
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Cert.pdf");
         try {
             if (file.createNewFile()) {
                 System.out.println("File created: " + file.getName());
@@ -120,21 +121,25 @@ public class CertActivity extends AppCompatActivity {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-//
-//        File file = new File(getFilesDir(),"Cert.pdf");
-//        Uri uri = FileProvider.getUriForFile(getApplicationContext(), getPackageName()+".provider", file);
-//
-//        Intent intent = new Intent(Intent.ACTION_VIEW);
-//        intent.setDataAndType(uri, "application/pdf");
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
+        String stringFile = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "/Cert.pdf";
+        File file = new File(stringFile);
+
+        Intent intent = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setType("*/*");
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + file));
+        }
+
+        @SuppressLint("InlinedApi") PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_MUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "Cert_generated")
                 .setSmallIcon(R.drawable.app_logo)
                 .setContentTitle("Certificate download completed!")
-                .setContentText("Saved at Files -> external storage -> Cert.pdf!")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-//                .setContentIntent(pendingIntent);
+                .setContentText("Saved at Files -> Download -> Cert.pdf!")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(0, builder.build());
