@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash_screen_bg"
+    android:background="@drawable/background"
     android:contentDescription="For more ui/ux visit www.materialuiux.com"
     android:orientation="vertical"
     tools:context=".MainActivity"
@@ -34,10 +34,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="@dimen/margin_40"
+        android:layout_marginBottom="@dimen/margin_54"
         android:gravity="center"
         android:text="@string/designed"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:textColor="@color/black"
+        android:textSize="20sp" />
 
 </RelativeLayout>

@@ -30,28 +30,28 @@
         android:contentDescription="For more visit www.materialuiux.com"
         android:padding="@dimen/padding_8">
 
-        <com.example.mobileprogramming_assignment.cairoTextView
-            android:layout_width="183dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginEnd="@dimen/margin_2"
-            android:layout_marginRight="@dimen/margin_2"
-            android:layout_toEndOf="@+id/id_uploadPicture_Button"
-            android:layout_toRightOf="@+id/id_uploadPicture_Button"
-            android:contentDescription="For more visit www.materialuiux.com"
-            android:text="@string/uploadphoto"
-            android:textColor="@color/secondarytext"
-            android:textSize="@dimen/textsize_14" />
+<!--        <com.example.mobileprogramming_assignment.cairoTextView-->
+<!--            android:layout_width="183dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_alignParentLeft="true"-->
+<!--            android:layout_marginEnd="@dimen/margin_2"-->
+<!--            android:layout_marginRight="@dimen/margin_2"-->
+<!--            android:layout_toEndOf="@+id/id_uploadPicture_Button"-->
+<!--            android:layout_toRightOf="@+id/id_uploadPicture_Button"-->
+<!--            android:contentDescription="For more visit www.materialuiux.com"-->
+<!--            android:text="@string/uploadphoto"-->
+<!--            android:textColor="@color/secondarytext"-->
+<!--            android:textSize="@dimen/textsize_14" />-->
 
-        <Button
-            android:id="@+id/id_uploadPicture_Button"
-            android:layout_width="@dimen/size_39"
-            android:layout_height="@dimen/size_39"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/ic_upload_background"
-            android:contentDescription="For more visit www.materialuiux.com" />
+<!--        <Button-->
+<!--            android:id="@+id/id_uploadPicture_Button"-->
+<!--            android:layout_width="@dimen/size_39"-->
+<!--            android:layout_height="@dimen/size_39"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:background="@drawable/ic_upload_background"-->
+<!--            android:contentDescription="For more visit www.materialuiux.com" />-->
 
     </RelativeLayout>
 

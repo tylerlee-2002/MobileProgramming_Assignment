@@ -113,7 +113,7 @@ public class GoogleSignInActivity extends SignInActivity {
                 FirebaseFirestore.getInstance().collection("user").whereEqualTo("uid", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).get().addOnCompleteListener(task2 -> {
                     if (task2.isSuccessful()) {
                         if (task2.getResult().isEmpty()) {
-                            Intent intent = new Intent(GoogleSignInActivity.this, VerifyActivity.class);
+                            Intent intent = new Intent(GoogleSignInActivity.this, NewUserActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             Toast.makeText(GoogleSignInActivity.this, "First Time Login!", Toast.LENGTH_SHORT).show();

@@ -1,7 +1,5 @@
 package com.example.mobileprogramming_assignment;
 
-
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,13 +10,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.content.res.ResourcesCompat;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-import com.example.mobileprogramming_assignment.cairoButton;
-import com.example.mobileprogramming_assignment.cairoEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -32,11 +27,7 @@ public class NewUserActivity extends AppCompatActivity implements View.OnClickLi
     DatePicker _dayDatePicker ,_monthDatePicker , _yearDatePicker;
     cairoEditText _userNameEditText;
     cairoButton _doneButton;
-    Button _uploadPictureButton;
     customSwitch _genderCustomSwitch;
-
-    ProgressDialog progressDialog;
-
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser mUser = mAuth.getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -52,7 +43,6 @@ public class NewUserActivity extends AppCompatActivity implements View.OnClickLi
         email = mUser.getEmail();
 
         /////*     initialize view   */////
-        _uploadPictureButton = findViewById(R.id.id_uploadPicture_Button);
         _userNameEditText = findViewById(R.id.id_userName_EditText);
         _dayDatePicker  = (DatePicker) findViewById(R.id.id_day_DatePicker);
         _monthDatePicker = (DatePicker) findViewById(R.id.id_month_DatePicker);
@@ -75,8 +65,6 @@ public class NewUserActivity extends AppCompatActivity implements View.OnClickLi
 
         /////*     On Click         */////
         _doneButton.setOnClickListener(this);
-        _uploadPictureButton.setOnClickListener(this);
-
     }
 
 
@@ -87,18 +75,6 @@ public class NewUserActivity extends AppCompatActivity implements View.OnClickLi
             {
                 complete();
             }
-            if (v==_uploadPictureButton)
-            {
-                pickImage();
-            }
-    }
-
-    private void pickImage()
-    {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
     }
 
     private void complete()
@@ -110,6 +86,7 @@ public class NewUserActivity extends AppCompatActivity implements View.OnClickLi
         String _month = _monthDatePicker.getSeletedItem();
         String _year = _yearDatePicker.getSeletedItem();
         String _dob = _day + " " + _month + " " + _year ;
+
         if (getGender.equals("LEFT")){
             _gender = "female";
         }else {
@@ -124,22 +101,24 @@ public class NewUserActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void addData(String username, String gender, String dob)
+    private void addData(String name, String gender, String dob)
     {
-        progressDialog.setMessage("Updating Profile...");
-        progressDialog.setTitle("User Personal Info");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
+        UserInfo newUser = new UserInfo(userID, name, email, gender, dob, 0);
+        db.collection("user").document(userID).set(newUser).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
 
-        String imagePath = selectedImageUri.getPath();
-
-
-
-        Toast.makeText(this, "success" + username + " " + gender + " " + dob, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Profile Update Successfully", Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(this, "Firebase error!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-
-    public boolean validate(String username, String gender, String dateofbirth)
+    public boolean validate(String username, String gender, String dob)
     {
         boolean valid = true;
 
@@ -153,23 +132,12 @@ public class NewUserActivity extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(this, "please select your gender", Toast.LENGTH_LONG).show();
             valid = false;
         }
-        if (dateofbirth.equals(""))
+        if (dob.equals(""))
         {
             Toast.makeText(this, "please select your gender", Toast.LENGTH_LONG).show();
             valid = false;
         }
 
         return valid;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            // Get the selected image URI
-            selectedImageUri = data.getData();
-            // String imagePath = selectedImageUri.getPath();
-        }
     }
 }

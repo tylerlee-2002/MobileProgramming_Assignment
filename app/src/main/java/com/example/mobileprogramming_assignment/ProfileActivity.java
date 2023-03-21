@@ -23,13 +23,9 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     String userID, name, phoneNumber, email;
-
     TextView txtName, txtEmail, txtPhoneNumber;
-
     EditText inputPhoneNumber;
-
     Button btnConfirm;
-
     ImageButton btnClose;
 
     @Override

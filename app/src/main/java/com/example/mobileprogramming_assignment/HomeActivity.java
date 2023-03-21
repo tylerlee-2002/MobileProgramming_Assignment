@@ -41,170 +41,171 @@ public class HomeActivity extends AppCompatActivity {
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         assert mUser != null;
 
-        db.collection("user").whereEqualTo("uid", mUser.getUid()).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    userID = Objects.requireNonNull(document.getData().get("uid")).toString();
-                    name = Objects.requireNonNull(document.getData().get("name")).toString();
-                    phoneNumber = Objects.requireNonNull(document.getData().get("phoneNumber")).toString();
-                    email = Objects.requireNonNull(document.getData().get("email")).toString();
-                    completeUntil = Integer.parseInt(Objects.requireNonNull(document.getData().get("completeUntil")).toString());
-                }
+//        db.collection("user").whereEqualTo("uid", mUser.getUid()).get().addOnCompleteListener(task -> {
+//                    if (task.isSuccessful()) {
+//                        for (QueryDocumentSnapshot document : task.getResult()) {
+//                            userID = Objects.requireNonNull(document.getData().get("uid")).toString();
+//                            name = Objects.requireNonNull(document.getData().get("name")).toString();
+//                            phoneNumber = Objects.requireNonNull(document.getData().get("phoneNumber")).toString();
+//                            email = Objects.requireNonNull(document.getData().get("email")).toString();
+//                            completeUntil = Integer.parseInt(Objects.requireNonNull(document.getData().get("completeUntil")).toString());
+//                        }
 
-                UserInfo user = new UserInfo(userID, name, phoneNumber, email, completeUntil);
-
-                final TextView helloTextView = findViewById(R.id.txtWelcome);
-                helloTextView.setText(String.format("Welcome %s !", user.getName()));
-
-                textViewCurrentProgress = findViewById(R.id.txtCurrentProgress);
-                textViewCurrentProgress.setText(
-                        String.format(
-                                "Progress: %s / 5" +
-                                        "\n Topic 1 : %s" +
-                                        "\n Topic 2 : %s" +
-                                        "\n Topic 3 : %s" +
-                                        "\n Topic 4 : %s" +
-                                        "\n Topic 5 : %s", user.getCompleteUntil(), getTopic1Progress(), getTopic2Progress(), getTopic3Progress(), getTopic4Progress(), getTopic5Progress()));
-
-
-                progressBar = findViewById(R.id.progressBar);
-                progressBar.setProgress(user.getCompleteUntil());
-
-                btnContinue = findViewById(R.id.btnContinue);
-                btnCert = findViewById(R.id.btnCert);
-
-                if (completeUntil == 5) {
-                    textViewCurrentProgress.setText(
-                            String.format(
-                                    "All Topics Completed!" +
-                                            "\n Topic 1 : %s" +
-                                            "\n Topic 2 : %s" +
-                                            "\n Topic 3 : %s" +
-                                            "\n Topic 4 : %s" +
-                                            "\n Topic 5 : %s", getTopic1Progress(), getTopic2Progress(), getTopic3Progress(), getTopic4Progress(), getTopic5Progress()));
-
-                    btnContinue.setText(R.string.backToRevision);
-                    btnCert.setVisibility(View.VISIBLE);
-                    btnCert.setOnClickListener(v -> {
-                        Intent intent = new Intent(HomeActivity.this, CertActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("userID", user.getuid());
-                        intent.putExtra("name", user.getName());
-                        startActivity(intent);
-                    });
-
-                } else {
-                    if (completeUntil == 0) {
-                        btnContinue.setText(R.string.GetStarted);
-                    } else {
-                        btnContinue.setText(R.string.continueOnProgress);
-                    }
-                }
-
-                btnContinue.setOnClickListener(v -> {
-                    Intent intent = new Intent(HomeActivity.this, ReadingCornerActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("userID", user.getuid());
-                    intent.putExtra("name", user.getName());
-                    intent.putExtra("phoneNumber", user.getPhoneNumber());
-                    intent.putExtra("email", user.getEmail());
-                    intent.putExtra("completeUntil", user.getCompleteUntil());
-                    startActivity(intent);
-                });
-
-            } else {
-                Log.d(TAG, "Error getting documents: ", task.getException());
-            }
-        });
-
-        btnProfile = findViewById(R.id.btnProfile);
-        btnProfile.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra("userID", userID);
-            intent.putExtra("name", name);
-            intent.putExtra("phoneNumber", phoneNumber);
-            intent.putExtra("email", email);
-            startActivity(intent);
-        });
-
-        // Function for share application
-        btnShare = findViewById(R.id.btnShare);
-        btnShare.setOnClickListener(v -> {
-            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Learn about Dementia!");
-            String shareMessage = "\nShare Dementia App with your family & friends! \nClick Link below to download\n\n";
-            shareMessage = shareMessage + "https://drive.google.com/file/d/1szAdyMrCKM7haalciPiL0_dayNzypNjW/view?usp=sharing" + BuildConfig.APPLICATION_ID + "\n\n";
-            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-            startActivity(Intent.createChooser(shareIntent, "choose one"));
-        });
-
-        // Function for logout button
-        btnLogout = findViewById(R.id.btnLogout);
-        btnLogout.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Alert");
-            builder.setMessage("Are you sure you want to logout?");
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // Perform the action when the "Yes" button is clicked
-                    FirebaseAuth.getInstance().signOut();
-                    Intent intent = new Intent(HomeActivity.this, SignInActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                }
-            });
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // Perform the action when the "No" button is clicked
-                    dialog.dismiss();
-                }
-            });
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        });
-    }
-
-    private String getTopic1Progress() {
-        if (completeUntil > 0) {
-            return "Completed!";
-        } else {
-            return "Incomplete!";
-        }
-    }
-
-    private String getTopic2Progress() {
-        if (completeUntil > 1) {
-            return "Completed!";
-        } else {
-            return "Incomplete!";
-        }
-    }
-
-    private String getTopic3Progress() {
-        if (completeUntil > 2) {
-            return "Completed!";
-        } else {
-            return "Incomplete!";
-        }
-    }
-
-    private String getTopic4Progress() {
-        if (completeUntil > 3) {
-            return "Completed!";
-        } else {
-            return "Incomplete!";
-        }
-    }
-
-    private String getTopic5Progress() {
-        if (completeUntil > 4) {
-            return "Completed!";
-        } else {
-            return "Incomplete!";
-        }
+//                UserInfo user = new UserInfo(userID, picture, name, email, completeUntil);
+//
+//                final TextView helloTextView = findViewById(R.id.txtWelcome);
+//                helloTextView.setText(String.format("Welcome %s !", user.getName()));
+//
+//                textViewCurrentProgress = findViewById(R.id.txtCurrentProgress);
+//                textViewCurrentProgress.setText(
+//                        String.format(
+//                                "Progress: %s / 5" +
+//                                        "\n Topic 1 : %s" +
+//                                        "\n Topic 2 : %s" +
+//                                        "\n Topic 3 : %s" +
+//                                        "\n Topic 4 : %s" +
+//                                        "\n Topic 5 : %s", user.getCompleteUntil(), getTopic1Progress(), getTopic2Progress(), getTopic3Progress(), getTopic4Progress(), getTopic5Progress()));
+//
+//
+//                progressBar = findViewById(R.id.progressBar);
+//                progressBar.setProgress(user.getCompleteUntil());
+//
+//                btnContinue = findViewById(R.id.btnContinue);
+//                btnCert = findViewById(R.id.btnCert);
+//
+//                if (completeUntil == 5) {
+//                    textViewCurrentProgress.setText(
+//                            String.format(
+//                                    "All Topics Completed!" +
+//                                            "\n Topic 1 : %s" +
+//                                            "\n Topic 2 : %s" +
+//                                            "\n Topic 3 : %s" +
+//                                            "\n Topic 4 : %s" +
+//                                            "\n Topic 5 : %s", getTopic1Progress(), getTopic2Progress(), getTopic3Progress(), getTopic4Progress(), getTopic5Progress()));
+//
+//                    btnContinue.setText(R.string.backToRevision);
+//                    btnCert.setVisibility(View.VISIBLE);
+//                    btnCert.setOnClickListener(v -> {
+//                        Intent intent = new Intent(HomeActivity.this, CertActivity.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        intent.putExtra("userID", user.getuid());
+//                        intent.putExtra("name", user.getName());
+//                        startActivity(intent);
+//                    });
+//
+//                } else {
+//                    if (completeUntil == 0) {
+//                        btnContinue.setText(R.string.GetStarted);
+//                    } else {
+//                        btnContinue.setText(R.string.continueOnProgress);
+//                    }
+//                }
+//
+//                btnContinue.setOnClickListener(v -> {
+//                    Intent intent = new Intent(HomeActivity.this, ReadingCornerActivity.class);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    intent.putExtra("userID", user.getuid());
+//                    intent.putExtra("name", user.getName());
+//                    intent.putExtra("phoneNumber", user.getPhoneNumber());
+//                    intent.putExtra("email", user.getEmail());
+//                    intent.putExtra("completeUntil", user.getCompleteUntil());
+//                    startActivity(intent);
+//                });
+//
+//            } else {
+//                Log.d(TAG, "Error getting documents: ", task.getException());
+//            }
+//        });
+//                        btnProfile = findViewById(R.id.btnProfile);
+//                        btnProfile.setOnClickListener(v -> {
+//                            Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            intent.putExtra("userID", userID);
+//                            intent.putExtra("name", name);
+//                            intent.putExtra("phoneNumber", phoneNumber);
+//                            intent.putExtra("email", email);
+//                            startActivity(intent);
+//                        });
+//
+//                        // Function for share application
+//                        btnShare = findViewById(R.id.btnShare);
+//                        btnShare.setOnClickListener(v -> {
+//                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//                            shareIntent.setType("text/plain");
+//                            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Learn about Dementia!");
+//                            String shareMessage = "\nShare Dementia App with your family & friends! \nClick Link below to download\n\n";
+//                            shareMessage = shareMessage + "https://drive.google.com/file/d/1szAdyMrCKM7haalciPiL0_dayNzypNjW/view?usp=sharing" + BuildConfig.APPLICATION_ID + "\n\n";
+//                            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+//                            startActivity(Intent.createChooser(shareIntent, "choose one"));
+//                        });
+//
+//                        // Function for logout button
+//                        btnLogout = findViewById(R.id.btnLogout);
+//                        btnLogout.setOnClickListener(v -> {
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                            builder.setTitle("Alert");
+//                            builder.setMessage("Are you sure you want to logout?");
+//                            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    // Perform the action when the "Yes" button is clicked
+//                                    FirebaseAuth.getInstance().signOut();
+//                                    Intent intent = new Intent(HomeActivity.this, SignInActivity.class);
+//                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                    startActivity(intent);
+//                                }
+//                            });
+//                            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    // Perform the action when the "No" button is clicked
+//                                    dialog.dismiss();
+//                                }
+//                            });
+//                            AlertDialog dialog = builder.create();
+//                            dialog.show();
+//                        });
+//                    });
+//                });
+//
+//    private String getTopic1Progress() {
+//        if (completeUntil > 0) {
+//            return "Completed!";
+//        } else {
+//            return "Incomplete!";
+//        }
+//    }
+//
+//    private String getTopic2Progress() {
+//        if (completeUntil > 1) {
+//            return "Completed!";
+//        } else {
+//            return "Incomplete!";
+//        }
+//    }
+//
+//    private String getTopic3Progress() {
+//        if (completeUntil > 2) {
+//            return "Completed!";
+//        } else {
+//            return "Incomplete!";
+//        }
+//    }
+//
+//    private String getTopic4Progress() {
+//        if (completeUntil > 3) {
+//            return "Completed!";
+//        } else {
+//            return "Incomplete!";
+//        }
+//    }
+//
+//    private String getTopic5Progress() {
+//        if (completeUntil > 4) {
+//            return "Completed!";
+//        } else {
+//            return "Incomplete!";
+//        }
+//    }
     }
 }
