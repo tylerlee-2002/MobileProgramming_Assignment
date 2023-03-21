@@ -161,10 +161,10 @@ public class ReadingCornerActivity extends AppCompatActivity {
                     } else if (progress == 1) {
                         closeButton.setText(R.string.wrongAnswer);
                         closeButton.setTextColor(0xeb3434);
-                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.light_red));
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.red));
                     } else if (progress == 3) {
                         closeButton.setText(R.string.tryAgain);
-                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.light_red));
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.red));
                         closeButton.setEnabled(false);
                     }
                     break;
@@ -173,7 +173,7 @@ public class ReadingCornerActivity extends AppCompatActivity {
                     // Code to handle option 2 selection
                     if (progress == 0 || progress == 2 || progress == 4) {
                         closeButton.setText(R.string.tryAgain);
-                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.light_red));
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.red));
                         closeButton.setEnabled(false);
                     } else if (progress == 1) {
                         closeButton.setText(R.string.correctAnswer);
@@ -181,18 +181,18 @@ public class ReadingCornerActivity extends AppCompatActivity {
                         closeButton.setEnabled(true);
                     } else if (progress == 3) {
                         closeButton.setText(R.string.wrongAnswer);
-                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.light_red));
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.red));
                         closeButton.setEnabled(false);
                     }
                     break;
                 case R.id.radio_button3:
                     if (progress == 0 || progress == 2 || progress == 4) {
                         closeButton.setText(R.string.wrongAnswer);
-                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.light_red));
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.red));
                         closeButton.setEnabled(false);
                     } else if (progress == 1) {
                         closeButton.setText(R.string.tryAgain);
-                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.light_red));
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.red));
                         closeButton.setEnabled(false);
                     } else if (progress == 3) {
                         closeButton.setText(R.string.correctAnswer);

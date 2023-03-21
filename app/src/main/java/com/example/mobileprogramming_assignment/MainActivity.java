@@ -2,103 +2,44 @@ package com.example.mobileprogramming_assignment;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static android.content.ContentValues.TAG;
 import static android.os.Build.VERSION.SDK_INT;
-
-import android.annotation.SuppressLint;
-import android.app.AlarmManager;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Environment;
-import android.provider.Settings;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.content.Intent;
+import android.os.Environment;
+import android.os.Handler;
+import android.provider.Settings;
+import android.util.Log;
+import android.widget.ProgressBar;
 
 import java.util.Calendar;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int PERMISSION_REQUEST_CODE = 200;
-    TextView createNewAccount;
-    EditText inputEmail, inputPassword;
-    Button btnLogin, btnForgetPassword;
-    String emailPattern = "[a-zA-Z\\d._-]+@[a-z]+\\.+[a-z]+";
-    ProgressDialog progressDialog;
-    FirebaseAuth mAuth;
-    FirebaseAuth.AuthStateListener mAuthListener;
-    FirebaseUser mUser;
-    ImageView btnGoogle;
 
+    private ProgressBar mProgressBar;
+    private int progressStatus = 0;
+    private static final int PERMISSION_REQUEST_CODE = 200;
+
+    private final Handler handler = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        createNewAccount = findViewById(R.id.createNewAccount);
-        inputEmail = findViewById(R.id.inputEmail);
-        inputPassword = findViewById(R.id.inputPassword);
-        btnLogin = findViewById(R.id.btnLogin);
-        btnGoogle = findViewById(R.id.btnGoogle);
-        btnForgetPassword = findViewById(R.id.btnForgotPassword);
-
-        progressDialog = new ProgressDialog(this);
-        mAuth = FirebaseAuth.getInstance();
-        mUser = mAuth.getCurrentUser();
-
-        createNewAccount.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, RegisterActivity.class)));
-
-        btnLogin.setOnClickListener(v -> performLogin());
-
-        btnGoogle.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, GoogleSignInActivity.class);
-            startActivity(intent);
-        });
-
-        btnForgetPassword.setOnClickListener(v -> resetPassword());
-
-        mAuthListener = firebaseAuth -> {
-            FirebaseUser user = firebaseAuth.getCurrentUser();
-            if (user != null) {
-                // User is signed in
-                Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-            } else {
-                // User is signed out
-                Log.d(TAG, "onAuthStateChanged:signed_out");
-            }
-        };
+        mProgressBar = (ProgressBar) findViewById (R.id.progress_bar);
 
         NotificationChannel();
-
         DailyNotification();
-
         // Checking user permissions.
         if (SDK_INT >= Build.VERSION_CODES.R) {
             if (checkPermission()) {
@@ -112,36 +53,52 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mAuth.removeAuthStateListener(mAuthListener);
+        startLoading();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mAuth.addAuthStateListener(mAuthListener);
+        startLoading();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mAuth.removeAuthStateListener(mAuthListener);
-    }
+    private void startLoading() {
+        // Start long running operation in a background thread
+        new Thread(new Runnable() {
+            public void run() {
+                while (progressStatus < 100) {
+                    progressStatus += 4;
+                    // Update the progress bar and display the current value in the text view
+                    handler.post(new Runnable() {
+                        public void run() {
+                            mProgressBar.setProgress(progressStatus);
+                            if (progressStatus == 100){
+                                Intent i = new Intent(MainActivity.this, SignInActivity.class);
+                                startActivity(i);
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mAuth.removeAuthStateListener(mAuthListener);
+                            }
+                        }
+                    });
+                    try {
+                        // Sleep for 200 milliseconds.
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }).start();
+
+        if (progressStatus == 100){
+            Intent i = new Intent(MainActivity.this, SignInActivity.class);
+            startActivity(i);
+        }
     }
 
     private void DailyNotification() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 22);
+        calendar.set(Calendar.HOUR_OF_DAY, 17);
         calendar.set(Calendar.MINUTE, 18);
         calendar.set(Calendar.SECOND, 10);
 
@@ -163,95 +120,12 @@ public class MainActivity extends AppCompatActivity {
         if (SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Dementia";
             String description = "Dementia Application!";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel("Notification", name, importance);
             channel.setDescription(description);
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-    }
-
-    private void performLogin() {
-        String email = inputEmail.getText().toString();
-        String password = inputPassword.getText().toString();
-
-        if (!email.matches(emailPattern)) {
-            inputEmail.setError("Enter Correct Email");
-        } else if (password.isEmpty() || password.length() < 6) {
-            inputPassword.setError("Enter Correct Password");
-        } else {
-            progressDialog.setMessage("Please Wait while Login...");
-            progressDialog.setTitle("Login");
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.show();
-
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    progressDialog.dismiss();
-
-                    FirebaseFirestore.getInstance().collection("user").whereEqualTo("uid", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).get().addOnCompleteListener(task2 -> {
-                        if (task2.isSuccessful()) {
-                            if (task2.getResult().isEmpty()) {
-                                Intent intent = new Intent(MainActivity.this, VerifyActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                Toast.makeText(MainActivity.this, "First Time Login!", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    });
-                } else {
-                    progressDialog.dismiss();
-                    Toast.makeText(MainActivity.this, "Invalid Email or Wrong Password", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-    }
-
-    @SuppressLint({"DefaultLocale", "NonConstantResourceId"})
-    private void resetPassword() {
-        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        @SuppressLint("InflateParams") View popupView = inflater.inflate(R.layout.popup_reset_password, null);
-
-        // create the popup window
-        int width = LinearLayout.LayoutParams.MATCH_PARENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        boolean focusable = true;
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-        EditText inputEmail = popupView.findViewById(R.id.inputEmail);
-        Button resetButton = popupView.findViewById(R.id.resetButton);
-        ImageButton btnClose = popupView.findViewById(R.id.btnClose);
-
-        popupWindow.showAtLocation(getWindow().getDecorView(), Gravity.CENTER, 0, 0);
-
-        btnClose.setOnClickListener(v -> {
-            popupWindow.dismiss();
-        });
-
-        resetButton.setOnClickListener(v -> {
-            String email = inputEmail.getText().toString();
-
-            if (!email.matches(emailPattern)) {
-                inputEmail.setError("Enter Correct Email");
-            } else {
-                FirebaseAuth.getInstance().sendPasswordResetEmail(email).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(this, "Request Sent! Please check email!", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "Email sent.");
-                        popupWindow.dismiss();
-                    } else {
-                        Toast.makeText(this, "Email not registered yet!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
     }
 
     private boolean checkPermission() {
@@ -281,4 +155,5 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
         }
     }
+
 }

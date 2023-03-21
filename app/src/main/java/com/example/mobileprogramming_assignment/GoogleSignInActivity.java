@@ -22,7 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
-public class GoogleSignInActivity extends MainActivity {
+public class GoogleSignInActivity extends SignInActivity {
     private static final int RC_SIGN_IN = 101;
     GoogleSignInClient mGoogleSignInClient;
     FirebaseAuth mAuth;
@@ -118,7 +118,7 @@ public class GoogleSignInActivity extends MainActivity {
                             startActivity(intent);
                             Toast.makeText(GoogleSignInActivity.this, "First Time Login!", Toast.LENGTH_SHORT).show();
                         } else {
-                            Intent intent = new Intent(GoogleSignInActivity.this, HomeActivity.class);
+                            Intent intent = new Intent(GoogleSignInActivity.this, NewUserActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             Toast.makeText(GoogleSignInActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();

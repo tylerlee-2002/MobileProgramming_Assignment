@@ -142,25 +142,20 @@ public class HomeActivity extends AppCompatActivity {
 
         // Function for logout button
         btnLogout = findViewById(R.id.btnLogout);
-
         btnLogout.setOnClickListener(v -> {
-
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
             builder.setTitle("Alert");
             builder.setMessage("Are you sure you want to logout?");
-
             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     // Perform the action when the "Yes" button is clicked
                     FirebaseAuth.getInstance().signOut();
-                    Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                    Intent intent = new Intent(HomeActivity.this, SignInActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
             });
-
             builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -168,7 +163,6 @@ public class HomeActivity extends AppCompatActivity {
                     dialog.dismiss();
                 }
             });
-
             AlertDialog dialog = builder.create();
             dialog.show();
         });
