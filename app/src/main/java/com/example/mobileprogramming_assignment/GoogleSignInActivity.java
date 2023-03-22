@@ -116,11 +116,13 @@ public class GoogleSignInActivity extends SignInActivity {
                             Intent intent = new Intent(GoogleSignInActivity.this, NewUserActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out);
                             Toast.makeText(GoogleSignInActivity.this, "First Time Login!", Toast.LENGTH_SHORT).show();
                         } else {
-                            Intent intent = new Intent(GoogleSignInActivity.this, NewUserActivity.class);
+                            Intent intent = new Intent(GoogleSignInActivity.this, MainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out);
                             Toast.makeText(GoogleSignInActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                         }
                     } else {

@@ -5,33 +5,33 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/navigationHome"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/navigationMyCourses"
+            android:icon="@drawable/ic_effort"
+            android:title="Courses" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/navigationQuiz"
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="Quiz" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/navigationMyProfile"
+            android:icon="@drawable/ic_user"
+            android:title="User" />
     </group>
 
-    <item android:title="Only Toggle Theme would work">
+    <item android:title="More Options">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Share" />
             <item
-                android:id="@+id/nav_dark_mode"
-                android:icon="@android:drawable/ic_menu_day"
-                android:title="Toggle Theme" />
+                android:id="@+id/btnLogout"
+                android:icon="@drawable/baseline_logout_24"
+                android:title="Logout" />
         </menu>
     </item>
 

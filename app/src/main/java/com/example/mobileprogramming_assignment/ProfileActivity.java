@@ -49,9 +49,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         btnClose = findViewById(R.id.btnClose);
         btnClose.setOnClickListener(v -> {
-            Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
+            Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+            overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
         });
 
         inputPhoneNumber = findViewById(R.id.inputPhoneNumber);

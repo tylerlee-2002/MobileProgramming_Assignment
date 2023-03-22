@@ -17,7 +17,7 @@
         android:title="Home" />
 
     <item
-        android:id="@+id/navigationSearch"
+        android:id="@+id/navigationQuiz"
         android:icon="@android:drawable/ic_menu_search"
         android:title="Quiz" />
 

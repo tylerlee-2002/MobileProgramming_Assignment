@@ -75,7 +75,7 @@ public class StartActivity extends AppCompatActivity {
                             if (progressStatus == 100){
                                 Intent i = new Intent(StartActivity.this, SignInActivity.class);
                                 startActivity(i);
-
+                                overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out);
                             }
                         }
                     });

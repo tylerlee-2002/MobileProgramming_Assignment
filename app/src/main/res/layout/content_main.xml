@@ -130,6 +130,39 @@
                 </com.example.mobileprogramming_assignment.GradientRelativeLayout>
             </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="15dp"
+                app:cardPreventCornerOverlap="true"
+                android:layout_marginTop="10dp">
+
+                <com.example.mobileprogramming_assignment.GradientRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:minHeight="100dp"
+                    gl:start_color="@color/gradientLightBlue"
+                    gl:end_color="@color/gradientLightOrange"
+                    gl:orientation="LEFT_RIGHT"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/textViewSub4Title"
+                        android:text="Share"
+                        style="@style/viewParent.headerText.HomeCardTitle" />
+
+                    <TextView
+                        android:text="Study nature, love nature,\nclose to nature"
+                        style="@style/viewParent.headerText.homeCardContent"
+                        android:layout_below="@id/textViewSub4Title"/>
+
+                    <ImageView
+                        android:maxHeight="90dp"
+                        android:src="@drawable/home_ic_biology"
+                        style="@style/homeCardImage" />
+
+                </com.example.mobileprogramming_assignment.GradientRelativeLayout>
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -148,14 +181,14 @@
                     android:padding="10dp">
 
                     <TextView
-                        android:id="@+id/textViewSub4Title"
+                        android:id="@+id/textViewSub5Title"
                         android:text="Logout"
                         style="@style/viewParent.headerText.HomeCardTitle" />
 
                     <TextView
                         android:text="Study nature, love nature,\nclose to nature"
                         style="@style/viewParent.headerText.homeCardContent"
-                        android:layout_below="@id/textViewSub4Title"/>
+                        android:layout_below="@id/textViewSub5Title"/>
 
                     <ImageView
                         android:maxHeight="90dp"

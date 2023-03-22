@@ -106,10 +106,10 @@ public class NewUserActivity extends AppCompatActivity implements View.OnClickLi
         UserInfo newUser = new UserInfo(userID, name, email, gender, dob, 0);
         db.collection("user").document(userID).set(newUser).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Intent intent = new Intent(this, HomeActivity.class);
+                Intent intent = new Intent(this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-
+                overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out);
                 Toast.makeText(this, "Profile Update Successfully", Toast.LENGTH_SHORT).show();
                 finish();
             } else {
