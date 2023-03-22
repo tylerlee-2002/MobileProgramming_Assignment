@@ -7,23 +7,18 @@
         android:title="Menu" />
 
     <item
-        android:id="@+id/navigationMyCourses"
-        android:icon="@drawable/ic_effort"
-        android:title="Courses" />
-
-    <item
         android:id="@+id/navigationHome"
         android:icon="@drawable/ic_home"
         android:title="Home" />
 
     <item
-        android:id="@+id/navigationQuiz"
-        android:icon="@android:drawable/ic_menu_search"
-        android:title="Quiz" />
+        android:id="@+id/navigationMyCourses"
+        android:icon="@drawable/ic_effort"
+        android:title="Courses" />
 
     <item
         android:id="@+id/navigationMyProfile"
         android:icon="@drawable/ic_user"
-        android:title="User" />
+        android:title="Profile" />
 
 </menu>

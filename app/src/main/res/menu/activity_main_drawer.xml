@@ -13,13 +13,9 @@
             android:icon="@drawable/ic_effort"
             android:title="Courses" />
         <item
-            android:id="@+id/navigationQuiz"
-            android:icon="@android:drawable/ic_menu_search"
-            android:title="Quiz" />
-        <item
             android:id="@+id/navigationMyProfile"
             android:icon="@drawable/ic_user"
-            android:title="User" />
+            android:title="User Profile" />
     </group>
 
     <item android:title="More Options">

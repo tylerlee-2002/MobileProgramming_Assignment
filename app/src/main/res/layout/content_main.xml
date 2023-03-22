@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:gl="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/app_bar_main"
     style="@style/parent.contentLayout">
 
     <androidx.core.widget.NestedScrollView
@@ -17,17 +16,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:text="School Education"
+                android:text="Dementia"
                 style="@style/viewParent.headerText" />
 
             <TextView
-                android:text="Never trust anyone who has not brought a book with them."
+                android:text="Welcome Back. Happy Learning!"
                 style="@style/viewParent.headerText.contentText"
                 android:layout_marginBottom="20dp"/>
 
-
-            <!--Example with RelativeLayout and Gradient Drawable -->
-            <!-- for Recycler view use any of the layout as model-->
             <androidx.cardview.widget.CardView
                 android:id="@+id/profileCard"
                 android:layout_width="match_parent"
@@ -45,7 +41,7 @@
 
                     <TextView
                         android:id="@+id/textViewSub1Title"
-                        android:text="Profile"
+                        android:text="User Profile"
                         style="@style/viewParent.headerText.HomeCardTitle" />
 
                     <TextView
@@ -62,6 +58,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/CourseCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="15dp"
@@ -95,42 +92,8 @@
                 </com.example.mobileprogramming_assignment.GradientRelativeLayout>
             </androidx.cardview.widget.CardView>
 
-
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="15dp"
-                app:cardPreventCornerOverlap="true"
-                android:layout_marginTop="10dp">
-
-                <com.example.mobileprogramming_assignment.GradientRelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:minHeight="100dp"
-                    gl:end_color="@color/gradientLightYellow2"
-                    gl:start_color="@color/gradientLightOrange2"
-                    gl:orientation="LEFT_RIGHT"
-                    android:padding="10dp">
-
-                    <TextView
-                        android:id="@+id/textViewSub3Title"
-                        android:text="Quiz"
-                        style="@style/viewParent.headerText.HomeCardTitle" />
-
-                    <TextView
-                        android:text="Study nature, love nature,\nclose to nature"
-                        style="@style/viewParent.headerText.homeCardContent"
-                        android:layout_below="@id/textViewSub3Title"/>
-
-                    <ImageView
-                        android:maxHeight="90dp"
-                        android:src="@drawable/home_ic_chemistry"
-                        style="@style/homeCardImage" />
-
-                </com.example.mobileprogramming_assignment.GradientRelativeLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
+                android:id="@+id/ShareCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="15dp"
@@ -165,6 +128,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/LogoutCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="15dp"
@@ -197,6 +161,7 @@
 
                 </com.example.mobileprogramming_assignment.GradientRelativeLayout>
             </androidx.cardview.widget.CardView>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
