@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.widget.RemoteViews;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
@@ -19,7 +18,7 @@ public class NotificationBroadcast extends BroadcastReceiver {
     @SuppressLint({"MissingPermission", "UnsafeProtectedBroadcastReceiver"})
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent repeating_Intent = new Intent(context, MainActivity.class);
+        Intent repeating_Intent = new Intent(context, StartActivity.class);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, repeating_Intent, PendingIntent.FLAG_MUTABLE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "Notification")

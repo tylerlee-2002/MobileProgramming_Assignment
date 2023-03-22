@@ -131,7 +131,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                                 overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out);
                                 Toast.makeText(SignInActivity.this, "New User", Toast.LENGTH_SHORT).show();
                             } else {
-                                Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+                                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                                 overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out);

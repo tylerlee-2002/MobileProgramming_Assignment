@@ -77,5 +77,8 @@
     <string name="iam">I\'m</string>
     <string name="validusername">Enter Username</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>
 
