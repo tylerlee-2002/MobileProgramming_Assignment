@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:minHeight="100dp"
-                    android:background="@drawable/home_gradient_maths"
+                    android:background="@drawable/home_gradient3"
                     android:padding="10dp">
 
                     <TextView
@@ -71,8 +71,9 @@
                         android:text="60%" />
 
                     <ImageView
-                        android:maxHeight="90dp"
-                        android:src="@drawable/home_ic_maths"
+                        android:maxHeight="100dp"
+                        android:maxWidth="250dp"
+                        android:src="@drawable/current_progress"
                         style="@style/homeCardImage" />
 
                 </RelativeLayout>
@@ -99,7 +100,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/home_gradient_maths"
+                        android:background="@drawable/home_gradient2"
                         android:minHeight="100dp"
                         android:padding="10dp">
 
@@ -110,7 +111,7 @@
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
                             android:cropToPadding="true"
-                            android:src="@drawable/android_developer" />
+                            android:src="@drawable/cog_change" />
 
                         <TextView
                             android:layout_width="151dp"
@@ -118,8 +119,8 @@
                             android:layout_alignBottom="@id/Course1ImageView"
                             android:layout_marginBottom="0dp"
                             android:gravity="center"
-                            android:text="Psychological Changes"
-                            android:textColor="@color/whiteTextColor"
+                            android:text="Cognitive \n Changes"
+                            android:textColor="@color/purple_700"
                             android:textSize="16sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
@@ -137,7 +138,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/home_gradient_maths"
+                        android:background="@drawable/home_gradient2"
                         android:minHeight="100dp"
                         android:padding="10dp">
 
@@ -148,7 +149,7 @@
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
                             android:cropToPadding="true"
-                            android:src="@drawable/android_developer" />
+                            android:src="@drawable/psycho_change" />
 
                         <TextView
                             android:layout_width="151dp"
@@ -157,7 +158,7 @@
                             android:layout_marginBottom="0dp"
                             android:gravity="center"
                             android:text="Psychological Changes"
-                            android:textColor="@color/whiteTextColor"
+                            android:textColor="@color/purple_700"
                             android:textSize="16sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
@@ -181,7 +182,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/home_gradient_maths"
+                        android:background="@drawable/home_gradient2"
                         android:minHeight="100dp"
                         android:padding="10dp">
 
@@ -192,7 +193,7 @@
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
                             android:cropToPadding="true"
-                            android:src="@drawable/android_developer" />
+                            android:src="@drawable/tips_for_comm" />
 
                         <TextView
                             android:layout_width="151dp"
@@ -200,8 +201,8 @@
                             android:layout_alignBottom="@id/Course3ImageView"
                             android:layout_marginBottom="0dp"
                             android:gravity="center"
-                            android:text="Psychological Changes"
-                            android:textColor="@color/whiteTextColor"
+                            android:text="Tips for \n Communicating"
+                            android:textColor="@color/purple_700"
                             android:textSize="16sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
@@ -219,7 +220,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/home_gradient_maths"
+                        android:background="@drawable/home_gradient2"
                         android:minHeight="100dp"
                         android:padding="10dp">
 
@@ -230,7 +231,7 @@
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
                             android:cropToPadding="true"
-                            android:src="@drawable/android_developer" />
+                            android:src="@drawable/deal_person" />
 
                         <TextView
                             android:layout_width="151dp"
@@ -238,8 +239,8 @@
                             android:layout_alignBottom="@id/Course4ImageView"
                             android:layout_marginBottom="0dp"
                             android:gravity="center"
-                            android:text="Psychological Changes"
-                            android:textColor="@color/whiteTextColor"
+                            android:text="Dealing with Trouble Behavior Person"
+                            android:textColor="@color/purple_700"
                             android:textSize="16sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
@@ -286,7 +287,7 @@
 
                     <ImageView
                         android:maxHeight="90dp"
-                        android:src="@drawable/home_ic_biology"
+                        android:src="@drawable/quiz_pic"
                         style="@style/homeCardImage" />
 
                 </com.example.mobileprogramming_assignment.GradientRelativeLayout>

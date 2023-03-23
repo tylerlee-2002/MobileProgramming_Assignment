@@ -45,13 +45,13 @@
                         style="@style/viewParent.headerText.HomeCardTitle" />
 
                     <TextView
-                        android:text="Study nature, love nature,\nclose to nature"
+                        android:text=" Your personal space.\n Share your interests."
                         style="@style/viewParent.headerText.homeCardContent"
                         android:layout_below="@id/textViewSub1Title"/>
 
                     <ImageView
                         android:maxHeight="90dp"
-                        android:src="@drawable/home_ic_maths"
+                        android:src="@drawable/user_profile"
                         style="@style/homeCardImage" />
 
                 </RelativeLayout>
@@ -80,13 +80,13 @@
                         style="@style/viewParent.headerText.HomeCardTitle" />
 
                     <TextView
-                        android:text="Study nature, love nature,\nclose to nature"
+                        android:text=" Learn something new!\n Gain knowledge and skills."
                         style="@style/viewParent.headerText.homeCardContent"
                         android:layout_below="@id/textViewSub2Title"/>
 
                     <ImageView
                         android:maxHeight="90dp"
-                        android:src="@drawable/home_ic_physics"
+                        android:src="@drawable/course_pic"
                         style="@style/homeCardImage" />
 
                 </com.example.mobileprogramming_assignment.GradientRelativeLayout>
@@ -115,13 +115,13 @@
                         style="@style/viewParent.headerText.HomeCardTitle" />
 
                     <TextView
-                        android:text="Study nature, love nature,\nclose to nature"
+                        android:text=" Spread the word! \n Share links with friends."
                         style="@style/viewParent.headerText.homeCardContent"
                         android:layout_below="@id/textViewSub4Title"/>
 
                     <ImageView
                         android:maxHeight="90dp"
-                        android:src="@drawable/home_ic_biology"
+                        android:src="@drawable/share_pic"
                         style="@style/homeCardImage" />
 
                 </com.example.mobileprogramming_assignment.GradientRelativeLayout>
@@ -150,13 +150,13 @@
                         style="@style/viewParent.headerText.HomeCardTitle" />
 
                     <TextView
-                        android:text="Study nature, love nature,\nclose to nature"
+                        android:text=" Time to say goodbye.\n Keep your information secure."
                         style="@style/viewParent.headerText.homeCardContent"
                         android:layout_below="@id/textViewSub5Title"/>
 
                     <ImageView
                         android:maxHeight="90dp"
-                        android:src="@drawable/home_ic_biology"
+                        android:src="@drawable/logout_pic"
                         style="@style/homeCardImage" />
 
                 </com.example.mobileprogramming_assignment.GradientRelativeLayout>
