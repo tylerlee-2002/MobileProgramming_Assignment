@@ -73,6 +73,7 @@ public class StartActivity extends AppCompatActivity {
                         public void run() {
                             mProgressBar.setProgress(progressStatus);
                             if (progressStatus == 100){
+
                                 Intent i = new Intent(StartActivity.this, SignInActivity.class);
                                 startActivity(i);
                                 overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out);
@@ -98,8 +99,8 @@ public class StartActivity extends AppCompatActivity {
 
     private void DailyNotification() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 17);
-        calendar.set(Calendar.MINUTE, 18);
+        calendar.set(Calendar.HOUR_OF_DAY, 1);
+        calendar.set(Calendar.MINUTE, 51);
         calendar.set(Calendar.SECOND, 10);
 
         if (Calendar.getInstance().after(calendar)) {
@@ -114,6 +115,7 @@ public class StartActivity extends AppCompatActivity {
         if (SDK_INT >= Build.VERSION_CODES.S) {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         }
+
     }
 
     private void NotificationChannel() {

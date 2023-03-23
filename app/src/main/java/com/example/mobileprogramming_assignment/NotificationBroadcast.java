@@ -19,15 +19,17 @@ public class NotificationBroadcast extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Intent repeating_Intent = new Intent(context, StartActivity.class);
-
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, repeating_Intent, PendingIntent.FLAG_MUTABLE);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "Notification")
+
+        PendingIntent fullScreenPendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_MUTABLE);
+        @SuppressLint("LaunchActivityFromNotification") NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "Notification")
                 .setContentIntent(pendingIntent)
+                .setFullScreenIntent(fullScreenPendingIntent, true)
                 .setSmallIcon(R.drawable.app_logo)
                 .setContentTitle("Dementia")
                 .setContentText("Hey! Back to study on Dementia!")
                 .setAutoCancel(true)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);;
 
