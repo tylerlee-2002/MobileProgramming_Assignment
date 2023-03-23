@@ -31,9 +31,12 @@
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/youtubeThubnail"
-                android:textColor="@color/frutorial_title"
-                android:layout_margin="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="Sample"
+                android:textColor="@color/frutorial_title"
                 android:textSize="@dimen/frutorial_title" />
 
             <ImageView

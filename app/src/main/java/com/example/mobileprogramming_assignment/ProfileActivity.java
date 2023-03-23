@@ -1,5 +1,7 @@
 package com.example.mobileprogramming_assignment;
 
+import static android.content.ContentValues.TAG;
+
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -14,6 +16,7 @@ import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -79,14 +82,14 @@ public class ProfileActivity extends AppCompatActivity
         }
     };
 
-    String userID, name, email, gender;
+    String userID, name, email, gender, dob;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // creating a bitmap variable for storing our images
     Bitmap bmp, scaledBmp;
     Button btnDownload;
     RelativeLayout certLayout;
-    TextView txtName, txtEmail, txtDob, txtGender, certTextView;
+    TextView txtName, txtEmail, txtDob, txtGender, certTextView, txtCertName;
     ImageView genderImageView;
 
 //    TextView txtName, txtEmail, txtPhoneNumber;
@@ -118,30 +121,45 @@ public class ProfileActivity extends AppCompatActivity
         bottomNavigationView.setSelectedItemId(R.id.navigationMyProfile);
 
         userID = getIntent().getStringExtra("userID");
+        name = getIntent().getStringExtra("name");
+        email = getIntent().getStringExtra("email");
+        gender = getIntent().getStringExtra("gender");
+        dob = getIntent().getStringExtra("dob");
 
-        db.collection("user").whereEqualTo("uid", userID).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    userID = Objects.requireNonNull(document.getData().get("uid")).toString();
-                    name = Objects.requireNonNull(document.getData().get("name")).toString();
-                    email = Objects.requireNonNull(document.getData().get("email")).toString();
-                    gender = Objects.requireNonNull(document.getData().get("gender")).toString();
-                }
-            }
-        });
+        txtName = findViewById(R.id.txtName);
+        txtName.setText(name);
+
+        txtEmail = findViewById(R.id.txtEmail);
+        txtEmail.setText(email);
+
+        txtDob = findViewById(R.id.txtDob);
+        txtDob.setText(dob);
+
+        txtGender = findViewById(R.id.txtGender);
+        txtGender.setText(gender);
+
+        genderImageView = findViewById(R.id.genderImageView);
+        if(Objects.equals(gender, "male")){
+            genderImageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.male, null));
+        } else {
+            genderImageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.female, null));
+        }
 
         // Check whether user complete all courses & quizzes
         certTextView = findViewById(R.id.certTextView);
         certTextView.setVisibility(View.VISIBLE);
+
+        txtCertName = findViewById(R.id.txtUsername);
+        txtCertName.setText(name);
+
         certLayout = findViewById(R.id.certLayout);
         certLayout.setVisibility(View.VISIBLE);
+
         btnDownload = findViewById(R.id.btnDownload);
         btnDownload.setVisibility(View.VISIBLE);
         btnDownload.setOnClickListener(v -> {
             generatePDF();
         });
-
-
 
 //        txtName = findViewById(R.id.txtName);
 //        txtName.setText(String.format("Name: %s", name));

@@ -57,12 +57,13 @@
                         style="@style/profileDetailsImage" />
 
                     <TextView
-                        android:id="@+id/txtEmail"
+                        android:id="@+id/emailTextView"
                         android:text="Email"
                         android:layout_toRightOf="@id/emailImageView"
                         style="@style/profileDetailsTextMain" />
 
                     <TextView
+                        android:id="@+id/txtEmail"
                         android:text="developer@appsnipp.com"
                         android:layout_toRightOf="@id/emailImageView"
                         style="@style/profileDetailsMiniText" />
@@ -121,7 +122,7 @@
 
                     <TextView
                         android:id="@+id/txtGender"
-                        android:text="male"
+                        android:text="female"
                         android:layout_toRightOf="@id/genderImageView"
                         style="@style/profileDetailsMiniText" />
                 </RelativeLayout>

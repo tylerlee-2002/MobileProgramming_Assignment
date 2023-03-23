@@ -16,21 +16,23 @@
             android:orientation="vertical">
 
             <TextView
-                android:text="Dementia"
+                android:text="Courses"
                 style="@style/viewParent.headerText" />
 
             <TextView
-                android:text="Welcome Back. Happy Learning!"
+                android:text="Start Reading Now. Select topics below!"
                 style="@style/viewParent.headerText.contentText"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="10dp"/>
+
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/profileCard"
+                android:id="@+id/progressCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="15dp"
                 app:cardPreventCornerOverlap="true"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -41,13 +43,32 @@
 
                     <TextView
                         android:id="@+id/textViewSub1Title"
-                        android:text="User Profile"
+                        android:text="Current Progress"
                         style="@style/viewParent.headerText.HomeCardTitle" />
 
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="179dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/textViewSub1Title"
+                        android:max="5"
+                        android:padding="10dp"
+                        android:progress="3"
+                        android:progressDrawable="@drawable/custom_progress_bar_horizontal"
+                        app:layout_anchorGravity="top|left" />
+
                     <TextView
-                        android:text="Study nature, love nature,\nclose to nature"
+                        android:id="@+id/progressTextView"
                         style="@style/viewParent.headerText.homeCardContent"
-                        android:layout_below="@id/textViewSub1Title"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/textViewSub1Title"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_toEndOf="@+id/progressBar"
+                        android:padding="10dp"
+                        android:text="60%" />
 
                     <ImageView
                         android:maxHeight="90dp"
@@ -56,41 +77,185 @@
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+            <View style="@style/proifleDetailsView" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/CourseCard"
+            <TextView
+                android:text="Courses"
+                style="@style/viewParent.headerText"
+                android:layout_marginTop="10dp"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="15dp"
-                app:cardPreventCornerOverlap="true"
-                android:layout_marginTop="10dp">
+                android:orientation="horizontal">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Course1Card"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:cardPreventCornerOverlap="true"
+                    android:layout_marginTop="10dp">
 
-                <com.example.mobileprogramming_assignment.GradientRelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:minHeight="100dp"
-                    gl:start_color="@color/gradientLightYellow"
-                    gl:end_color="@color/gradientOrange"
-                    gl:orientation="LEFT_RIGHT"
-                    android:padding="10dp">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/home_gradient_maths"
+                        android:minHeight="100dp"
+                        android:padding="10dp">
 
-                    <TextView
-                        android:id="@+id/textViewSub2Title"
-                        android:text="Course"
-                        style="@style/viewParent.headerText.HomeCardTitle" />
+                        <ImageView
+                            android:id="@+id/Course1ImageView"
+                            android:layout_width="180dp"
+                            android:layout_height="131dp"
+                            android:layout_gravity="center"
+                            android:adjustViewBounds="true"
+                            android:cropToPadding="true"
+                            android:src="@drawable/android_developer" />
 
-                    <TextView
-                        android:text="Study nature, love nature,\nclose to nature"
-                        style="@style/viewParent.headerText.homeCardContent"
-                        android:layout_below="@id/textViewSub2Title"/>
+                        <TextView
+                            android:layout_width="151dp"
+                            android:layout_height="40dp"
+                            android:layout_alignBottom="@id/Course1ImageView"
+                            android:layout_marginBottom="0dp"
+                            android:gravity="center"
+                            android:text="Psychological Changes"
+                            android:textColor="@color/whiteTextColor"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
 
-                    <ImageView
-                        android:maxHeight="90dp"
-                        android:src="@drawable/home_ic_physics"
-                        style="@style/homeCardImage" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Course2Card"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:cardPreventCornerOverlap="true"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp">
 
-                </com.example.mobileprogramming_assignment.GradientRelativeLayout>
-            </androidx.cardview.widget.CardView>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/home_gradient_maths"
+                        android:minHeight="100dp"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/Course2ImageView"
+                            android:layout_width="180dp"
+                            android:layout_height="131dp"
+                            android:layout_gravity="center"
+                            android:adjustViewBounds="true"
+                            android:cropToPadding="true"
+                            android:src="@drawable/android_developer" />
+
+                        <TextView
+                            android:layout_width="151dp"
+                            android:layout_height="40dp"
+                            android:layout_alignBottom="@id/Course2ImageView"
+                            android:layout_marginBottom="0dp"
+                            android:gravity="center"
+                            android:text="Psychological Changes"
+                            android:textColor="@color/whiteTextColor"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Course3Card"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:cardPreventCornerOverlap="true"
+                    android:layout_marginTop="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/home_gradient_maths"
+                        android:minHeight="100dp"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/Course3ImageView"
+                            android:layout_width="180dp"
+                            android:layout_height="131dp"
+                            android:layout_gravity="center"
+                            android:adjustViewBounds="true"
+                            android:cropToPadding="true"
+                            android:src="@drawable/android_developer" />
+
+                        <TextView
+                            android:layout_width="151dp"
+                            android:layout_height="40dp"
+                            android:layout_alignBottom="@id/Course3ImageView"
+                            android:layout_marginBottom="0dp"
+                            android:gravity="center"
+                            android:text="Psychological Changes"
+                            android:textColor="@color/whiteTextColor"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Course4Card"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:cardPreventCornerOverlap="true"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/home_gradient_maths"
+                        android:minHeight="100dp"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/Course4ImageView"
+                            android:layout_width="180dp"
+                            android:layout_height="131dp"
+                            android:layout_gravity="center"
+                            android:adjustViewBounds="true"
+                            android:cropToPadding="true"
+                            android:src="@drawable/android_developer" />
+
+                        <TextView
+                            android:layout_width="151dp"
+                            android:layout_height="40dp"
+                            android:layout_alignBottom="@id/Course4ImageView"
+                            android:layout_marginBottom="0dp"
+                            android:gravity="center"
+                            android:text="Psychological Changes"
+                            android:textColor="@color/whiteTextColor"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            <View style="@style/proifleDetailsView" />
+
+            <TextView
+                android:text="Final Exam"
+                style="@style/viewParent.headerText"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:text="Completed All Course &amp; pass Exam to get certified!"
+                style="@style/viewParent.headerText.contentText"
+                android:layout_marginBottom="10dp"/>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/ShareCard"
@@ -111,48 +276,13 @@
 
                     <TextView
                         android:id="@+id/textViewSub4Title"
-                        android:text="Share"
+                        android:text="Exam"
                         style="@style/viewParent.headerText.HomeCardTitle" />
 
                     <TextView
-                        android:text="Study nature, love nature,\nclose to nature"
+                        android:text="Study &amp; Prepare Well \n to get Certified!"
                         style="@style/viewParent.headerText.homeCardContent"
                         android:layout_below="@id/textViewSub4Title"/>
-
-                    <ImageView
-                        android:maxHeight="90dp"
-                        android:src="@drawable/home_ic_biology"
-                        style="@style/homeCardImage" />
-
-                </com.example.mobileprogramming_assignment.GradientRelativeLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/LogoutCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="15dp"
-                app:cardPreventCornerOverlap="true"
-                android:layout_marginTop="10dp">
-
-                <com.example.mobileprogramming_assignment.GradientRelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:minHeight="100dp"
-                    gl:start_color="@color/gradientLightOrange2"
-                    gl:end_color="@color/gradientOrange3"
-                    gl:orientation="LEFT_RIGHT"
-                    android:padding="10dp">
-
-                    <TextView
-                        android:id="@+id/textViewSub5Title"
-                        android:text="Logout"
-                        style="@style/viewParent.headerText.HomeCardTitle" />
-
-                    <TextView
-                        android:text="Study nature, love nature,\nclose to nature"
-                        style="@style/viewParent.headerText.homeCardContent"
-                        android:layout_below="@id/textViewSub5Title"/>
 
                     <ImageView
                         android:maxHeight="90dp"
