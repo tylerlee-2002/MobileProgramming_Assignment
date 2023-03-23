@@ -54,6 +54,15 @@ import java.util.Objects;
 public class ProfileActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    FirebaseUser mUser;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String userID, name, email, gender, dob;
+    Bitmap bmp, scaledBmp;
+    Button btnDownload;
+    RelativeLayout certLayout;
+    TextView txtName, txtEmail, txtDob, txtGender, certTextView, txtCertName;
+    ImageView genderImageView;
+
     private BottomNavigationView bottomNavigationView;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -63,15 +72,13 @@ public class ProfileActivity extends AppCompatActivity
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigationMyProfile:
-                    // Did Nothing, because already at profile page
+                    navProfile();
                     return true;
                 case R.id.navigationMyCourses:
-                    return true;
+                   navCourse();
+                   return true;
                 case R.id.navigationHome:
-                    Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
+                    navHome();
                     return true;
                 case  R.id.navigationMenu:
                     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -81,21 +88,6 @@ public class ProfileActivity extends AppCompatActivity
             return false;
         }
     };
-
-    String userID, name, email, gender, dob;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    // creating a bitmap variable for storing our images
-    Bitmap bmp, scaledBmp;
-    Button btnDownload;
-    RelativeLayout certLayout;
-    TextView txtName, txtEmail, txtDob, txtGender, certTextView, txtCertName;
-    ImageView genderImageView;
-
-//    TextView txtName, txtEmail, txtPhoneNumber;
-//    EditText inputPhoneNumber;
-//    Button btnConfirm;
-//    ImageButton btnClose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,90 +112,56 @@ public class ProfileActivity extends AppCompatActivity
 
         bottomNavigationView.setSelectedItemId(R.id.navigationMyProfile);
 
-        userID = getIntent().getStringExtra("userID");
-        name = getIntent().getStringExtra("name");
-        email = getIntent().getStringExtra("email");
-        gender = getIntent().getStringExtra("gender");
-        dob = getIntent().getStringExtra("dob");
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert mUser != null;
 
-        txtName = findViewById(R.id.txtName);
-        txtName.setText(name);
 
-        txtEmail = findViewById(R.id.txtEmail);
-        txtEmail.setText(email);
+        db.collection("user").whereEqualTo("uid", mUser.getUid()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    userID = Objects.requireNonNull(document.getData().get("uid")).toString();
+                    name = Objects.requireNonNull(document.getData().get("name")).toString();
+                    gender = Objects.requireNonNull(document.getData().get("gender")).toString();
+                    dob = Objects.requireNonNull(document.getData().get("dateOfBirth")).toString();
+                    email = Objects.requireNonNull(document.getData().get("email")).toString();
+                }
 
-        txtDob = findViewById(R.id.txtDob);
-        txtDob.setText(dob);
+                txtName = findViewById(R.id.txtName);
+                txtName.setText(name);
 
-        txtGender = findViewById(R.id.txtGender);
-        txtGender.setText(gender);
+                txtEmail = findViewById(R.id.txtEmail);
+                txtEmail.setText(email);
 
-        genderImageView = findViewById(R.id.genderImageView);
-        if(Objects.equals(gender, "male")){
-            genderImageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.male, null));
-        } else {
-            genderImageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.female, null));
-        }
+                txtDob = findViewById(R.id.txtDob);
+                txtDob.setText(dob);
 
-        // Check whether user complete all courses & quizzes
-        certTextView = findViewById(R.id.certTextView);
-        certTextView.setVisibility(View.VISIBLE);
+                txtGender = findViewById(R.id.txtGender);
+                txtGender.setText(gender);
 
-        txtCertName = findViewById(R.id.txtUsername);
-        txtCertName.setText(name);
+                genderImageView = findViewById(R.id.genderImageView);
+                if (Objects.equals(gender, "male")) {
+                    genderImageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.male, null));
+                } else {
+                    genderImageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.female, null));
+                }
 
-        certLayout = findViewById(R.id.certLayout);
-        certLayout.setVisibility(View.VISIBLE);
+                // Check whether user complete all courses & quizzes
+                certTextView = findViewById(R.id.certTextView);
+                certTextView.setVisibility(View.VISIBLE);
 
-        btnDownload = findViewById(R.id.btnDownload);
-        btnDownload.setVisibility(View.VISIBLE);
-        btnDownload.setOnClickListener(v -> {
-            generatePDF();
+                txtCertName = findViewById(R.id.txtUsername);
+                txtCertName.setText(name);
+
+                certLayout = findViewById(R.id.certLayout);
+                certLayout.setVisibility(View.VISIBLE);
+
+                btnDownload = findViewById(R.id.btnDownload);
+                btnDownload.setVisibility(View.VISIBLE);
+                btnDownload.setOnClickListener(v -> {
+                    generatePDF();
+                });
+            }
         });
-
-//        txtName = findViewById(R.id.txtName);
-//        txtName.setText(String.format("Name: %s", name));
-//
-//        txtEmail = findViewById(R.id.txtEmail);
-//        txtEmail.setText(String.format("Email: %s", email));
-//
-//        txtPhoneNumber = findViewById(R.id.txtPhoneNumber);
-//        txtPhoneNumber.setText(String.format("Tel: %s", phoneNumber));
-//
-//        btnClose = findViewById(R.id.btnClose);
-//        btnClose.setOnClickListener(v -> {
-//            Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//            startActivity(intent);
-//            overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
-//        });
-//
-//        inputPhoneNumber = findViewById(R.id.inputPhoneNumber);
-//        btnConfirm = findViewById(R.id.btnConfirm);
-//        btnConfirm.setOnClickListener(v -> {
-//            String phoneNumber = inputPhoneNumber.getText().toString();
-//
-//            if (phoneNumber.isEmpty() || phoneNumber.length() < 10) {
-//                inputPhoneNumber.setError("Enter Correct Phone Number");
-//            } else {
-//                Map<String, Object> updates2 = new HashMap<>();
-//                updates2.put("phoneNumber", phoneNumber);
-//                FirebaseFirestore.getInstance().collection("user").document(userID).update(updates2).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        Toast.makeText(ProfileActivity.this, "New Phone Number Updated!", Toast.LENGTH_SHORT).show();
-//                        startActivity(intent);
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(ProfileActivity.this, "Error updating document!", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//            }
-//        });
     }
 
     @Override
@@ -223,50 +181,16 @@ public class ProfileActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.navigationHome) {
-            Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
-            return true;
+            navHome();
         } else if (id == R.id.navigationMyCourses) {
-
+            navCourse();
         } else if (id == R.id.navigationMyProfile) {
-            // Did Nothing, because already at profile page
-        } else if (id == R.id.nav_share)
-        {
-            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Learn about Dementia!");
-            String shareMessage = "\nShare Dementia App with your family & friends! \nClick Link below to download\n\n";
-            shareMessage = shareMessage + "https://drive.google.com/file/d/1szAdyMrCKM7haalciPiL0_dayNzypNjW/view?usp=sharing" + BuildConfig.APPLICATION_ID + "\n\n";
-            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-            startActivity(Intent.createChooser(shareIntent, "choose one"));
-
-        } else if (id == R.id.btnLogout)
-        {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Alert");
-            builder.setMessage("Are you sure you want to logout?");
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // Perform the action when the "Yes" button is clicked
-                    FirebaseAuth.getInstance().signOut();
-                    Intent intent = new Intent(ProfileActivity.this, SignInActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
-                }
-            });
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // Perform the action when the "No" button is clicked
-                    dialog.dismiss();
-                }
-            });
-            AlertDialog dialog = builder.create();
-            dialog.show();
+            // Already at profile page
+            navProfile();
+        } else if (id == R.id.nav_share) {
+            navShare();
+        } else if (id == R.id.btnLogout) {
+            navLogout();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -355,4 +279,57 @@ public class ProfileActivity extends AppCompatActivity
         notificationManager.notify(0, builder.build());
     }
 
+    public void navHome(){
+        Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
+    }
+    public void navProfile(){
+//        Already at Profile.
+//        Intent intent = new Intent(ProfileActivity.this, ProfileActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent);
+//        overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
+    }
+    public void navCourse(){
+        Intent courseIntent = new Intent(ProfileActivity.this, CourseActivity.class);
+        courseIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(courseIntent);
+        overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
+    }
+    public void navShare(){
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Learn about Dementia!");
+        String shareMessage = "\nShare Dementia App with your family & friends! \nClick Link below to download\n\n";
+        shareMessage = shareMessage + "https://drive.google.com/file/d/1szAdyMrCKM7haalciPiL0_dayNzypNjW/view?usp=sharing" + BuildConfig.APPLICATION_ID + "\n\n";
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+        startActivity(Intent.createChooser(shareIntent, "choose one"));
+    }
+    public void navLogout(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Alert");
+        builder.setMessage("Are you sure you want to logout?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Perform the action when the "Yes" button is clicked
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(ProfileActivity.this, SignInActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out);
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Perform the action when the "No" button is clicked
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 }

@@ -51,24 +51,13 @@ public class MainActivity extends AppCompatActivity
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigationMyProfile:
-                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("userID", user.getuid());
-                    intent.putExtra("name", user.getName());
-                    intent.putExtra("email", user.getEmail());
-                    intent.putExtra("gender", user.getGender());
-                    intent.putExtra("dob", user.getDateOfBirth());
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
+                    navProfile();
                     return true;
                 case R.id.navigationMyCourses:
-                    Intent courseIntent = new Intent(MainActivity.this, CourseActivity.class);
-                    courseIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(courseIntent);
-                    overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
+                    navCourse();
                     return true;
                 case R.id.navigationHome:
-                    // Did Nothing, because already at home page
+                    navHome();
                     return true;
                 case R.id.navigationMenu:
                     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -120,67 +109,25 @@ public class MainActivity extends AppCompatActivity
 
                 androidx.cardview.widget.CardView profileCard = findViewById(R.id.profileCard);
                 profileCard.setOnClickListener(v -> {
-                    Intent intent = new Intent(this, ProfileActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("userID", user.getuid());
-                    intent.putExtra("name", user.getName());
-                    intent.putExtra("email", user.getEmail());
-                    intent.putExtra("gender", user.getGender());
-                    intent.putExtra("dob", user.getDateOfBirth());
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out);
+                    navProfile();
                 });
 
                 androidx.cardview.widget.CardView CourseCard = findViewById(R.id.CourseCard);
                 CourseCard.setOnClickListener(v -> {
-                    Intent courseIntent = new Intent(MainActivity.this, CourseActivity.class);
-                    courseIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(courseIntent);
-                    overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
+                    navCourse();
                 });
 
                 androidx.cardview.widget.CardView ShareCard = findViewById(R.id.ShareCard);
                 ShareCard.setOnClickListener(v -> {
-                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                    shareIntent.setType("text/plain");
-                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Learn about Dementia!");
-                    String shareMessage = "\nShare Dementia App with your family & friends! \nClick Link below to download\n\n";
-                    shareMessage = shareMessage + "https://drive.google.com/file/d/1szAdyMrCKM7haalciPiL0_dayNzypNjW/view?usp=sharing" + BuildConfig.APPLICATION_ID + "\n\n";
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-                    startActivity(Intent.createChooser(shareIntent, "choose one"));
+                   navShare();
                 });
 
                 androidx.cardview.widget.CardView LogoutCard = findViewById(R.id.LogoutCard);
                 LogoutCard.setOnClickListener(v -> {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle("Alert");
-                    builder.setMessage("Are you sure you want to logout?");
-                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Perform the action when the "Yes" button is clicked
-                            FirebaseAuth.getInstance().signOut();
-                            Intent intent = new Intent(MainActivity.this, SignInActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out);
-                        }
-                    });
-                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Perform the action when the "No" button is clicked
-                            dialog.dismiss();
-                        }
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                    navLogout();
                 });
             }
         });
-
-
-
     }
 
     @Override
@@ -200,58 +147,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.navigationHome) {
-            // Did Nothing, because already at home page
+            navHome();
         } else if (id == R.id.navigationMyCourses) {
-            Intent courseIntent = new Intent(MainActivity.this, CourseActivity.class);
-            courseIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(courseIntent);
-            overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
-        } else if (id == R.id.navigationMyProfile)
-        {
-            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra("userID", user.getuid());
-            intent.putExtra("name", user.getName());
-            intent.putExtra("email", user.getEmail());
-            intent.putExtra("gender", user.getGender());
-            intent.putExtra("dob", user.getDateOfBirth());
-            startActivity(intent);
-            overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
-        } else if (id == R.id.nav_share)
-        {
-            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Learn about Dementia!");
-            String shareMessage = "\nShare Dementia App with your family & friends! \nClick Link below to download\n\n";
-            shareMessage = shareMessage + "https://drive.google.com/file/d/1szAdyMrCKM7haalciPiL0_dayNzypNjW/view?usp=sharing" + BuildConfig.APPLICATION_ID + "\n\n";
-            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-            startActivity(Intent.createChooser(shareIntent, "choose one"));
-
-        } else if (id == R.id.btnLogout)
-        {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Alert");
-                builder.setMessage("Are you sure you want to logout?");
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Perform the action when the "Yes" button is clicked
-                        FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(MainActivity.this, SignInActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out);
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Perform the action when the "No" button is clicked
-                        dialog.dismiss();
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
+            navCourse();
+        } else if (id == R.id.navigationMyProfile) {
+            navProfile();
+        } else if (id == R.id.nav_share) {
+            navShare();
+        } else if (id == R.id.btnLogout){
+            navLogout();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -259,4 +163,57 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    public void navHome(){
+//        Already at Home.
+//        Intent intent = new Intent(this, MainActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent);
+//        overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
+    }
+    public void navProfile(){
+        Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
+    }
+    public void navCourse(){
+        Intent courseIntent = new Intent(MainActivity.this, CourseActivity.class);
+        courseIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(courseIntent);
+        overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
+    }
+    public void navShare(){
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Learn about Dementia!");
+        String shareMessage = "\nShare Dementia App with your family & friends! \nClick Link below to download\n\n";
+        shareMessage = shareMessage + "https://drive.google.com/file/d/1szAdyMrCKM7haalciPiL0_dayNzypNjW/view?usp=sharing" + BuildConfig.APPLICATION_ID + "\n\n";
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+        startActivity(Intent.createChooser(shareIntent, "choose one"));
+    }
+    public void navLogout(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Alert");
+        builder.setMessage("Are you sure you want to logout?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Perform the action when the "Yes" button is clicked
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out);
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Perform the action when the "No" button is clicked
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 }
