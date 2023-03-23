@@ -57,7 +57,6 @@ public class CertActivity extends AppCompatActivity {
         txtUsername.setText(name);
 
         btnDownload = findViewById(R.id.btnDownload);
-
         btnDownload.setOnClickListener(v -> {
             // calling method to generate our PDF file.
             generatePDF();
