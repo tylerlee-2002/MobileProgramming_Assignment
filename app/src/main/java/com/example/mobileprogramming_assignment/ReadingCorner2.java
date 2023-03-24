@@ -1,46 +1,30 @@
 package com.example.mobileprogramming_assignment;
 
-import static android.content.ContentValues.TAG;
-
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.util.Objects;
+public class ReadingCorner2 extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
-    String userID, name, email, gender, dob;
-    int completeUntil;
     FirebaseUser mUser;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    UserInfo user;
     private BottomNavigationView bottomNavigationView;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -48,7 +32,6 @@ public class MainActivity extends AppCompatActivity
         @SuppressLint("NonConstantResourceId")
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigationMyProfile:
                     navProfile();
@@ -71,7 +54,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_reading_corner2);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -89,46 +72,9 @@ public class MainActivity extends AppCompatActivity
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) bottomNavigationView.getLayoutParams();
         layoutParams.setBehavior(new BottomNavigationBehavior());
-        bottomNavigationView.setSelectedItemId(R.id.navigationHome);
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         assert mUser != null;
-
-        db.collection("user").whereEqualTo("uid", mUser.getUid()).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    userID = Objects.requireNonNull(document.getData().get("uid")).toString();
-                    name = Objects.requireNonNull(document.getData().get("name")).toString();
-                    gender = Objects.requireNonNull(document.getData().get("gender")).toString();
-                    dob = Objects.requireNonNull(document.getData().get("dateOfBirth")).toString();
-                    email = Objects.requireNonNull(document.getData().get("email")).toString();
-                    completeUntil = Integer.parseInt(Objects.requireNonNull(document.getData().get("completeUntil")).toString());
-                }
-
-                user = new UserInfo(userID, name, email, gender, dob, completeUntil);
-
-                androidx.cardview.widget.CardView profileCard = findViewById(R.id.profileCard);
-                profileCard.setOnClickListener(v -> {
-                    navProfile();
-                });
-
-                androidx.cardview.widget.CardView CourseCard = findViewById(R.id.CourseCard);
-                CourseCard.setOnClickListener(v -> {
-                    navCourse();
-                });
-
-                androidx.cardview.widget.CardView ShareCard = findViewById(R.id.ShareCard);
-                ShareCard.setOnClickListener(v -> {
-                   navShare();
-                });
-
-                androidx.cardview.widget.CardView LogoutCard = findViewById(R.id.LogoutCard);
-                LogoutCard.setOnClickListener(v -> {
-                    navLogout();
-                });
-            }
-        });
-
     }
 
     @Override
@@ -144,7 +90,6 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.navigationHome) {
@@ -155,7 +100,7 @@ public class MainActivity extends AppCompatActivity
             navProfile();
         } else if (id == R.id.nav_share) {
             navShare();
-        } else if (id == R.id.btnLogout){
+        } else if (id == R.id.btnLogout) {
             navLogout();
         }
 
@@ -165,20 +110,19 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void navHome(){
-//        Already at Home.
-//        Intent intent = new Intent(this, MainActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(intent);
-//        overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
     }
     public void navProfile(){
-        Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+        Intent intent = new Intent(this, ProfileActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
     }
     public void navCourse(){
-        Intent courseIntent = new Intent(MainActivity.this, CourseActivity.class);
+        Intent courseIntent = new Intent(this, CourseActivity.class);
         courseIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(courseIntent);
         overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
@@ -201,7 +145,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(DialogInterface dialog, int which) {
                 // Perform the action when the "Yes" button is clicked
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+                Intent intent = new Intent(ReadingCorner2.this, SignInActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out);

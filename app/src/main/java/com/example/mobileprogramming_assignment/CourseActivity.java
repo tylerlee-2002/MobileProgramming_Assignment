@@ -108,31 +108,40 @@ public class CourseActivity extends AppCompatActivity implements NavigationView.
 
                 androidx.cardview.widget.CardView Course1Card = findViewById(R.id.Course1Card);
                 Course1Card.setOnClickListener(v -> {
-
+                    Intent course1Intent = new Intent(this, ReadingCorner1.class);
+                    course1Intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(course1Intent);
+                    overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
                 });
 
                 androidx.cardview.widget.CardView Course2Card = findViewById(R.id.Course2Card);
                 Course2Card.setOnClickListener(v -> {
-
+                    Intent course1Intent = new Intent(this, ReadingCorner2.class);
+                    course1Intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(course1Intent);
+                    overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
                 });
 
                 androidx.cardview.widget.CardView Course3Card = findViewById(R.id.Course3Card);
                 Course3Card.setOnClickListener(v -> {
-
+                    Intent course1Intent = new Intent(this, ReadingCorner3.class);
+                    course1Intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(course1Intent);
+                    overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
                 });
 
                 androidx.cardview.widget.CardView Course4Card = findViewById(R.id.Course4Card);
                 Course4Card.setOnClickListener(v -> {
-
+                    Intent course1Intent = new Intent(this, ReadingCorner4.class);
+                    course1Intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(course1Intent);
+                    overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
                 });
 
                 androidx.cardview.widget.CardView ExamCard = findViewById(R.id.ExamCard);
                 ExamCard.setOnClickListener(v -> {
 
                 });
-
-
-
             }
         });
     }

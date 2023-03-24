@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:gl="http://schemas.android.com/apk/res-auto"
-    tools:showIn="@layout/app_bar_reading_corner1"
+    tools:showIn="@layout/app_bar_reading_corner4"
     android:background="@drawable/background"
     style="@style/parent.contentLayout">
 
@@ -18,7 +18,7 @@
 
             <TextView
                 style="@style/viewParent.headerText"
-                android:text="Topic 1"
+                android:text="Topic 4"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="35dp"/>
 
@@ -29,7 +29,7 @@
                 android:layout_height="475dp"
                 android:contentDescription="@string/topics_content"
                 android:scaleType="centerInside"
-                android:src="@drawable/topic_1" />
+                android:src="@drawable/topic_4" />
 
             <com.example.mobileprogramming_assignment.cairoButton
                 android:id="@+id/id_done_Button"

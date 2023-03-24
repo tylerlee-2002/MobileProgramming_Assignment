@@ -58,6 +58,15 @@
         <activity
             android:name=".ReadingCorner1"
             android:exported="false" />
+        <activity
+            android:name=".ReadingCorner2"
+            android:exported="false" />
+        <activity
+            android:name=".ReadingCorner3"
+            android:exported="false" />
+        <activity
+            android:name=".ReadingCorner4"
+            android:exported="false" />
         <receiver
             android:name=".NotificationBroadcast"
             android:enabled="true"
