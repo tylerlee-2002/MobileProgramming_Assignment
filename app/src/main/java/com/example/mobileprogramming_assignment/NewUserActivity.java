@@ -67,7 +67,6 @@ public class NewUserActivity extends AppCompatActivity implements View.OnClickLi
         _doneButton.setOnClickListener(this);
     }
 
-
     @Override
     public void onClick(View v)
     {

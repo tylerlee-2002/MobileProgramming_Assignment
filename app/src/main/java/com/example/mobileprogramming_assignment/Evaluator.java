@@ -1,7 +1,5 @@
 package com.example.mobileprogramming_assignment;
-/**
- * for more visit http://materialuiux.com
- */
+
 class Evaluator {
     public static int ofArgb(float fraction, int startColor, int endColor) {
         int startA = (startColor >> 24) & 0xff;

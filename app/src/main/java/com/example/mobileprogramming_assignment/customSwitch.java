@@ -23,9 +23,6 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-/**
- * for more visit http://materialuiux.com
- */
 public class customSwitch extends ViewGroup {
 
     private static final String EXTRA_SUPER = "extra_super";
@@ -37,7 +34,6 @@ public class customSwitch extends ViewGroup {
 
     private final double TOUCH_SLOP_SQUARE;
     private final int FLING_MIN_VELOCITY;
-
     private ImageView leftIcon;
     private ImageView rightIcon;
     private ThumbView thumb;

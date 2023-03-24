@@ -1,0 +1,14 @@
+package com.example.mobileprogramming_assignment;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
+public class ReadingCorner1 extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_reading_corner1);
+    }
+}

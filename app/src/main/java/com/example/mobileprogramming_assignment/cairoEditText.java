@@ -8,8 +8,6 @@ import android.util.AttributeSet;
 
 public class cairoEditText extends AppCompatEditText
 {
-
-
     public cairoEditText(Context context)
     {
         super(context);

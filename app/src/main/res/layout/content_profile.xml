@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:gl="http://schemas.android.com/apk/res-auto"
-    tools:showIn="@layout/app_bar_main"
+    tools:showIn="@layout/app_bar_profile"
     android:background="@drawable/background"
     style="@style/parent.contentLayout">
 

@@ -9,9 +9,6 @@ import android.graphics.drawable.Drawable;
 
 import androidx.annotation.NonNull;
 
-/**
- * for more visit http://materialuiux.com
- */
 class IconSwitchBg extends Drawable {
 
     private RectF bounds;

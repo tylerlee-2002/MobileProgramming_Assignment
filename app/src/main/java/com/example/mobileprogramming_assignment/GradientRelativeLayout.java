@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
 public class GradientRelativeLayout extends RelativeLayout {
-
     private final GradientBackground gradientBackground;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -34,12 +33,6 @@ public class GradientRelativeLayout extends RelativeLayout {
         this.gradientBackground = new GradientBackground(context, attrs);
     }
 
-    /**
-     * <p>Configure the gradient background for this layout.</p>
-     * @param startColor The start color for the gradient
-     * @param endColor The end color for the gradient
-     * @param orientation The orientation for the gradient {@link  android.graphics.drawable.GradientDrawable.Orientation  GradientDrawable.Orientation}
-     */
     public void setGradientBackgroundConfig(final int startColor, final int endColor, final GradientDrawable.Orientation orientation) {
         this.gradientBackground
                 .setStartColor(startColor)
@@ -48,64 +41,36 @@ public class GradientRelativeLayout extends RelativeLayout {
                 .generate();
     }
 
-    /**
-     * <p>Configure the start color for the gradient background for this layout.</p>
-     * @param startColor The start color for the gradient
-     */
     public GradientRelativeLayout setStartColor(final int startColor) {
         this.gradientBackground.setStartColor(startColor).generate();
         return this;
     }
 
-    /**
-     * <p>Configure the end color for the gradient background for this layout.</p>
-     * @param endColor The end color for the gradient
-     */
     public GradientRelativeLayout setEndColor(final int endColor) {
         this.gradientBackground.setEndColor(endColor).generate();
         return this;
     }
 
-    /**
-     * <p>Configure the top left corner radius</p>
-     * @param radius The radius to set
-     */
     public GradientRelativeLayout setRadiusCornerTopLeft(final float radius) {
         this.gradientBackground.setRadiusCornerTopLeft(radius);
         return this;
     }
 
-    /**
-     * <p>Configure the top right corner radius</p>
-     * @param radius The radius to set
-     */
     public GradientRelativeLayout setRadiusCornerTopRight(final float radius) {
         this.gradientBackground.setRadiusCornerTopRight(radius);
         return this;
     }
 
-    /**
-     * <p>Configure the top left corner radius</p>
-     * @param radius The radius to set
-     */
     public GradientRelativeLayout setRadiusCornerBottomRight(final float radius) {
         this.gradientBackground.setRadiusCornerBottomRight(radius);
         return this;
     }
 
-    /**
-     * <p>Configure the top left corner radius</p>
-     * @param radius The radius to set
-     */
     public GradientRelativeLayout setRadiusCornerBottomLeft(final float radius) {
         this.gradientBackground.setRadiusCornerBottomLeft(radius);
         return this;
     }
 
-    /**
-     * <p>Configure the orientation for the gradient background for this layout.</p>
-     * @param orientation The orientation for the gradient {@link  android.graphics.drawable.GradientDrawable.Orientation  GradientDrawable.Orientation}
-     */
     public GradientRelativeLayout setOrientation(final GradientDrawable.Orientation orientation) {
         this.gradientBackground.setOrientation(orientation).generate();
         return this;

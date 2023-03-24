@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 
 public class cairoTextView extends AppCompatTextView
 {
-
     public cairoTextView(Context context)
     {
         super(context);

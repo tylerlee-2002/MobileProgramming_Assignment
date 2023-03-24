@@ -8,7 +8,7 @@ import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.util.Log;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -20,21 +20,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-/**
- * for more visit http://materialuiux.com
- */
+
 public class DatePicker extends ScrollView {
 
-    private static final String TAG = "http://materialuiux.com/";
     public static class OnWheelViewListener {
         public void onSelected(int selectedIndex, String item) {
         }
     }
 
-
     private Context context;
-//    private ScrollView scrollView;
-
     private LinearLayout views;
 
     public DatePicker(Context context) {
@@ -66,7 +60,6 @@ public class DatePicker extends ScrollView {
         items.clear();
         items.addAll(list);
 
-        // 前面和后面补全
         for (int i = 0; i < offset; i++) {
             items.add(0, "");
             items.add("");
@@ -75,7 +68,6 @@ public class DatePicker extends ScrollView {
         initData();
 
     }
-
 
     public static final int OFF_SET_DEFAULT = 1;
     int offset = OFF_SET_DEFAULT;
@@ -96,7 +88,6 @@ public class DatePicker extends ScrollView {
     @SuppressLint("LongLogTag")
     private void init(Context context) {
         this.context = context;
-        Log.d(TAG, "parent: " + this.getParent());
         this.setVerticalScrollBarEnabled(false);
 
         views = new LinearLayout(context);
@@ -104,7 +95,6 @@ public class DatePicker extends ScrollView {
         this.addView(views);
 
         scrollerTask = new Runnable() {
-
             public void run() {
 
                 int newY = getScrollY();
@@ -185,7 +175,6 @@ public class DatePicker extends ScrollView {
         tv.setPadding(padding, padding, padding, padding);
         if (0 == itemHeight) {
             itemHeight = getViewMeasuredHeight(tv);
-            Log.d(TAG, "itemHeight: " + itemHeight);
             views.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight * displayItemCount));
             LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) this.getLayoutParams();
             this.setLayoutParams(new LinearLayout.LayoutParams(lp.width, itemHeight * displayItemCount));
@@ -199,6 +188,7 @@ public class DatePicker extends ScrollView {
         super.onScrollChanged(l, t, oldl, oldt);
         refreshItemView(t);
 
+        int scrollDirection = -1;
         if (t > oldt) {
             scrollDirection = SCROLL_DIRECTION_DOWN;
         } else {
@@ -251,7 +241,6 @@ public class DatePicker extends ScrollView {
     }
 
 
-    private int scrollDirection = -1;
     private static final int SCROLL_DIRECTION_UP = 0;
     private static final int SCROLL_DIRECTION_DOWN = 1;
 
@@ -263,8 +252,9 @@ public class DatePicker extends ScrollView {
     public void setBackgroundDrawable(Drawable background) {
 
         if (viewWidth == 0) {
-            viewWidth = ((Activity) context).getWindowManager().getDefaultDisplay().getWidth();
-            Log.d(TAG, "viewWidth: " + viewWidth);
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            viewWidth = displayMetrics.widthPixels;
         }
 
         if (null == paint) {
@@ -306,17 +296,14 @@ public class DatePicker extends ScrollView {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        Log.d(TAG, "w: " + w + ", h: " + h + ", oldw: " + oldw + ", oldh: " + oldh);
         viewWidth = w;
         setBackgroundDrawable(null);
     }
-
 
     private void onSeletedCallBack() {
         if (null != onWheelViewListener) {
             onWheelViewListener.onSelected(selectedIndex, items.get(selectedIndex));
         }
-
     }
 
     public void setSeletion(int position) {
@@ -348,12 +335,10 @@ public class DatePicker extends ScrollView {
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_UP) {
-
             startScrollerTask();
         }
         return super.onTouchEvent(ev);
     }
-
     private OnWheelViewListener onWheelViewListener;
 
     public OnWheelViewListener getOnWheelViewListener() {

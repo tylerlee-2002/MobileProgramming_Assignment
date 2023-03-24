@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:ignore="HardcodedText">
+    android:background="@drawable/background">
 
     <com.example.mobileprogramming_assignment.cairoTextView
         android:id="@+id/id_aboutyou_TextView"
@@ -13,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_54"
         android:layout_marginTop="@dimen/margin_69"
-        android:contentDescription="For more visit www.materialuiux.com"
         android:text="@string/aboutyou"
         android:textColor="@color/signupsignintextcolor"
         android:textSize="@dimen/textsize_30"
@@ -27,7 +25,6 @@
         android:layout_marginStart="@dimen/margin_66"
         android:layout_marginTop="@dimen/margin_46"
         android:layout_marginEnd="@dimen/margin_64"
-        android:contentDescription="For more visit www.materialuiux.com"
         android:padding="@dimen/padding_8">
 
     </RelativeLayout>
@@ -41,8 +38,7 @@
         android:layout_centerInParent="true"
         android:layout_marginLeft="@dimen/margin_69"
         android:layout_marginTop="@dimen/margin_26"
-        android:layout_marginRight="@dimen/margin_69"
-        android:contentDescription="For more visit www.materialuiux.com">
+        android:layout_marginRight="@dimen/margin_69">
 
         <com.example.mobileprogramming_assignment.cairoEditText
             android:id="@+id/id_userName_EditText"
@@ -50,12 +46,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:contentDescription="For more visit www.materialuiux.com"
             android:hint="@string/username"
             android:minWidth="@dimen/width_180"
+            android:minHeight="48dp"
             android:paddingBottom="@dimen/margin_10"
-            android:textSize="@dimen/textsize_20"
-            tools:ignore="ContentDescription" />
+            android:textSize="@dimen/textsize_20" />
 
         <com.example.mobileprogramming_assignment.cairoTextView
             android:id="@+id/id_pickYourDate_TextView"
@@ -63,7 +58,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/id_userName_EditText"
             android:layout_marginTop="@dimen/margin_22"
-            android:contentDescription="For more visit www.materialuiux.com"
             android:text="@string/pickYourDate"
             android:textColor="@color/secondarytext"
             android:textSize="@dimen/textsize_20" />
@@ -77,26 +71,22 @@
             android:layout_marginTop="@dimen/margin_14"
             android:layout_marginRight="@dimen/margin_5"
             android:background="@drawable/rect"
-            android:contentDescription="For more visit www.materialuiux.com"
             android:gravity="center"
             android:orientation="horizontal">
 
             <com.example.mobileprogramming_assignment.DatePicker
                 android:id="@+id/id_day_DatePicker"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:contentDescription="For more visit www.materialuiux.com" />
+                android:layout_height="match_parent" />
 
             <com.example.mobileprogramming_assignment.DatePicker
                 android:id="@+id/id_month_DatePicker"
                 android:layout_width="wrap_content"
-                android:contentDescription="For more visit www.materialuiux.com"
                 android:layout_height="match_parent" />
 
             <com.example.mobileprogramming_assignment.DatePicker
                 android:id="@+id/id_year_DatePicker"
                 android:layout_width="wrap_content"
-                android:contentDescription="For more visit www.materialuiux.com"
                 android:layout_height="match_parent" />
         </LinearLayout>
 
@@ -106,7 +96,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/id_pickYourDate_LinearLayout"
-            android:contentDescription="For more visit www.materialuiux.com"
             android:layout_marginTop="@dimen/margin_24"
             android:text="@string/iam"
             android:textSize="@dimen/textsize_20" />
@@ -116,11 +105,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/id_iam_TextView"
-            android:contentDescription="For more visit www.materialuiux.com"
             android:layout_marginTop="@dimen/margin_8"
             app:isw_active_tint_icon_left="@android:color/transparent"
             app:isw_active_tint_icon_right="@android:color/transparent"
-            app:isw_background_color="@color/colorPrimaryDark"
+            app:isw_background_color="@color/colorPrimary"
             app:isw_icon_left="@drawable/female"
             app:isw_icon_right="@drawable/male"
             app:isw_icon_size="@dimen/swithc_icon_size"
@@ -131,7 +119,6 @@
     <com.example.mobileprogramming_assignment.cairoButton
         android:id="@+id/id_done_Button"
         android:layout_width="@dimen/height_50"
-        android:contentDescription="For more visit www.materialuiux.com"
         android:layout_height="@dimen/height_50"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"

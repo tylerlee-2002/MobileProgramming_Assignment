@@ -7,7 +7,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
 
 public class GradientBackground {
-
     private int startColor;
     private int endColor;
     private GradientDrawable.Orientation orientation;
