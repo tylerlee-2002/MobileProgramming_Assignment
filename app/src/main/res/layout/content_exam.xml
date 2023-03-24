@@ -277,6 +277,20 @@
             </LinearLayout>
             <View style="@style/proifleDetailsView" />
 
+            <Button
+                android:id="@+id/closeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/home_gradient3"
+                android:paddingHorizontal="@dimen/margin_15"
+                android:enabled="false"
+                android:layout_gravity="center"
+                android:text="@string/done"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
