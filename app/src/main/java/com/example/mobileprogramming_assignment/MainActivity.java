@@ -37,10 +37,9 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     String userID, name, email, gender, dob;
-    int completeUntil;
     FirebaseUser mUser;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    UserInfo user;
+
     private BottomNavigationView bottomNavigationView;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -102,10 +101,7 @@ public class MainActivity extends AppCompatActivity
                     gender = Objects.requireNonNull(document.getData().get("gender")).toString();
                     dob = Objects.requireNonNull(document.getData().get("dateOfBirth")).toString();
                     email = Objects.requireNonNull(document.getData().get("email")).toString();
-                    completeUntil = Integer.parseInt(Objects.requireNonNull(document.getData().get("completeUntil")).toString());
                 }
-
-                user = new UserInfo(userID, name, email, gender, dob, completeUntil);
 
                 androidx.cardview.widget.CardView profileCard = findViewById(R.id.profileCard);
                 profileCard.setOnClickListener(v -> {

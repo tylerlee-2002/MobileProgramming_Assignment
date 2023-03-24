@@ -62,6 +62,7 @@ public class ProfileActivity extends AppCompatActivity
     RelativeLayout certLayout;
     TextView txtName, txtEmail, txtDob, txtGender, certTextView, txtCertName;
     ImageView genderImageView;
+    boolean isTopic1Done, isTopic2Done, isTopic3Done, isTopic4Done, isExamDone;
 
     private BottomNavigationView bottomNavigationView;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -124,6 +125,11 @@ public class ProfileActivity extends AppCompatActivity
                     gender = Objects.requireNonNull(document.getData().get("gender")).toString();
                     dob = Objects.requireNonNull(document.getData().get("dateOfBirth")).toString();
                     email = Objects.requireNonNull(document.getData().get("email")).toString();
+                    isTopic1Done = Boolean.parseBoolean(Objects.requireNonNull(document.getData().get("topic1Done")).toString());
+                    isTopic2Done = Boolean.parseBoolean(Objects.requireNonNull(document.getData().get("topic2Done")).toString());
+                    isTopic3Done = Boolean.parseBoolean(Objects.requireNonNull(document.getData().get("topic3Done")).toString());
+                    isTopic4Done = Boolean.parseBoolean(Objects.requireNonNull(document.getData().get("topic4Done")).toString());
+                    isExamDone = Boolean.parseBoolean(Objects.requireNonNull(document.getData().get("examDone")).toString());
                 }
 
                 txtName = findViewById(R.id.txtName);
@@ -145,20 +151,22 @@ public class ProfileActivity extends AppCompatActivity
                     genderImageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.female, null));
                 }
 
-                certTextView = findViewById(R.id.certTextView);
-                certTextView.setVisibility(View.VISIBLE);
+                if (isTopic1Done && isTopic2Done && isTopic3Done && isTopic4Done && isExamDone) {
+                    certTextView = findViewById(R.id.certTextView);
+                    certTextView.setVisibility(View.VISIBLE);
 
-                txtCertName = findViewById(R.id.txtUsername);
-                txtCertName.setText(name);
+                    txtCertName = findViewById(R.id.txtUsername);
+                    txtCertName.setText(name);
 
-                certLayout = findViewById(R.id.certLayout);
-                certLayout.setVisibility(View.VISIBLE);
+                    certLayout = findViewById(R.id.certLayout);
+                    certLayout.setVisibility(View.VISIBLE);
 
-                btnDownload = findViewById(R.id.btnDownload);
-                btnDownload.setVisibility(View.VISIBLE);
-                btnDownload.setOnClickListener(v -> {
-                    generatePDF();
-                });
+                    btnDownload = findViewById(R.id.btnDownload);
+                    btnDownload.setVisibility(View.VISIBLE);
+                    btnDownload.setOnClickListener(v -> {
+                        generatePDF();
+                    });
+                }
             }
         });
     }

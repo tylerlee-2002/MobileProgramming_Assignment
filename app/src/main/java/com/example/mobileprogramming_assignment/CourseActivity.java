@@ -8,6 +8,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -18,7 +19,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -36,6 +40,7 @@ public class CourseActivity extends AppCompatActivity implements NavigationView.
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String userID, name, email, gender, dob;
     int completeUntil;
+    boolean isTopic1Done, isTopic2Done, isTopic3Done, isTopic4Done, isExamDone;
 
     private BottomNavigationView bottomNavigationView;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -97,14 +102,94 @@ public class CourseActivity extends AppCompatActivity implements NavigationView.
                     gender = Objects.requireNonNull(document.getData().get("gender")).toString();
                     dob = Objects.requireNonNull(document.getData().get("dateOfBirth")).toString();
                     email = Objects.requireNonNull(document.getData().get("email")).toString();
-                    completeUntil = Integer.parseInt(Objects.requireNonNull(document.getData().get("completeUntil")).toString());
+                    isTopic1Done = Boolean.parseBoolean(Objects.requireNonNull(document.getData().get("topic1Done")).toString());
+                    isTopic2Done = Boolean.parseBoolean(Objects.requireNonNull(document.getData().get("topic2Done")).toString());
+                    isTopic3Done = Boolean.parseBoolean(Objects.requireNonNull(document.getData().get("topic3Done")).toString());
+                    isTopic4Done = Boolean.parseBoolean(Objects.requireNonNull(document.getData().get("topic4Done")).toString());
+                    isExamDone = Boolean.parseBoolean(Objects.requireNonNull(document.getData().get("examDone")).toString());
                 }
 
                 ProgressBar progressBar = findViewById(R.id.progressBar);
+                ImageView topic1doneTick = findViewById(R.id.topic1doneTick);
+                ImageView topic2doneTick = findViewById(R.id.topic2doneTick);
+                ImageView topic3doneTick = findViewById(R.id.topic3doneTick);
+                ImageView topic4doneTick = findViewById(R.id.topic4doneTick);
+
+                if (isTopic1Done) {
+                    topic1doneTick.setVisibility(View.VISIBLE);
+                    completeUntil += 1;
+                }
+                if (isTopic2Done) {
+                    topic2doneTick.setVisibility(View.VISIBLE);
+                    completeUntil += 1;
+                }
+                if (isTopic3Done) {
+                    topic3doneTick.setVisibility(View.VISIBLE);
+                    completeUntil += 1;
+                }
+                if (isTopic4Done) {
+                    topic4doneTick.setVisibility(View.VISIBLE);
+                    completeUntil += 1;
+                }
+
+                RelativeLayout examLayout = findViewById(R.id.examLayout);
+                if (isTopic1Done && isTopic2Done && isTopic3Done && isTopic4Done){
+                    examLayout.setVisibility(View.VISIBLE);
+                }
+
+                if (isExamDone) {
+                    completeUntil += 1;
+                }
+                
                 progressBar.setProgress(completeUntil);
 
                 TextView progressTextView = findViewById(R.id.progressTextView);
                 progressTextView.setText(String.format("%s%s", 20 * completeUntil, "%"));
+                TextView nextTopicTextView = findViewById(R.id.nextTopicTextView);
+                if (!isTopic1Done){
+                    nextTopicTextView.setText("Next Topic: Cognitive Changes");
+                } else if (!isTopic2Done) {
+                    nextTopicTextView.setText("Next Topic: Psychological Changes");
+                } else if (!isTopic3Done) {
+                    nextTopicTextView.setText("Next Topic: Tips for Communicating");
+                } else if (!isTopic4Done) {
+                    nextTopicTextView.setText("Next Topic: Dealing with Trouble Behavior Person");
+                } else if (!isExamDone) {
+                    nextTopicTextView.setText("Next Topic: Final Exam!");
+                } else {
+                    nextTopicTextView.setText("Next Topic: Check your Certificate!");
+                }
+
+
+                CardView progressCard = findViewById(R.id.progressCard);
+                progressCard.setOnClickListener(v -> {
+                    if (!isTopic1Done){
+                        Intent course1Intent = new Intent(this, ReadingCorner1.class);
+                        course1Intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(course1Intent);
+                        overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
+                    } else if (!isTopic2Done){
+                        Intent course2Intent = new Intent(this, ReadingCorner2.class);
+                        course2Intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(course2Intent);
+                        overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
+                    } else if (!isTopic3Done){
+                        Intent course3Intent = new Intent(this, ReadingCorner3.class);
+                        course3Intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(course3Intent);
+                        overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
+                    } else if (!isTopic4Done){
+                        Intent course4Intent = new Intent(this, ReadingCorner4.class);
+                        course4Intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(course4Intent);
+                        overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
+                    } else if (!isExamDone){
+
+                    } else {
+                        // Redirect to profile page to view Certificate!
+                        navProfile();
+                    }
+                });
 
                 androidx.cardview.widget.CardView Course1Card = findViewById(R.id.Course1Card);
                 Course1Card.setOnClickListener(v -> {
@@ -116,25 +201,25 @@ public class CourseActivity extends AppCompatActivity implements NavigationView.
 
                 androidx.cardview.widget.CardView Course2Card = findViewById(R.id.Course2Card);
                 Course2Card.setOnClickListener(v -> {
-                    Intent course1Intent = new Intent(this, ReadingCorner2.class);
-                    course1Intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(course1Intent);
+                    Intent course2Intent = new Intent(this, ReadingCorner2.class);
+                    course2Intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(course2Intent);
                     overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
                 });
 
                 androidx.cardview.widget.CardView Course3Card = findViewById(R.id.Course3Card);
                 Course3Card.setOnClickListener(v -> {
-                    Intent course1Intent = new Intent(this, ReadingCorner3.class);
-                    course1Intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(course1Intent);
+                    Intent course3Intent = new Intent(this, ReadingCorner3.class);
+                    course3Intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(course3Intent);
                     overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
                 });
 
                 androidx.cardview.widget.CardView Course4Card = findViewById(R.id.Course4Card);
                 Course4Card.setOnClickListener(v -> {
-                    Intent course1Intent = new Intent(this, ReadingCorner4.class);
-                    course1Intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(course1Intent);
+                    Intent course4Intent = new Intent(this, ReadingCorner4.class);
+                    course4Intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(course4Intent);
                     overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
                 });
 

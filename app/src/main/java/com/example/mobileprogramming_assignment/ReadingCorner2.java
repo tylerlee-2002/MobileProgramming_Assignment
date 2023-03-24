@@ -1,9 +1,12 @@
 package com.example.mobileprogramming_assignment;
 
+import static android.content.ContentValues.TAG;
+
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,6 +17,7 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -29,6 +33,9 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ReadingCorner2 extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -131,39 +138,21 @@ public class ReadingCorner2 extends AppCompatActivity implements NavigationView.
                         break;
                 }
             });
+
             popupWindow.showAtLocation(getWindow().getDecorView(), Gravity.CENTER, 0, 0);
 
-//        closeButton.setOnClickListener(v -> {
-//            // Only update if user first time passed the quiz.
-//            progress = progress + 1;
-//
-//            if (completeUntil < progress) {
-//                completeUntil = progress;
-//                Map<String, Object> updates2 = new HashMap<>();
-//                updates2.put("completeUntil", completeUntil);
-//                db.collection("user").document(userID).update(updates2).addOnSuccessListener(aVoid -> Log.d(TAG, "Topic Completed!")).addOnFailureListener(e -> Log.e(TAG, "Error updating user data", e));
-//            }
-//
-//            if (progress == 0) {
-//                btnPrevious.setText(R.string.back_to_home);
-//            } else {
-//                btnPrevious.setText(R.string.previous);
-//            }
-//
-//            if (progress == 5 && completeUntil == 5) {
-//                textViewCurrentProgress.setText(String.format("Dementia Topic %s/5", progress));
-//                Intent intent = new Intent(ReadingCornerActivity.this, CertActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                intent.putExtra("userID", userID);
-//                intent.putExtra("name", name);
-//                startActivity(intent);
-//            } else {
-//                textViewCurrentProgress.setText(String.format("Dementia Topic %s/5", progress + 1));
-//                imageView1.setImageResource(topics[progress]);
-//            }
-//
-//            popupWindow.dismiss();
-//        });
+            closeButton.setOnClickListener(task -> {
+                Map<String, Object> updates = new HashMap<>();
+                updates.put("topic2Done", true);
+                db.collection("user").document(mUser.getUid()).update(updates).addOnSuccessListener(aVoid -> Log.d(TAG, "Topic Completed!")).addOnFailureListener(e -> Log.e(TAG, "Error updating user data", e));
+
+                Intent intent = new Intent(this, CourseActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out);
+                Toast.makeText(this, "Topic 2: Psychological Changes - Completed", Toast.LENGTH_SHORT).show();
+                popupWindow.dismiss();
+            });
         });
     }
 

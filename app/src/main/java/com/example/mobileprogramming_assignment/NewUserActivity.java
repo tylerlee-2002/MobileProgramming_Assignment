@@ -1,13 +1,10 @@
 package com.example.mobileprogramming_assignment;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -21,8 +18,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class NewUserActivity extends AppCompatActivity implements View.OnClickListener
 {
-    public static final int PICK_IMAGE = 1;
-    private Uri selectedImageUri;
     String userID, email;
     DatePicker _dayDatePicker ,_monthDatePicker , _yearDatePicker;
     cairoEditText _userNameEditText;
@@ -102,7 +97,7 @@ public class NewUserActivity extends AppCompatActivity implements View.OnClickLi
 
     private void addData(String name, String gender, String dob)
     {
-        UserInfo newUser = new UserInfo(userID, name, email, gender, dob, 0);
+        UserInfo newUser = new UserInfo(userID, name, email, gender, dob, false, false, false, false, false);
         db.collection("user").document(userID).set(newUser).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Intent intent = new Intent(this, MainActivity.class);
