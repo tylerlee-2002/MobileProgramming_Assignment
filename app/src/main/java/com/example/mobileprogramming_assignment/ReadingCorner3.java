@@ -4,7 +4,16 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -25,6 +34,8 @@ public class ReadingCorner3 extends AppCompatActivity implements NavigationView.
 
     FirebaseUser mUser;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    com.example.mobileprogramming_assignment.cairoButton id_done_Button;
+
     private BottomNavigationView bottomNavigationView;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -76,7 +87,86 @@ public class ReadingCorner3 extends AppCompatActivity implements NavigationView.
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         assert mUser != null;
+
+        id_done_Button = findViewById(R.id.id_done_Button);
+        id_done_Button.setOnClickListener(v -> {
+            LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+            @SuppressLint("InflateParams") View popupView = inflater.inflate(R.layout.popup_quiz_window, null);
+
+            // create the popup window
+            int width = LinearLayout.LayoutParams.MATCH_PARENT;
+            int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            boolean focusable = true;
+            final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+            TextView myTextView = popupView.findViewById(R.id.textView);
+            myTextView.setText("Tips for communicating");
+
+            RadioGroup radioGroup = popupView.findViewById(R.id.radio_group);
+            RadioButton RadioButton1 = popupView.findViewById(R.id.radio_button1);
+            RadioButton RadioButton2 = popupView.findViewById(R.id.radio_button2);
+            RadioButton RadioButton3 = popupView.findViewById(R.id.radio_button3);
+
+            RadioButton1.setText("Speak clearly and slowly");
+            RadioButton2.setText("Communicate out of the other person's line of sight");
+            RadioButton3.setText("Avoid joining others' conversations");
+
+            Button closeButton = popupView.findViewById(R.id.closeButton);
+            radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+                switch (checkedId) {
+                    case R.id.radio_button1:
+                        closeButton.setText(R.string.correctAnswer);
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.teal_200));
+                        closeButton.setEnabled(true);
+                        break;
+                    case R.id.radio_button2:
+                        closeButton.setText(R.string.wrongAnswer);
+                        closeButton.setTextColor(0xeb3434);
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.red));
+                        break;
+                    case R.id.radio_button3:
+                        closeButton.setText(R.string.tryAgain);
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.red));
+                        closeButton.setEnabled(false);
+                        break;
+                }
+            });
+            popupWindow.showAtLocation(getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+
+//        closeButton.setOnClickListener(v -> {
+//            // Only update if user first time passed the quiz.
+//            progress = progress + 1;
+//
+//            if (completeUntil < progress) {
+//                completeUntil = progress;
+//                Map<String, Object> updates2 = new HashMap<>();
+//                updates2.put("completeUntil", completeUntil);
+//                db.collection("user").document(userID).update(updates2).addOnSuccessListener(aVoid -> Log.d(TAG, "Topic Completed!")).addOnFailureListener(e -> Log.e(TAG, "Error updating user data", e));
+//            }
+//
+//            if (progress == 0) {
+//                btnPrevious.setText(R.string.back_to_home);
+//            } else {
+//                btnPrevious.setText(R.string.previous);
+//            }
+//
+//            if (progress == 5 && completeUntil == 5) {
+//                textViewCurrentProgress.setText(String.format("Dementia Topic %s/5", progress));
+//                Intent intent = new Intent(ReadingCornerActivity.this, CertActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intent.putExtra("userID", userID);
+//                intent.putExtra("name", name);
+//                startActivity(intent);
+//            } else {
+//                textViewCurrentProgress.setText(String.format("Dementia Topic %s/5", progress + 1));
+//                imageView1.setImageResource(topics[progress]);
+//            }
+//
+//            popupWindow.dismiss();
+//        });
+        });
     }
+
 
     @Override
     public void onBackPressed() {

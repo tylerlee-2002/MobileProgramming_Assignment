@@ -29,7 +29,7 @@
                 android:layout_height="475dp"
                 android:contentDescription="@string/topics_content"
                 android:scaleType="centerInside"
-                android:src="@drawable/topic_4" />
+                android:src="@drawable/topic_5" />
 
             <com.example.mobileprogramming_assignment.cairoButton
                 android:id="@+id/id_done_Button"
