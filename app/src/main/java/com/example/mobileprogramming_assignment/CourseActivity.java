@@ -39,7 +39,7 @@ public class CourseActivity extends AppCompatActivity implements NavigationView.
     FirebaseUser mUser;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String userID, name, email, gender, dob;
-    int completeUntil;
+    int completeUntil, mark;
     boolean isTopic1Done, isTopic2Done, isTopic3Done, isTopic4Done, isExamDone;
 
     private BottomNavigationView bottomNavigationView;
@@ -107,6 +107,7 @@ public class CourseActivity extends AppCompatActivity implements NavigationView.
                     isTopic3Done = Boolean.parseBoolean(Objects.requireNonNull(document.getData().get("topic3Done")).toString());
                     isTopic4Done = Boolean.parseBoolean(Objects.requireNonNull(document.getData().get("topic4Done")).toString());
                     isExamDone = Boolean.parseBoolean(Objects.requireNonNull(document.getData().get("examDone")).toString());
+                    mark = Integer.parseInt(Objects.requireNonNull(document.getData().get("mark")).toString());
                 }
 
                 ProgressBar progressBar = findViewById(R.id.progressBar);
@@ -137,8 +138,14 @@ public class CourseActivity extends AppCompatActivity implements NavigationView.
                     examLayout.setVisibility(View.VISIBLE);
                 }
 
-                if (isExamDone) {
+                if (isExamDone && mark >= 60) {
                     completeUntil += 1;
+                }
+
+                boolean isPassed = false;
+
+                if (mark >= 60) {
+                    isPassed = true;
                 }
                 
                 progressBar.setProgress(completeUntil);
@@ -147,19 +154,20 @@ public class CourseActivity extends AppCompatActivity implements NavigationView.
                 progressTextView.setText(String.format("%s%s", 20 * completeUntil, "%"));
                 TextView nextTopicTextView = findViewById(R.id.nextTopicTextView);
                 if (!isTopic1Done){
-                    nextTopicTextView.setText("Next Topic: Cognitive Changes");
+                    nextTopicTextView.setText("Next Topic: \nCognitive Changes!");
                 } else if (!isTopic2Done) {
-                    nextTopicTextView.setText("Next Topic: Psychological Changes");
+                    nextTopicTextView.setText("Next Topic: \nPsychological Changes!");
                 } else if (!isTopic3Done) {
-                    nextTopicTextView.setText("Next Topic: Tips for Communicating");
+                    nextTopicTextView.setText("Next Topic: \nTips for Communicating!");
                 } else if (!isTopic4Done) {
-                    nextTopicTextView.setText("Next Topic: Dealing with Trouble Behavior Person");
+                    nextTopicTextView.setText("Next Topic: \nDealing with Trouble Person!");
                 } else if (!isExamDone) {
-                    nextTopicTextView.setText("Next Topic: Final Exam!");
+                    nextTopicTextView.setText("Next Topic: \nFinal Exam!");
+                } else if (!isPassed){
+                    nextTopicTextView.setText(String.format("Next Topic: Resit Exam! \nLast Result: %s%s", mark,"/100%"));
                 } else {
-                    nextTopicTextView.setText("Next Topic: Check your Certificate!");
+                    nextTopicTextView.setText("Next Topic: \nCheck your Certificate!");
                 }
-
 
                 CardView progressCard = findViewById(R.id.progressCard);
                 progressCard.setOnClickListener(v -> {

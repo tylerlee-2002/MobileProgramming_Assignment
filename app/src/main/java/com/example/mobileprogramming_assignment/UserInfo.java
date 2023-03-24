@@ -11,8 +11,9 @@ public class UserInfo {
     private boolean isTopic3Done;
     private boolean isTopic4Done;
     private boolean isExamDone;
+    private int mark;
 
-    public UserInfo(String uid, String name, String email, String gender, String dateOfBirth, boolean isTopic1Done, boolean isTopic2Done, boolean isTopic3Done, boolean isTopic4Done, boolean isExamDone) {
+    public UserInfo(String uid, String name, String email, String gender, String dateOfBirth, boolean isTopic1Done, boolean isTopic2Done, boolean isTopic3Done, boolean isTopic4Done, boolean isExamDone, int mark) {
         this.uid = uid;
         this.name = name;
         this.email = email;
@@ -23,6 +24,7 @@ public class UserInfo {
         this.isTopic3Done = isTopic3Done;
         this.isTopic4Done = isTopic4Done;
         this.isExamDone = isExamDone;
+        this.mark = mark;
     }
 
     public String getuid() {
@@ -91,5 +93,13 @@ public class UserInfo {
 
     public void setExamDone(boolean examDone) {
         isExamDone = examDone;
+    }
+
+    public int getMark() {
+        return mark;
+    }
+
+    public void setMark(int mark) {
+        this.mark = mark;
     }
 }

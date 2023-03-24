@@ -97,7 +97,7 @@ public class NewUserActivity extends AppCompatActivity implements View.OnClickLi
 
     private void addData(String name, String gender, String dob)
     {
-        UserInfo newUser = new UserInfo(userID, name, email, gender, dob, false, false, false, false, false);
+        UserInfo newUser = new UserInfo(userID, name, email, gender, dob, false, false, false, false, false, 0);
         db.collection("user").document(userID).set(newUser).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Intent intent = new Intent(this, MainActivity.class);
