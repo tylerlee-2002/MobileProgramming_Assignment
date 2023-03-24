@@ -69,8 +69,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:minHeight="100dp"
-                    gl:start_color="@color/gradientLightYellow"
-                    gl:end_color="@color/gradientOrange"
+                    gl:start_color="@color/pink_front"
+                    gl:end_color="@color/pink_end"
                     gl:orientation="LEFT_RIGHT"
                     android:padding="10dp">
 
@@ -104,8 +104,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:minHeight="100dp"
-                    gl:start_color="@color/gradientLightBlue"
-                    gl:end_color="@color/gradientLightOrange"
+                    gl:start_color="@color/gradientOrange3"
+                    gl:end_color="@color/gradientOrange"
                     gl:orientation="LEFT_RIGHT"
                     android:padding="10dp">
 
@@ -139,8 +139,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:minHeight="100dp"
-                    gl:start_color="@color/gradientLightOrange2"
-                    gl:end_color="@color/gradientOrange3"
+                    gl:start_color="@color/holo_blue"
+                    gl:end_color="@color/teal_200"
                     gl:orientation="LEFT_RIGHT"
                     android:padding="10dp">
 

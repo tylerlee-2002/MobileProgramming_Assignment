@@ -73,6 +73,8 @@
     <color name="gradientOrange3">#F7A23C</color>
     <color name="gradientLightBlue">#376DF6</color>
     <color name="gradientLightGreen">#21E8AC</color>
+    <color name="pink_front">#93A5CF</color>
+    <color name="pink_end">#E4EfE9</color>
 
 
 </resources>
