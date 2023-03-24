@@ -10,7 +10,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/home_gradient4"
+            android:background="@drawable/home_gradient5"
             android:padding="10dp"
             android:orientation="vertical">
 
@@ -27,6 +27,7 @@
         <RadioGroup
             android:id="@+id/radio_group"
             android:layout_width="match_parent"
+            android:layout_marginHorizontal="@dimen/margin_15"
             android:layout_height="wrap_content">
 
             <RadioButton
@@ -56,15 +57,17 @@
 
         <Button
             android:id="@+id/closeButton"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/border_quiz"
+            android:background="@drawable/border_button_white"
+            android:paddingHorizontal="@dimen/margin_15"
             android:enabled="false"
+            android:layout_gravity="center"
             android:text="@string/choose_answer"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/dark_blue"/>
+            android:textColor="@color/black"/>
         </LinearLayout>
 
 </LinearLayout>

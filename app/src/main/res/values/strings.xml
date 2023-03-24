@@ -27,7 +27,7 @@
     <string name="GetStarted">Get Started</string>
     <string name="continueOnProgress">Continue on Progress</string>
     <string name="displayanswer">DisplayAnswer</string>
-    <string name="correctAnswer">Correct Answer! Proceed -></string>
+    <string name="correctAnswer">Correct! Proceed -></string>
     <string name="wrongAnswer">Wrong Answer!</string>
     <string name="tryAgain">Please try Again!</string>
     <string name="checkOnCert">Check on Certificate!</string>
