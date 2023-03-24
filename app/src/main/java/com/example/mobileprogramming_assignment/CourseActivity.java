@@ -40,7 +40,7 @@ public class CourseActivity extends AppCompatActivity implements NavigationView.
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String userID, name, email, gender, dob;
     int completeUntil, mark;
-    boolean isTopic1Done, isTopic2Done, isTopic3Done, isTopic4Done, isExamDone;
+    boolean isTopic1Done, isTopic2Done, isTopic3Done, isTopic4Done, isExamDone, isPassed = false;
 
     private BottomNavigationView bottomNavigationView;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -142,8 +142,6 @@ public class CourseActivity extends AppCompatActivity implements NavigationView.
                     completeUntil += 1;
                 }
 
-                boolean isPassed = false;
-
                 if (mark >= 60) {
                     isPassed = true;
                 }
@@ -192,7 +190,14 @@ public class CourseActivity extends AppCompatActivity implements NavigationView.
                         startActivity(course4Intent);
                         overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
                     } else if (!isExamDone){
-
+                        Intent examIntent = new Intent(this, ExamActivity.class);
+                        examIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(examIntent);
+                        overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
+                    } else if (!isPassed){
+                        Intent testIntent = new Intent(this, ResitActivity.class);
+                        testIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(testIntent);
                     } else {
                         // Redirect to profile page to view Certificate!
                         navProfile();

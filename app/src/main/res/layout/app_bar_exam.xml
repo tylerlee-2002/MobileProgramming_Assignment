@@ -21,18 +21,4 @@
 
     <include layout="@layout/content_exam" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        android:foreground="?attr/selectableItemBackground"
-        app:elevation="10dp"
-        app:itemBackground="@color/bottomNavigationBackground"
-        app:itemIconTint="@color/bottom_navigation_color"
-        app:itemTextColor="@color/bottom_navigation_color"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/master_bottom_navigation" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

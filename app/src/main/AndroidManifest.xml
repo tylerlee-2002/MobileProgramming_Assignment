@@ -67,6 +67,12 @@
         <activity
             android:name=".ReadingCorner4"
             android:exported="false" />
+        <activity
+            android:name=".ExamActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ResitActivity"
+            android:exported="false" />
         <receiver
             android:name=".NotificationBroadcast"
             android:enabled="true"

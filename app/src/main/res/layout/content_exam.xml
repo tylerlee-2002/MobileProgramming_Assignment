@@ -15,9 +15,28 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:text="Final Exam"
-                style="@style/viewParent.headerText" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txtheader"
+                    style="@style/viewParent.headerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Final Exam" />
+
+                <ImageButton
+                    android:id="@+id/btnExit"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="330dp"
+                    android:background="@drawable/border_empty"
+                    android:contentDescription="@string/close"
+                    android:textColor="@color/white"
+                    app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+            </RelativeLayout>
+
 
             <TextView
                 android:text="Please get ready before start the exam!"
@@ -278,13 +297,12 @@
             <View style="@style/proifleDetailsView" />
 
             <Button
-                android:id="@+id/closeButton"
+                android:id="@+id/submitButton"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/home_gradient3"
                 android:paddingHorizontal="@dimen/margin_15"
-                android:enabled="false"
                 android:layout_gravity="center"
                 android:text="@string/done"
                 android:textSize="18sp"
