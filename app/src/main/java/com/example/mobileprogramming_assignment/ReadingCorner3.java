@@ -116,7 +116,7 @@ public class ReadingCorner3 extends AppCompatActivity implements NavigationView.
                 switch (checkedId) {
                     case R.id.radio_button1:
                         closeButton.setText(R.string.correctAnswer);
-                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.teal_200));
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.dark_green));
                         closeButton.setEnabled(true);
                         break;
                     case R.id.radio_button2:

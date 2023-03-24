@@ -125,7 +125,7 @@ public class ReadingCorner4 extends AppCompatActivity implements NavigationView.
                         break;
                     case R.id.radio_button3:
                         closeButton.setText(R.string.correctAnswer);
-                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.teal_200));
+                        closeButton.setTextColor(getApplication().getResources().getColor(R.color.dark_green));
                         closeButton.setEnabled(true);
                         break;
                 }
