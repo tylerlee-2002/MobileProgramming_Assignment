@@ -139,13 +139,12 @@ public class ProfileActivity extends AppCompatActivity
                 txtGender.setText(gender);
 
                 genderImageView = findViewById(R.id.genderImageView);
-                if (Objects.equals(gender, "male")) {
+                if (Objects.equals(gender, "Male")) {
                     genderImageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.male, null));
                 } else {
                     genderImageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.female, null));
                 }
 
-                // Check whether user complete all courses & quizzes
                 certTextView = findViewById(R.id.certTextView);
                 certTextView.setVisibility(View.VISIBLE);
 
@@ -185,7 +184,6 @@ public class ProfileActivity extends AppCompatActivity
         } else if (id == R.id.navigationMyCourses) {
             navCourse();
         } else if (id == R.id.navigationMyProfile) {
-            // Already at profile page
             navProfile();
         } else if (id == R.id.nav_share) {
             navShare();

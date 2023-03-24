@@ -49,11 +49,13 @@
                     <ProgressBar
                         android:id="@+id/progressBar"
                         style="@android:style/Widget.ProgressBar.Horizontal"
-                        android:layout_width="179dp"
+                        android:layout_width="181dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/textViewSub1Title"
+                        android:layout_marginTop="3dp"
                         android:max="5"
                         android:padding="10dp"
+                        android:paddingEnd="0dp"
                         android:progress="3"
                         android:progressDrawable="@drawable/custom_progress_bar_horizontal"
                         app:layout_anchorGravity="top|left" />
@@ -64,17 +66,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/textViewSub1Title"
-                        android:layout_marginStart="1dp"
+                        android:layout_marginStart="0dp"
                         android:layout_marginTop="1dp"
                         android:layout_toEndOf="@+id/progressBar"
                         android:padding="10dp"
-                        android:text="60%" />
+                        android:text="60%"
+                        android:textSize="@dimen/textsize_18" />
 
                     <ImageView
-                        android:maxHeight="100dp"
+                        style="@style/homeCardImage"
+                        android:layout_width="125dp"
+                        android:layout_height="97dp"
                         android:maxWidth="250dp"
-                        android:src="@drawable/current_progress"
-                        style="@style/homeCardImage" />
+                        android:maxHeight="100dp"
+                        android:src="@drawable/current_progress" />
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
@@ -252,14 +257,12 @@
                 android:text="Final Exam"
                 style="@style/viewParent.headerText"
                 android:layout_marginTop="10dp"/>
-
             <TextView
                 android:text="Completed All Course &amp; pass Exam to get certified!"
                 style="@style/viewParent.headerText.contentText"
                 android:layout_marginBottom="10dp"/>
-
             <androidx.cardview.widget.CardView
-                android:id="@+id/ShareCard"
+                android:id="@+id/ExamCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="15dp"
@@ -292,7 +295,6 @@
 
                 </com.example.mobileprogramming_assignment.GradientRelativeLayout>
             </androidx.cardview.widget.CardView>
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

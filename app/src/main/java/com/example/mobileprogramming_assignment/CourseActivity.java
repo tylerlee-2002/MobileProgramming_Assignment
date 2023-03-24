@@ -1,5 +1,8 @@
 package com.example.mobileprogramming_assignment;
 
+import static java.lang.Math.floor;
+import static java.lang.Math.round;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -15,18 +18,24 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.Objects;
 
 public class CourseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     FirebaseUser mUser;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String userID, name, email, gender, dob;
+    int completeUntil;
 
     private BottomNavigationView bottomNavigationView;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -75,8 +84,57 @@ public class CourseActivity extends AppCompatActivity implements NavigationView.
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) bottomNavigationView.getLayoutParams();
         layoutParams.setBehavior(new BottomNavigationBehavior());
-
         bottomNavigationView.setSelectedItemId(R.id.navigationMyCourses);
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert mUser != null;
+
+        db.collection("user").whereEqualTo("uid", mUser.getUid()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    userID = Objects.requireNonNull(document.getData().get("uid")).toString();
+                    name = Objects.requireNonNull(document.getData().get("name")).toString();
+                    gender = Objects.requireNonNull(document.getData().get("gender")).toString();
+                    dob = Objects.requireNonNull(document.getData().get("dateOfBirth")).toString();
+                    email = Objects.requireNonNull(document.getData().get("email")).toString();
+                    completeUntil = Integer.parseInt(Objects.requireNonNull(document.getData().get("completeUntil")).toString());
+                }
+
+                ProgressBar progressBar = findViewById(R.id.progressBar);
+                progressBar.setProgress(completeUntil);
+
+                TextView progressTextView = findViewById(R.id.progressTextView);
+                progressTextView.setText(String.format("%s%s", 20 * completeUntil, "%"));
+
+                androidx.cardview.widget.CardView Course1Card = findViewById(R.id.Course1Card);
+                Course1Card.setOnClickListener(v -> {
+
+                });
+
+                androidx.cardview.widget.CardView Course2Card = findViewById(R.id.Course2Card);
+                Course2Card.setOnClickListener(v -> {
+
+                });
+
+                androidx.cardview.widget.CardView Course3Card = findViewById(R.id.Course3Card);
+                Course3Card.setOnClickListener(v -> {
+
+                });
+
+                androidx.cardview.widget.CardView Course4Card = findViewById(R.id.Course4Card);
+                Course4Card.setOnClickListener(v -> {
+
+                });
+
+                androidx.cardview.widget.CardView ExamCard = findViewById(R.id.ExamCard);
+                ExamCard.setOnClickListener(v -> {
+
+                });
+
+
+
+            }
+        });
     }
 
     @Override

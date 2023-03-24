@@ -88,9 +88,9 @@ public class NewUserActivity extends AppCompatActivity implements View.OnClickLi
         String _dob = _day + " " + _month + " " + _year ;
 
         if (getGender.equals("LEFT")){
-            _gender = "female";
+            _gender = "Female";
         }else {
-            _gender = "male";
+            _gender = "Male";
         }
 
         /////*   Check if username ,gender and date of birth  are entered     */////

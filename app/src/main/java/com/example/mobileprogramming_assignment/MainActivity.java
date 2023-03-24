@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity
 
                 user = new UserInfo(userID, name, email, gender, dob, completeUntil);
 
+
                 androidx.cardview.widget.CardView profileCard = findViewById(R.id.profileCard);
                 profileCard.setOnClickListener(v -> {
                     navProfile();
@@ -128,6 +129,7 @@ public class MainActivity extends AppCompatActivity
                 });
             }
         });
+
     }
 
     @Override
