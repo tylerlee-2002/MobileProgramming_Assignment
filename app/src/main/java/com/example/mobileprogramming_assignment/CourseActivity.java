@@ -151,6 +151,7 @@ public class CourseActivity extends AppCompatActivity implements NavigationView.
 
                 TextView resultDisplaytxt = findViewById(R.id.resultDisplaytxt);
                 resultDisplaytxt.setText(String.format("Total Marks: %s%s", mark," / 100%"));
+                TextView resitDescTxt = findViewById(R.id.resitDescTxt);
 
                 RelativeLayout resitLayout = findViewById(R.id.resitLayout);
                 if (isExamDone && mark < 60) {
@@ -160,6 +161,7 @@ public class CourseActivity extends AppCompatActivity implements NavigationView.
                 } else if ((isExamDone && isPassed)) {
                     resitLayout.setVisibility(View.VISIBLE);
                     examLayout.setVisibility(View.GONE);
+                    resitDescTxt.setText("View Your Exam Paper Now!");
                     textViewSub6Title.setText("View Result!");
                     examdoneTick.setVisibility(View.VISIBLE);
                 }
