@@ -12,15 +12,22 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,11 +64,15 @@ public class ProfileActivity extends AppCompatActivity
     FirebaseUser mUser;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String userID, name, email, gender, dob;
+    String emailPattern = "[a-zA-Z\\d._-]+@[a-z]+\\.+[a-z]+";
+    int mark;
+    boolean isPassed = false;
     Bitmap bmp, scaledBmp;
     Button btnDownload;
     RelativeLayout certLayout;
-    TextView txtName, txtEmail, txtDob, txtGender, certTextView, txtCertName;
-    ImageView genderImageView;
+    LinearLayout contentLayout;
+    TextView txtName, txtEmail, txtDob, certTextView, txtCertName, changePw;
+    ImageView profilePic;
     boolean isTopic1Done, isTopic2Done, isTopic3Done, isTopic4Done, isExamDone;
 
     private BottomNavigationView bottomNavigationView;
@@ -130,6 +141,11 @@ public class ProfileActivity extends AppCompatActivity
                     isTopic3Done = Boolean.parseBoolean(Objects.requireNonNull(document.getData().get("topic3Done")).toString());
                     isTopic4Done = Boolean.parseBoolean(Objects.requireNonNull(document.getData().get("topic4Done")).toString());
                     isExamDone = Boolean.parseBoolean(Objects.requireNonNull(document.getData().get("examDone")).toString());
+                    mark = Integer.parseInt(Objects.requireNonNull(document.getData().get("mark")).toString());
+                }
+
+                if (mark >= 60) {
+                    isPassed = true;
                 }
 
                 txtName = findViewById(R.id.txtName);
@@ -141,17 +157,40 @@ public class ProfileActivity extends AppCompatActivity
                 txtDob = findViewById(R.id.txtDob);
                 txtDob.setText(dob);
 
-                txtGender = findViewById(R.id.txtGender);
-                txtGender.setText(gender);
+                changePw = findViewById(R.id.changePw);
+                changePw.setOnClickListener(view -> {
+                    FirebaseAuth.getInstance().sendPasswordResetEmail(email).addOnCompleteListener(task2 -> {
+                        if (task2.isSuccessful()) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                            builder.setTitle("Information");
+                            builder.setMessage("Email sent! \n\n Please check your email to reset.");
+                            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Perform the action when the "Yes" button is clicked
+                                    dialog.dismiss();
+                                }
+                            });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        } else {
+                            Toast.makeText(this, "System Error!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                });
 
-                genderImageView = findViewById(R.id.genderImageView);
+                contentLayout = findViewById(R.id.contentLayout);
+
+                profilePic = findViewById(R.id.profilePic);
                 if (Objects.equals(gender, "Male")) {
-                    genderImageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.male, null));
+                    profilePic.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.male_pic, null));
                 } else {
-                    genderImageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.female, null));
+                    profilePic.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.female_pic, null));
                 }
 
-                if (isTopic1Done && isTopic2Done && isTopic3Done && isTopic4Done && isExamDone) {
+                if (isTopic1Done && isTopic2Done && isTopic3Done && isTopic4Done && isExamDone && isPassed) {
+                    contentLayout.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.top_background_1, null));
+
                     certTextView = findViewById(R.id.certTextView);
                     certTextView.setVisibility(View.VISIBLE);
 

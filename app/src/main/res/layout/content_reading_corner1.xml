@@ -37,8 +37,7 @@
                 android:layout_width="@dimen/width_50"
                 android:layout_height="@dimen/width_50"
                 android:layout_gravity="center"
-                android:background="@drawable/ic_done_background"
-                android:contentDescription="Done" />
+                android:background="@drawable/ic_done_background" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
