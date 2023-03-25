@@ -115,6 +115,7 @@ public class CourseActivity extends AppCompatActivity implements NavigationView.
                 ImageView topic2doneTick = findViewById(R.id.topic2doneTick);
                 ImageView topic3doneTick = findViewById(R.id.topic3doneTick);
                 ImageView topic4doneTick = findViewById(R.id.topic4doneTick);
+                ImageView examdoneTick = findViewById(R.id.examdoneTick);
 
                 if (isTopic1Done) {
                     topic1doneTick.setVisibility(View.VISIBLE);
@@ -145,7 +146,24 @@ public class CourseActivity extends AppCompatActivity implements NavigationView.
                 if (mark >= 60) {
                     isPassed = true;
                 }
-                
+
+                TextView textViewSub6Title = findViewById(R.id.textViewSub6Title);
+
+                TextView resultDisplaytxt = findViewById(R.id.resultDisplaytxt);
+                resultDisplaytxt.setText(String.format("Total Marks: %s%s", mark," / 100%"));
+
+                RelativeLayout resitLayout = findViewById(R.id.resitLayout);
+                if (isExamDone && mark < 60) {
+                    examLayout.setVisibility(View.GONE);
+                    resitLayout.setVisibility(View.VISIBLE);
+                    textViewSub6Title.setText("Resit Exam!");
+                } else if ((isExamDone && isPassed)) {
+                    resitLayout.setVisibility(View.VISIBLE);
+                    examLayout.setVisibility(View.GONE);
+                    textViewSub6Title.setText("View Result!");
+                    examdoneTick.setVisibility(View.VISIBLE);
+                }
+
                 progressBar.setProgress(completeUntil);
 
                 TextView progressTextView = findViewById(R.id.progressTextView);
@@ -195,9 +213,9 @@ public class CourseActivity extends AppCompatActivity implements NavigationView.
                         startActivity(examIntent);
                         overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
                     } else if (!isPassed){
-                        Intent testIntent = new Intent(this, ResitActivity.class);
-                        testIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(testIntent);
+                        Intent resitIntent = new Intent(this, ResitActivity.class);
+                        resitIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(resitIntent);
                     } else {
                         // Redirect to profile page to view Certificate!
                         navProfile();
@@ -238,7 +256,18 @@ public class CourseActivity extends AppCompatActivity implements NavigationView.
 
                 androidx.cardview.widget.CardView ExamCard = findViewById(R.id.ExamCard);
                 ExamCard.setOnClickListener(v -> {
+                    Intent examIntent = new Intent(this, ExamActivity.class);
+                    examIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(examIntent);
+                    overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
+                });
 
+                androidx.cardview.widget.CardView resitCard = findViewById(R.id.resitCard);
+                resitCard.setOnClickListener(v -> {
+                    Intent resitIntent = new Intent(this, ResitActivity.class);
+                    resitIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(resitIntent);
+                    overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out);
                 });
             }
         });

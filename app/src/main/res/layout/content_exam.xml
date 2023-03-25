@@ -39,7 +39,8 @@
 
 
             <TextView
-                android:text="Please get ready before start the exam!"
+                android:id="@+id/txtheaderDesc"
+                android:text="Minimum Pass Score is 60%. Good Luck!"
                 style="@style/viewParent.headerText.contentText"
                 android:layout_marginBottom="10dp"/>
             <View style="@style/proifleDetailsView" />
@@ -56,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_gravity="end"
                     android:gravity="left"
-                    android:text="1. What is a common cognitive change that may occur in a person with dementia?"
+                    android:text="1. What is a common cognitive change that may occur in a person with dementia? (20M)"
                     android:textSize="18sp"
                     android:textColor="@color/dark_blue"
                     style="@style/viewParent.headerText.HomeCardTitle" />
@@ -73,6 +74,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:text="Difficulty with math"
+                        android:paddingRight="@dimen/margin_10"
+                        android:layout_marginVertical="@dimen/margin_5"
                         android:textColor="@color/dark_blue"
                         android:textSize="17dp" />
 
@@ -80,6 +83,8 @@
                         android:id="@+id/radio_button2"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:paddingRight="@dimen/margin_10"
+                        android:layout_marginVertical="@dimen/margin_5"
                         android:text="Difficulty with cooking"
                         android:textColor="@color/dark_blue"
                         android:textSize="17dp" />
@@ -88,6 +93,8 @@
                         android:id="@+id/radio_button3"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:paddingRight="@dimen/margin_10"
+                        android:layout_marginVertical="@dimen/margin_5"
                         android:text="Difficulty with problem-solving"
                         android:textColor="@color/dark_blue"
                         android:textSize="17dp" />
@@ -107,7 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_gravity="end"
                     android:gravity="left"
-                    android:text="2. How can you encourage a person with dementia to communicate?"
+                    android:text="2. How can you encourage a person with dementia to communicate? (20M)"
                     android:textSize="18sp"
                     android:textColor="@color/dark_blue"
                     style="@style/viewParent.headerText.HomeCardTitle" />
@@ -123,6 +130,8 @@
                         android:id="@+id/radio_button4"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:paddingRight="@dimen/margin_10"
+                        android:layout_marginVertical="@dimen/margin_5"
                         android:text="Speak loudly and quickly"
                         android:textColor="@color/dark_blue"
                         android:textSize="17dp" />
@@ -131,6 +140,8 @@
                         android:id="@+id/radio_button5"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:paddingRight="@dimen/margin_10"
+                        android:layout_marginVertical="@dimen/margin_5"
                         android:text="Make eye contact and use short sentences"
                         android:textColor="@color/dark_blue"
                         android:textSize="17dp" />
@@ -139,6 +150,8 @@
                         android:id="@+id/radio_button6"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:paddingRight="@dimen/margin_10"
+                        android:layout_marginVertical="@dimen/margin_5"
                         android:text="Interrupt them when they are speaking"
                         android:textColor="@color/dark_blue"
                         android:textSize="17dp" />
@@ -157,7 +170,7 @@
                     android:layout_width="match_parent"
                     android:layout_gravity="end"
                     android:gravity="left"
-                    android:text="3. What is the importance of keeping a diary for 1 to 2 weeks in a person with dementia?"
+                    android:text="3. What is the importance of keeping a diary for 1 to 2 weeks in a person with dementia? (20M)"
                     android:textSize="18sp"
                     android:textColor="@color/dark_blue"
                     style="@style/viewParent.headerText.HomeCardTitle" />
@@ -173,6 +186,8 @@
                         android:id="@+id/radio_button7"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:paddingRight="@dimen/margin_10"
+                        android:layout_marginVertical="@dimen/margin_5"
                         android:text="To monitor their sleeping habits"
                         android:textColor="@color/dark_blue"
                         android:textSize="17dp" />
@@ -181,6 +196,8 @@
                         android:id="@+id/radio_button8"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:paddingRight="@dimen/margin_10"
+                        android:layout_marginVertical="@dimen/margin_5"
                         android:text="To identify triggers for troubling behavior"
                         android:textColor="@color/dark_blue"
                         android:textSize="17dp" />
@@ -189,6 +206,8 @@
                         android:id="@+id/radio_button9"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:paddingRight="@dimen/margin_10"
+                        android:layout_marginVertical="@dimen/margin_5"
                         android:text="To track their daily meals"
                         android:textColor="@color/dark_blue"
                         android:textSize="17dp" />
@@ -207,7 +226,7 @@
                     android:layout_width="match_parent"
                     android:layout_gravity="end"
                     android:gravity="left"
-                    android:text="4. What are some psychological changes that may occur in a person with dementia?"
+                    android:text="4. What are some psychological changes that may occur in a person with dementia? (20M)"
                     android:textSize="18sp"
                     android:textColor="@color/dark_blue"
                     style="@style/viewParent.headerText.HomeCardTitle" />
@@ -223,6 +242,8 @@
                         android:id="@+id/radio_button10"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:paddingRight="@dimen/margin_10"
+                        android:layout_marginVertical="@dimen/margin_5"
                         android:text="Increased sociability"
                         android:textColor="@color/dark_blue"
                         android:textSize="17dp" />
@@ -231,6 +252,8 @@
                         android:id="@+id/radio_button11"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:paddingRight="@dimen/margin_10"
+                        android:layout_marginVertical="@dimen/margin_5"
                         android:text="Depression"
                         android:textColor="@color/dark_blue"
                         android:textSize="17dp" />
@@ -239,6 +262,8 @@
                         android:id="@+id/radio_button12"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:paddingRight="@dimen/margin_10"
+                        android:layout_marginVertical="@dimen/margin_5"
                         android:text="Improved memory"
                         android:textColor="@color/dark_blue"
                         android:textSize="17dp" />
@@ -257,7 +282,7 @@
                     android:layout_width="match_parent"
                     android:layout_gravity="end"
                     android:gravity="left"
-                    android:text="5. What is the importance of remaining patient and calm when communicating with a person with dementia?"
+                    android:text="5. What is the importance of remaining patient and calm when communicating with a person with dementia? (20M)"
                     android:textSize="18sp"
                     android:textColor="@color/dark_blue"
                     style="@style/viewParent.headerText.HomeCardTitle" />
@@ -273,6 +298,8 @@
                         android:id="@+id/radio_button13"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:paddingRight="@dimen/margin_10"
+                        android:layout_marginVertical="@dimen/margin_5"
                         android:text="It can help the person communicate more easily"
                         android:textColor="@color/dark_blue"
                         android:textSize="17dp" />
@@ -281,6 +308,8 @@
                         android:id="@+id/radio_button14"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:paddingRight="@dimen/margin_10"
+                        android:layout_marginVertical="@dimen/margin_5"
                         android:text="It can help the person remember important details"
                         android:textColor="@color/dark_blue"
                         android:textSize="17dp" />
@@ -289,6 +318,8 @@
                         android:id="@+id/radio_button15"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
+                        android:paddingRight="@dimen/margin_10"
+                        android:layout_marginVertical="@dimen/margin_5"
                         android:text="It can help the person focus on complex tasks"
                         android:textColor="@color/dark_blue"
                         android:textSize="17dp" />
