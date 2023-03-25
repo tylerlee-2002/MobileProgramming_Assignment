@@ -22,7 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
-public class GoogleSignInActivity extends MainActivity {
+public class GoogleSignInActivity extends SignInActivity {
     private static final int RC_SIGN_IN = 101;
     GoogleSignInClient mGoogleSignInClient;
     FirebaseAuth mAuth;
@@ -113,14 +113,16 @@ public class GoogleSignInActivity extends MainActivity {
                 FirebaseFirestore.getInstance().collection("user").whereEqualTo("uid", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).get().addOnCompleteListener(task2 -> {
                     if (task2.isSuccessful()) {
                         if (task2.getResult().isEmpty()) {
-                            Intent intent = new Intent(GoogleSignInActivity.this, VerifyActivity.class);
+                            Intent intent = new Intent(GoogleSignInActivity.this, NewUserActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out);
                             Toast.makeText(GoogleSignInActivity.this, "First Time Login!", Toast.LENGTH_SHORT).show();
                         } else {
-                            Intent intent = new Intent(GoogleSignInActivity.this, HomeActivity.class);
+                            Intent intent = new Intent(GoogleSignInActivity.this, MainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out);
                             Toast.makeText(GoogleSignInActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                         }
                     } else {

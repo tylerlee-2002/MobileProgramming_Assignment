@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Dementia</string>
     <string name="action_settings">Settings</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -15,7 +16,7 @@
     <string name="login">LOGIN</string>
     <string name="email">Email</string>
     <string name="logout">Logout</string>
-    <string name="title_activity_verify">VerifyActivity</string>
+    <string name="title_activity_new_user">NewUserActivity</string>
     <string name="name">Name</string>
     <string name="phone_number">Phone Number</string>
     <string name="confirm">confirm</string>
@@ -26,7 +27,7 @@
     <string name="GetStarted">Get Started</string>
     <string name="continueOnProgress">Continue on Progress</string>
     <string name="displayanswer">DisplayAnswer</string>
-    <string name="correctAnswer">Correct Answer! Proceed -></string>
+    <string name="correctAnswer">Correct! Proceed -></string>
     <string name="wrongAnswer">Wrong Answer!</string>
     <string name="tryAgain">Please try Again!</string>
     <string name="checkOnCert">Check on Certificate!</string>
@@ -37,7 +38,6 @@
     <string name="backToRevision">Back to Revision</string>
     <string name="topics_content">Topics Content</string>
     <string name="cert_content">Certificate</string>
-    <string name="forgot_password">Forgot Password?</string>
     <string name="please_insert_your_email">Please insert your email below!</string>
     <string name="reset_password">Reset Password!</string>
     <string name="close">close</string>
@@ -49,6 +49,37 @@
     <string name="or">OR</string>
     <string name="password">Password</string>
     <string name="choose_answer">Choose 1 Answer!</string>
+
+
     <!--    <string name="default_web_client_id" translatable="false"></string>-->
+    <string name="designed">Designed by \n Team 8</string>
+    <string name="set_password">Set Password</string>
+    <string name="full_name">Name</string>
+    <string name="sign_in">Sign In</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="enteryourname">Enter your Name</string>
+    <string name="validemail">Enter a valid email address</string>
+    <string name="validpassword">Between 6 and 12 alphanumeric characters</string>
+    <string name="privacypolicy">Privacy policy</string>
+    <string name="forgot_password">Forgot ?  </string>
+    <string name="by_using_this_ui_ux_you_agree">by using this ui/ux you agree to our</string>
+    <string name="title_activity_sign_up">SignUp</string>
+
+    <string name="OK">OK</string>
+    <string name="orsigninusing">Or sign in using</string>
+    <string name="orsignupusing">Or sign up using</string>
+    <string name="aboutyou">About You</string>
+    <string name="uploadphoto">Upload your best recent picture</string>
+    <string name="pickYourDate">Pick your date of birth</string>
+    <string name="username">Username</string>
+    <string name="iam">I\'m</string>
+    <string name="validusername">Enter Username</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="done">DONE</string>
+
+
 </resources>
 
