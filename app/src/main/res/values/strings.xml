@@ -39,6 +39,12 @@
     <string name="topics_content">Topics Content</string>
     <string name="cert_content">Certificate</string>
     <string name="please_insert_your_email">Please insert your email below!</string>
+    <string name="create_new_password">Create New Password</string>
+    <string name="update_password_details">Your New Password must be different from Previously Password!</string>
+    <string name="save_password">SAVE</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+
     <string name="reset_password">Reset Password!</string>
     <string name="close">close</string>
     <string name="profile">PROFILE</string>
