@@ -50,6 +50,9 @@
             android:name=".CourseActivity"
             android:exported="false" />
         <activity
+            android:name=".ReadingCornerActivity"
+            android:exported="false" />
+        <activity
             android:name=".NewUserActivity"
             android:exported="false" />
         <activity
