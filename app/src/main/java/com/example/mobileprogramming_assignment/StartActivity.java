@@ -99,8 +99,8 @@ public class StartActivity extends AppCompatActivity {
 
     private void DailyNotification() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 9);
-        calendar.set(Calendar.MINUTE, 17);
+        calendar.set(Calendar.HOUR_OF_DAY, 4);
+        calendar.set(Calendar.MINUTE, 1);
         calendar.set(Calendar.SECOND, 10);
 
         if (Calendar.getInstance().after(calendar)) {
