@@ -208,7 +208,7 @@ public class ReadingCorner1 extends AppCompatActivity implements NavigationView.
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Learn about Dementia!");
         String shareMessage = "\nShare Dementia App with your family & friends! \nClick Link below to download\n\n";
-        shareMessage = shareMessage + "https://drive.google.com/file/d/1szAdyMrCKM7haalciPiL0_dayNzypNjW/view?usp=sharing" + BuildConfig.APPLICATION_ID + "\n\n";
+        shareMessage = shareMessage + "https://drive.google.com/file/d/10pE5zexfZFRUo_jOw3Bh_04LjiZuwo3A/view?usp=share_link" + BuildConfig.APPLICATION_ID + "\n\n";
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
         startActivity(Intent.createChooser(shareIntent, "choose one"));
     }
